@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#CC2200">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Cuerpo de Bomberos — Sistema de Reportes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-block">
+      <div class="flame-icon">🔥</div>
+      <div>
+        <div class="header-title">CUERPO DE BOMBEROS</div>
+        <div class="header-sub">Sistema de Reporte de Incidentes</div>
+      </div>
+    </div>
+    <div class="status-bar">
+      <span class="offline-badge" id="offlineBadge">● SIN CONEXIÓN</span>
+      <span class="online-badge" id="onlineBadge" style="display:none">● EN LÍNEA</span>
+      <span class="pending-badge" id="pendingBadge" style="display:none"></span>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN FORM -->
+<main class="main">
+  <div class="form-container">
+
+    <div class="section-title">
+      <span class="section-num">01</span> DATOS TEMPORALES
+    </div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Fecha <span class="req">*</span></label>
+        <input type="date" id="fecha" required>
+      </div>
+      <div class="field-group">
+        <label>Hora de Reporte <span class="req">*</span></label>
+        <input type="time" id="horaReporte" required>
+      </div>
+      <div class="field-group">
+        <label>Hora de Llegada al Sitio <span class="req">*</span></label>
+        <input type="time" id="horaLlegada" required>
+      </div>
+      <div class="field-group">
+        <label>Hora Final <span class="req">*</span></label>
+        <input type="time" id="horaFinal" required>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <span class="section-num">02</span> UBICACIÓN
+    </div>
+    <div class="fields-grid">
+      <div class="field-group full-width">
+        <label>Lugar <span class="req">*</span></label>
+        <input type="text" id="lugar" placeholder="Nombre del lugar o sector" class="spell-check" spellcheck="true" lang="es">
+        <div class="spell-suggestions" id="suggestions-lugar"></div>
+      </div>
+      <div class="field-group full-width">
+        <label>Dirección <span class="req">*</span></label>
+        <input type="text" id="direccion" placeholder="Calle, carrera, barrio, municipio" class="spell-check" spellcheck="true" lang="es">
+        <div class="spell-suggestions" id="suggestions-direccion"></div>
+      </div>
+      <div class="field-group">
+        <label>Latitud</label>
+        <input type="text" id="latitud" placeholder="0.000000" readonly>
+      </div>
+      <div class="field-group">
+        <label>Longitud</label>
+        <input type="text" id="longitud" placeholder="0.000000" readonly>
+      </div>
+      <div class="field-group full-width">
+        <button type="button" class="btn-location" id="btnLocation" onclick="getLocation()">
+          📍 Obtener ubicación GPS
+        </button>
+        <div class="location-status" id="locationStatus"></div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <span class="section-num">03</span> TIPO DE EVENTO
+    </div>
+    <div class="fields-grid">
+      <div class="field-group full-width">
+        <label>Evento <span class="req">*</span></label>
+        <select id="evento" required>
+          <option value="">— Seleccione el tipo de evento —</option>
+          <optgroup label="INCENDIOS">
+            <option>Incendio Estructural</option>
+            <option>Incendio Forestal</option>
+            <option>Incendio Vehicular</option>
+            <option>Conato de Incendio</option>
+            <option>Incendio Industrial</option>
+          </optgroup>
+          <optgroup label="RESCATE">
+            <option>Rescate Vehicular</option>
+            <option>Rescate en Altura</option>
+            <option>Rescate Acuático</option>
+            <option>Rescate en Espacios Confinados</option>
+            <option>Rescate de Personas Atrapadas</option>
+            <option>Rescate Animal</option>
+          </optgroup>
+          <optgroup label="EMERGENCIAS MÉDICAS">
+            <option>Atención Prehospitalaria</option>
+            <option>Accidente de Tránsito</option>
+            <option>Lesiones por Explosión</option>
+          </optgroup>
+          <optgroup label="MATERIALES PELIGROSOS">
+            <option>Derrame de Sustancias Químicas</option>
+            <option>Fuga de Gas</option>
+            <option>Derrame de Hidrocarburos</option>
+          </optgroup>
+          <optgroup label="RIESGO TECNOLÓGICO">
+            <option>Explosión</option>
+            <option>Colapso Estructural</option>
+            <option>Emergencia en Instalación Eléctrica</option>
+          </optgroup>
+          <optgroup label="OTROS">
+            <option>Falsa Alarma</option>
+            <option>Apoyo Interinstitucional</option>
+            <option>Prevención y Seguridad</option>
+            <option>Otro Evento</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <span class="section-num">04</span> RECURSOS DESPLEGADOS
+    </div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Vehículo <span class="req">*</span></label>
+        <select id="vehiculo" required>
+          <option value="">— Seleccione —</option>
+          <option>Móvil 1</option>
+          <option>Móvil 2</option>
+          <option>Móvil 3</option>
+          <option>Móvil 4</option>
+          <option>Móvil 5</option>
+          <option>Móvil 6</option>
+          <option>Móvil 7</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Personal <span class="req">*</span></label>
+        <select id="personal" required>
+          <option value="">— Seleccione —</option>
+          <option>1 Bombero</option>
+          <option>2 Bomberos</option>
+          <option>3 Bomberos</option>
+          <option>4 Bomberos</option>
+          <option>5 Bomberos</option>
+          <option>6 Bomberos</option>
+          <option>7 Bomberos</option>
+          <option>8 Bomberos</option>
+          <option>9 Bomberos</option>
+          <option>10 Bomberos</option>
+          <option>Más de 10 Bomberos</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <span class="section-num">05</span> DESCRIPCIÓN DEL INCIDENTE
+    </div>
+    <div class="fields-grid">
+      <div class="field-group full-width">
+        <label>Descripción <span class="req">*</span>
+          <span class="voice-hint">— Puede dictar por voz</span>
+        </label>
+        <div class="textarea-wrapper">
+          <textarea id="descripcion" rows="5" placeholder="Describa detalladamente el incidente..." class="spell-check" spellcheck="true" lang="es"></textarea>
+          <button type="button" class="btn-voice" id="btnVoice" onclick="toggleDictation('descripcion')" title="Iniciar dictado por voz">
+            🎤
+          </button>
+        </div>
+        <div class="spell-suggestions" id="suggestions-descripcion"></div>
+        <div class="voice-status" id="voiceStatus"></div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <span class="section-num">06</span> VÍCTIMAS Y NOVEDADES
+    </div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Lesionados</label>
+        <input type="number" id="lesionados" min="0" value="0" placeholder="0">
+      </div>
+      <div class="field-group">
+        <label>Víctimas Fatales</label>
+        <input type="number" id="victimas" min="0" value="0" placeholder="0">
+      </div>
+      <div class="field-group full-width">
+        <label>Novedades
+          <span class="voice-hint">— Puede dictar por voz</span>
+        </label>
+        <div class="textarea-wrapper">
+          <textarea id="novedades" rows="3" placeholder="Observaciones adicionales, novedades del servicio..." class="spell-check" spellcheck="true" lang="es"></textarea>
+          <button type="button" class="btn-voice" id="btnVoice2" onclick="toggleDictation('novedades')" title="Iniciar dictado por voz">
+            🎤
+          </button>
+        </div>
+        <div class="spell-suggestions" id="suggestions-novedades"></div>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions-bar">
+      <button type="button" class="btn-save" onclick="saveReport()">
+        💾 Guardar Reporte
+      </button>
+      <button type="button" class="btn-cert" onclick="generateCertificate()">
+        📄 Generar Certificado
+      </button>
+      <button type="button" class="btn-clear" onclick="clearForm()">
+        🗑 Limpiar
+      </button>
+    </div>
+
+    <div class="save-feedback" id="saveFeedback"></div>
+
+  </div>
+
+  <!-- SAVED REPORTS -->
+  <div class="saved-section" id="savedSection">
+    <div class="section-title">
+      <span class="section-num">📋</span> REPORTES GUARDADOS
+    </div>
+    <div id="savedList"></div>
+  </div>
+
+</main>
+
+<!-- CERTIFICATE MODAL -->
+<div class="modal-overlay" id="certModal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <span>CERTIFICADO DE SERVICIO — CUERPO DE BOMBEROS</span>
+      <button onclick="closeModal()" class="modal-close">✕</button>
+    </div>
+    <div class="cert-content" id="certContent"></div>
+    <div class="modal-actions">
+      <button onclick="printCertificate()" class="btn-print">🖨 Imprimir / Guardar PDF</button>
+      <button onclick="closeModal()" class="btn-close-modal">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
