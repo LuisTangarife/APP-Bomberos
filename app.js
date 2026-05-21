@@ -1,3 +1,4 @@
+let uploadedPhotos = [];
 // ── SERVICE WORKER REGISTRATION ──────────────────────────────────────────
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(() => {});
@@ -494,7 +495,7 @@ function renderCertificate(data, id = null) {
     : 'No registradas';
   const now = new Date();
   const emitted = now.toLocaleString('es-CO', { dateStyle: 'full', timeStyle: 'short' });
-  let uploadedPhotos = [];
+
   const certHTML = `
     <div class="cert-header">
       <div class="cert-logo">🔥</div>
