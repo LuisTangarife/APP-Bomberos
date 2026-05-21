@@ -368,6 +368,7 @@ function validateForm(data) {
 
 async function saveReport() {
   const data = getFormData();
+  data.photos = window.uploadedPhotos || [];
   const err = validateForm(data);
   const fb = document.getElementById('saveFeedback');
   if (err) {
