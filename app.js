@@ -512,6 +512,7 @@ function generateCertificate() {
     fb.className = 'save-feedback err';
     return;
   }
+  console.log(data.photos);
   renderCertificate(data);
 }
 
