@@ -494,7 +494,7 @@ function renderCertificate(data, id = null) {
     : 'No registradas';
   const now = new Date();
   const emitted = now.toLocaleString('es-CO', { dateStyle: 'full', timeStyle: 'short' });
-
+  let uploadedPhotos = [];
   const certHTML = `
     <div class="cert-header">
       <div class="cert-logo">🔥</div>
