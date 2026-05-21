@@ -342,7 +342,8 @@ function getFormData() {
     lesionados:  document.getElementById('lesionados').value || '0',
     victimas:    document.getElementById('victimas').value || '0',
     novedades:   document.getElementById('novedades').value.trim(),
-    timestamp:   new Date().toISOString(),
+    timestamp: new Date().toISOString(),
+    photos: window.uploadedPhotos || []
   };
 }
 
@@ -571,14 +572,14 @@ function renderCertificate(data, id = null) {
         <div class="cert-desc-box">${data.novedades.replace(/\n/g,'<br>')}</div>
       </div>
     </div>` : ''}
-    ${window.uploadedPhotos.length ? `
+    ${data.photos && data.photos.length ? `
       <div class="cert-photo-section">
         <div class="cert-photo-title">
           Evidencia Fotográfica
         </div>
     
         <div class="cert-photo-grid">
-          ${window.uploadedPhotos.map(photo => `
+          ${data.photos.map(photo => `
             <div class="cert-photo-card">
               <img src="${photo}">
             </div>
