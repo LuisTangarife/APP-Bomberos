@@ -65,6 +65,38 @@ document.addEventListener('DOMContentLoaded', async () => {
   setDefaults();
   setupSpellCheck();
   loadSavedReports();
+  window.uploadedPhotos = [];
+
+  const photoInput = document.getElementById('photoInput');
+  const photoPreview = document.getElementById('photoPreview');
+  
+  photoInput.addEventListener('change', function(event) {
+    const files = Array.from(event.target.files);
+  
+    window.uploadedPhotos = [];
+    photoPreview.innerHTML = '';
+  
+    files.forEach((file, index) => {
+      const reader = new FileReader();
+  
+      reader.onload = function(e) {
+        window.uploadedPhotos.push(e.target.result);
+  
+        const card = document.createElement('div');
+        card.className = 'preview-card';
+  
+        card.innerHTML = `
+          <img src="${e.target.result}">
+          <div class="preview-number">
+            ${index + 1}
+          </div>
+        `;
+  
+        photoPreview.appendChild(card);
+      };
+  
+      reader.readAsDataURL(file);
+    });
 });
 
 function setDefaults() {
@@ -634,38 +666,5 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 
-
-window.uploadedPhotos = [];
-
-const photoInput = document.getElementById('photoInput');
-const photoPreview = document.getElementById('photoPreview');
-
-photoInput.addEventListener('change', function(event) {
-  const files = Array.from(event.target.files);
-
-  window.uploadedPhotos = [];
-  photoPreview.innerHTML = '';
-
-  files.forEach((file, index) => {
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-      window.uploadedPhotos.push(e.target.result);
-
-      const card = document.createElement('div');
-      card.className = 'preview-card';
-
-      card.innerHTML = `
-        <img src="${e.target.result}">
-        <div class="preview-number">
-          ${index + 1}
-        </div>
-      `;
-
-      photoPreview.appendChild(card);
-    };
-
-    reader.readAsDataURL(file);
-  });
 });
 
