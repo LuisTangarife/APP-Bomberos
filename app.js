@@ -632,7 +632,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 
-<script>
+
 let uploadedPhotos = [];
 
 const photoInput = document.getElementById('photoInput');
@@ -666,4 +666,4 @@ photoInput.addEventListener('change', function(event) {
     reader.readAsDataURL(file);
   });
 });
-</script>
+
