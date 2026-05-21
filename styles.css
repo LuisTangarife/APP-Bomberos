@@ -457,6 +457,13 @@ textarea { resize: vertical; min-height: 100px; }
   letter-spacing: 2px;
   color: var(--gold);
 }
+.modal{
+  max-height: 95vh;
+  overflow-y: auto;
+}
+.cert-content{
+  overflow: visible;
+}
 .modal-close {
   background: transparent;
   border: none;
