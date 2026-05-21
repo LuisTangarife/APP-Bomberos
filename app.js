@@ -1,4 +1,4 @@
-let uploadedPhotos = [];
+window.uploadedPhotos = [];
 // ── SERVICE WORKER REGISTRATION ──────────────────────────────────────────
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(() => {});
@@ -571,14 +571,14 @@ function renderCertificate(data, id = null) {
         <div class="cert-desc-box">${data.novedades.replace(/\n/g,'<br>')}</div>
       </div>
     </div>` : ''}
-    ${uploadedPhotos.length ? `
+    ${window.uploadedPhotos.length ? `
       <div class="cert-photo-section">
         <div class="cert-photo-title">
           Evidencia Fotográfica
         </div>
     
         <div class="cert-photo-grid">
-          ${uploadedPhotos.map(photo => `
+          ${window.uploadedPhotos.map(photo => `
             <div class="cert-photo-card">
               <img src="${photo}">
             </div>
@@ -633,7 +633,7 @@ document.addEventListener('keydown', e => {
 });
 
 
-let uploadedPhotos = [];
+window.uploadedPhotos = [];
 
 const photoInput = document.getElementById('photoInput');
 const photoPreview = document.getElementById('photoPreview');
@@ -648,7 +648,7 @@ photoInput.addEventListener('change', function(event) {
     const reader = new FileReader();
 
     reader.onload = function(e) {
-      uploadedPhotos.push(e.target.result);
+      window.uploadedPhotos.push(e.target.result);
 
       const card = document.createElement('div');
       card.className = 'preview-card';
