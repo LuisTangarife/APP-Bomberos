@@ -4,7 +4,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(() => {});
 }
 
-// ── CONNECTIVITY STATUS ───────────────────────────────────────────────────
+// ── CONNECTIVITY STATUS ──────────────────────────────────────────────────
 function updateConnectivity() {
   const offline = document.getElementById('offlineBadge');
   const online  = document.getElementById('onlineBadge');
