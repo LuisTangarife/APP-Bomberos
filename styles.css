@@ -848,3 +848,31 @@ textarea { resize: vertical; min-height: 100px; }
   object-fit: cover;
   display: block;
 }
+.photo-preview-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.preview-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:12px;
+  border:1px solid #333;
+}
+
+.preview-number{
+  position:absolute;
+  top:8px;
+  right:8px;
+  background:#000;
+  color:#fff;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.8rem;
+}
