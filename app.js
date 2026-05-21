@@ -643,7 +643,7 @@ const photoPreview = document.getElementById('photoPreview');
 photoInput.addEventListener('change', function(event) {
   const files = Array.from(event.target.files);
 
-  uploadedPhotos = [];
+  window.uploadedPhotos = [];
   photoPreview.innerHTML = '';
 
   files.forEach((file, index) => {
