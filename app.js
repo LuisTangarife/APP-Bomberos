@@ -615,3 +615,39 @@ document.getElementById('certModal').addEventListener('click', function(e) {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
+
+<script>
+let uploadedPhotos = [];
+
+const photoInput = document.getElementById('photoInput');
+const photoPreview = document.getElementById('photoPreview');
+
+photoInput.addEventListener('change', function(event) {
+  const files = Array.from(event.target.files);
+
+  uploadedPhotos = [];
+  photoPreview.innerHTML = '';
+
+  files.forEach((file, index) => {
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      uploadedPhotos.push(e.target.result);
+
+      const card = document.createElement('div');
+      card.className = 'preview-card';
+
+      card.innerHTML = `
+        <img src="${e.target.result}">
+        <div class="preview-number">
+          ${index + 1}
+        </div>
+      `;
+
+      photoPreview.appendChild(card);
+    };
+
+    reader.readAsDataURL(file);
+  });
+});
+</script>
