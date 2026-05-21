@@ -570,6 +570,21 @@ function renderCertificate(data, id = null) {
         <div class="cert-desc-box">${data.novedades.replace(/\n/g,'<br>')}</div>
       </div>
     </div>` : ''}
+    ${uploadedPhotos.length ? `
+      <div class="cert-photo-section">
+        <div class="cert-photo-title">
+          Evidencia Fotográfica
+        </div>
+    
+        <div class="cert-photo-grid">
+          ${uploadedPhotos.map(photo => `
+            <div class="cert-photo-card">
+              <img src="${photo}">
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
 
     <div class="cert-footer">
       <div class="cert-sig">
