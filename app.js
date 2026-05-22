@@ -571,189 +571,315 @@ function renderCertificate(data, id = null) {
   const IMG_FIRMA  = "data:image/png;base64,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";
 
   const certHTML = `
-    <div class="cert-header">
   
-      <div class="cert-top">
-  
-        <div class="cert-logo-side">
-          <img src="${logoBomberos}" class="cert-logo-img">
-        </div>
-  
-        <div class="cert-center">
-          <div class="cert-entity">
-            CUERPO DE BOMBEROS
-          </div>
-  
-          <div class="cert-subtitle">
-            Certificado Oficial de Servicio de Emergencia
-          </div>
-  
-          <div class="cert-doc-num">
-            N° DOC: CB-${docNum}
-          </div>
-  
-          <div class="cert-doc-date">
-            Emitido: ${emitted}
-          </div>
-        </div>
-  
-        <div class="cert-logo-side">
-          <img src="${logoMunicipio}" class="cert-logo-img">
-        </div>
-  
-      </div>
-  
-    </div>
-  
-    <div class="cert-body-title">
-      Reporte de Intervención — ${data.evento || 'Evento no especificado'}
-    </div>
-  
-    <div class="cert-grid">
-  
-      <div class="cert-field">
-        <div class="cert-label">Fecha</div>
-        <div class="cert-value">${formatDate(data.fecha)}</div>
-      </div>
-  
-      <div class="cert-field">
-        <div class="cert-label">Hora de Reporte</div>
-        <div class="cert-value">${data.horaReporte || '—'}</div>
-      </div>
-  
-      <div class="cert-field">
-        <div class="cert-label">Hora de Llegada al Sitio</div>
-        <div class="cert-value">${data.horaLlegada || '—'}</div>
-      </div>
-  
-      <div class="cert-field">
-        <div class="cert-label">Hora Final</div>
-        <div class="cert-value">${data.horaFinal || '—'}</div>
-      </div>
-  
-      <div class="cert-field">
-        <div class="cert-label">Lugar</div>
-        <div class="cert-value">${data.lugar || '—'}</div>
-      </div>
-  
-      <div class="cert-field">
-        <div class="cert-label">Dirección</div>
-        <div class="cert-value">${data.direccion || '—'}</div>
-      </div>
-  
-      <div class="cert-field">
-        <div class="cert-label">Coordenadas GPS</div>
-        <div class="cert-value">${coords}</div>
-      </div>
-  
-      <div class="cert-field">
-        <div class="cert-label">Tipo de Evento</div>
-        <div class="cert-value">${data.evento || '—'}</div>
-      </div>
-  
-      <div class="cert-field">
-        <div class="cert-label">Vehículo Desplegado</div>
-        <div class="cert-value">${data.vehiculo || '—'}</div>
-      </div>
-  
-      <div class="cert-field">
-        <div class="cert-label">Personal Comisionado</div>
-        <div class="cert-value">${data.personal || '—'}</div>
-      </div>
-  
-      <div class="cert-field full">
-        <div class="cert-label">Descripción del Incidente</div>
-        <div class="cert-desc-box">
-          ${(data.descripcion || '—').replace(/\n/g,'<br>')}
-        </div>
-      </div>
-  
-    </div>
-  
-    <div class="cert-victims-bar">
-  
-      <div class="cert-victim-box">
-        <div class="cert-victim-num">${data.lesionados || '0'}</div>
-        <div class="cert-victim-label">Lesionados</div>
-      </div>
-  
-      <div class="cert-victim-box">
-        <div class="cert-victim-num">${data.victimas || '0'}</div>
-        <div class="cert-victim-label">Víctimas Fatales</div>
-      </div>
-  
-    </div>
-  
-    ${data.novedades ? `
-      <div class="cert-grid">
-        <div class="cert-field full">
-          <div class="cert-label">Novedades</div>
-          <div class="cert-desc-box">
-            ${data.novedades.replace(/\n/g,'<br>')}
-          </div>
-        </div>
-      </div>
-    ` : ''}
-  
-    ${data.photos && data.photos.length ? `
-      <div class="cert-photo-section">
-  
-        <div class="cert-photo-title">
-          Evidencia Fotográfica
-        </div>
-  
-        <div class="cert-photo-grid">
-          ${data.photos.map(photo => `
-            <div class="cert-photo-card">
-              <img src="${photo}">
-            </div>
-          `).join('')}
-        </div>
-  
-      </div>
-    ` : ''}
-  
-    <div class="cert-footer">
-  
-      <div class="cert-footer-left">
-  
-       <div class="cert-sig">
+  <!-- ───────────────────────────── -->
+  <!-- HEADER -->
+  <!-- ───────────────────────────── -->
 
-          <img src="${IMG_FIRMA}" class="cert-firma-img">
-        
-          <div class="cert-sig-line"></div>
-        
-          <div class="cert-sig-label">
-            Comandante de Unidad
-          </div>
-        
-        </div>
-          
-        <div class="cert-sig">
-          <div class="cert-sig-line"></div>
-          <div class="cert-sig-label">Oficial de Turno</div>
-        </div>
-  
-        <div class="cert-sig">
-          <div class="cert-sig-line"></div>
-          <div class="cert-sig-label">Jefe de Bomberos</div>
-        </div>
-  
+  <div class="cert-header">
+
+    <div class="cert-top">
+
+      <!-- LOGO IZQUIERDO -->
+      <div class="cert-logo-side left">
+        <img 
+          src="${logoBomberos}" 
+          class="cert-logo-img"
+        >
       </div>
-  
-      <div class="cert-footer-right">
-  
-        <img src="${qrCodeImg}" class="cert-qr">
-  
-        <div class="cert-qr-text">
-          Verificación Digital<br>
-          DOC: CB-${docNum}
+
+      <!-- CENTRO -->
+      <div class="cert-center">
+
+        <!-- ELIMINADO:
+        CUERPO DE BOMBEROS
+        -->
+
+        <div class="cert-subtitle">
+          CERTIFICADO OFICIAL DE SERVICIO DE EMERGENCIA
         </div>
-  
+
+        <div class="cert-doc-num">
+          N° DOC: CB-${docNum}
+        </div>
+
+        <div class="cert-doc-date">
+          Emitido: ${emitted}
+        </div>
+
       </div>
-  
+
+      <!-- LOGO DERECHO -->
+      <div class="cert-logo-side right">
+        <img 
+          src="${logoMunicipio}" 
+          class="cert-logo-img"
+        >
+      </div>
+
     </div>
-  `;
+
+  </div>
+
+  <!-- ───────────────────────────── -->
+  <!-- TÍTULO -->
+  <!-- ───────────────────────────── -->
+
+  <div class="cert-body-title">
+    REPORTE DE INTERVENCIÓN — ${data.evento || 'Evento no especificado'}
+  </div>
+
+  <!-- ───────────────────────────── -->
+  <!-- INFORMACIÓN -->
+  <!-- ───────────────────────────── -->
+
+  <div class="cert-grid">
+
+    <div class="cert-field">
+      <div class="cert-label">Fecha</div>
+      <div class="cert-value">
+        ${formatDate(data.fecha)}
+      </div>
+    </div>
+
+    <div class="cert-field">
+      <div class="cert-label">Hora de Reporte</div>
+      <div class="cert-value">
+        ${data.horaReporte || '—'}
+      </div>
+    </div>
+
+    <div class="cert-field">
+      <div class="cert-label">Hora de Llegada al Sitio</div>
+      <div class="cert-value">
+        ${data.horaLlegada || '—'}
+      </div>
+    </div>
+
+    <div class="cert-field">
+      <div class="cert-label">Hora Final</div>
+      <div class="cert-value">
+        ${data.horaFinal || '—'}
+      </div>
+    </div>
+
+    <div class="cert-field">
+      <div class="cert-label">Lugar</div>
+      <div class="cert-value">
+        ${data.lugar || '—'}
+      </div>
+    </div>
+
+    <div class="cert-field">
+      <div class="cert-label">Dirección</div>
+      <div class="cert-value">
+        ${data.direccion || '—'}
+      </div>
+    </div>
+
+    <div class="cert-field">
+      <div class="cert-label">Coordenadas GPS</div>
+      <div class="cert-value">
+        ${coords}
+      </div>
+    </div>
+
+    <div class="cert-field">
+      <div class="cert-label">Tipo de Evento</div>
+      <div class="cert-value">
+        ${data.evento || '—'}
+      </div>
+    </div>
+
+    <div class="cert-field">
+      <div class="cert-label">Vehículo Desplegado</div>
+      <div class="cert-value">
+        ${data.vehiculo || '—'}
+      </div>
+    </div>
+
+    <div class="cert-field">
+      <div class="cert-label">Personal Comisionado</div>
+      <div class="cert-value">
+        ${data.personal || '—'}
+      </div>
+    </div>
+
+    <!-- DESCRIPCIÓN -->
+    <div class="cert-field full">
+
+      <div class="cert-label">
+        Descripción del Incidente
+      </div>
+
+      <div class="cert-desc-box">
+        ${(data.descripcion || '—').replace(/\n/g,'<br>')}
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ───────────────────────────── -->
+  <!-- VÍCTIMAS -->
+  <!-- ───────────────────────────── -->
+
+  <div class="cert-victims-bar">
+
+    <div class="cert-victim-box">
+
+      <div class="cert-victim-num">
+        ${data.lesionados || '0'}
+      </div>
+
+      <div class="cert-victim-label">
+        Lesionados
+      </div>
+
+    </div>
+
+    <div class="cert-victim-box">
+
+      <div class="cert-victim-num">
+        ${data.victimas || '0'}
+      </div>
+
+      <div class="cert-victim-label">
+        Víctimas Fatales
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ───────────────────────────── -->
+  <!-- NOVEDADES -->
+  <!-- ───────────────────────────── -->
+
+  ${data.novedades ? `
+
+    <div class="cert-grid">
+
+      <div class="cert-field full">
+
+        <div class="cert-label">
+          Novedades
+        </div>
+
+        <div class="cert-desc-box">
+          ${data.novedades.replace(/\n/g,'<br>')}
+        </div>
+
+      </div>
+
+    </div>
+
+  ` : ''}
+
+  <!-- ───────────────────────────── -->
+  <!-- EVIDENCIA FOTOGRÁFICA -->
+  <!-- ───────────────────────────── -->
+
+  ${data.photos && data.photos.length ? `
+
+    <div class="cert-photo-section">
+
+      <div class="cert-photo-title">
+        EVIDENCIA FOTOGRÁFICA
+      </div>
+
+      <div class="cert-photo-grid">
+
+        ${data.photos.map(photo => `
+
+          <div class="cert-photo-card">
+
+            <img 
+              src="${photo}"
+              loading="lazy"
+            >
+
+          </div>
+
+        `).join('')}
+
+      </div>
+
+    </div>
+
+  ` : ''}
+
+  <!-- ───────────────────────────── -->
+  <!-- FOOTER -->
+  <!-- ───────────────────────────── -->
+
+  <div class="cert-footer">
+
+    <!-- FIRMAS -->
+    <div class="cert-footer-left">
+
+      <!-- COMANDANTE -->
+
+      <div class="cert-signature">
+
+        <img 
+          src="${IMG_FIRMA}" 
+          class="cert-firma-img"
+        >
+
+        <div class="cert-signature-line"></div>
+
+        <div class="cert-signature-role">
+          COMANDANTE DE UNIDAD
+        </div>
+
+      </div>
+
+      <!-- OFICIAL -->
+
+      <div class="cert-signature">
+
+        <div class="cert-signature-line"></div>
+
+        <div class="cert-signature-role">
+          OFICIAL DE TURNO
+        </div>
+
+      </div>
+
+      <!-- JEFE -->
+
+      <div class="cert-signature">
+
+        <div class="cert-signature-line"></div>
+
+        <div class="cert-signature-role">
+          JEFE DE BOMBEROS
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- QR -->
+
+    <div class="cert-footer-right">
+
+      <img 
+        src="${qrCodeImg}" 
+        class="cert-qr"
+      >
+
+      <div class="cert-qr-text">
+        Verificación Digital<br>
+        DOC: CB-${docNum}
+      </div>
+
+    </div>
+
+  </div>
+
+`;
   document.getElementById('certContent').innerHTML = certHTML;
   document.getElementById('certModal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
