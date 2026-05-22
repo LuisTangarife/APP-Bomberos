@@ -1563,33 +1563,3 @@ textarea { resize: vertical; min-height: 100px; }
   }
 
 }
-/* ───────────────────────────── */
-/* PRINT */
-/* ───────────────────────────── */
-
-@media print{
-
-  .cert-photo-section,
-  .cert-photo-grid,
-  .cert-photo-card,
-  .cert-footer,
-  .cert-signature{
-
-    break-inside:avoid !important;
-    page-break-inside:avoid !important;
-
-  }
-
-  .cert-photo-title{
-
-    page-break-after:avoid !important;
-
-  }
-
-  .cert-footer{
-
-    page-break-before:avoid !important;
-
-  }
-
-}
