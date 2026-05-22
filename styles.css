@@ -723,31 +723,43 @@ textarea { resize: vertical; min-height: 100px; }
 /* HEADER CERTIFICADO */
 /* ───────────────────────────── */
 
+.cert-header{
+  border-top:1px solid #2d3748;
+  border-bottom:3px solid #d62828;
+  padding:18px 0 16px;
+  margin-bottom:26px;
+}
+
 .cert-top{
-  display:flex;
+  display:grid;
+  grid-template-columns:160px 1fr 120px;
   align-items:center;
-  justify-content:space-between;
-  gap:30px;
-  margin-bottom:32px;
-  width:100%;
+  gap:18px;
 }
 
 .cert-logo-side{
-  width:130px;
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-shrink:0;
 }
 
-.cert-logo-side img{
-  max-width:100%;
-  max-height:90px;
+/* LOGO IZQUIERDO MÁS GRANDE */
+
+.cert-logo-side.left img{
+  width:150px;
+  max-height:110px;
+  object-fit:contain;
+}
+
+/* LOGO DERECHO */
+
+.cert-logo-side.right img{
+  width:82px;
+  max-height:82px;
   object-fit:contain;
 }
 
 .cert-center{
-  flex:1;
   text-align:center;
   display:flex;
   flex-direction:column;
@@ -755,164 +767,152 @@ textarea { resize: vertical; min-height: 100px; }
   justify-content:center;
 }
 
+/* ELIMINAMOS EL TÍTULO GRANDE */
+
+.cert-entity{
+  display:none;
+}
+
+.cert-subtitle{
+  font-size:.78rem;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#666;
+  margin-top:4px;
+}
+
+.cert-doc-num{
+  margin-top:12px;
+  font-size:.82rem;
+  font-weight:700;
+  color:#d62828;
+  letter-spacing:1px;
+}
+
+.cert-doc-date{
+  margin-top:8px;
+  font-size:.78rem;
+  color:#666;
+}
+
 /* ───────────────────────────── */
-/* SECCIÓN FOTOS */
+/* EVIDENCIA FOTOGRÁFICA */
 /* ───────────────────────────── */
 
 .cert-photo-section{
-  margin-top:38px;
+  margin-top:30px;
 }
 
 .cert-photo-title{
   text-align:center;
-  font-size:1rem;
+  font-size:.95rem;
   font-weight:700;
-  margin-bottom:18px;
-  color:#111;
-  text-transform:uppercase;
   letter-spacing:2px;
+  margin-bottom:18px;
+  color:#222;
 }
+
+/* GRID MÁS GRANDE */
 
 .cert-photo-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:18px;
+  width:100%;
 }
+
+/* TARJETA FOTO */
 
 .cert-photo-card{
-  border-radius:16px;
+  width:100%;
+  min-height:280px;
+  border-radius:14px;
   overflow:hidden;
-  border:1px solid #dcdcdc;
-  background:#f8f8f8;
-  box-shadow:0 6px 18px rgba(0,0,0,.08);
-}
-
-.cert-photo-card img{
-  width:100%;
-  height:240px;
-  object-fit:cover;
-  display:block;
-}
-
-/* ───────────────────────────── */
-/* PREVIEW FOTOS */
-/* ───────────────────────────── */
-
-.photo-preview-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:16px;
-  margin-top:20px;
-  width:100%;
-}
-
-.preview-card{
-  position:relative;
-  border-radius:16px;
-  overflow:hidden;
-  border:2px solid #2d3748;
-  background:#111827;
-  min-height:180px;
-  box-shadow:0 8px 24px rgba(0,0,0,.25);
-}
-
-.preview-card img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  display:block;
-  transition:transform .3s ease;
-}
-
-.preview-card:hover img{
-  transform:scale(1.03);
-}
-
-.preview-number{
-  position:absolute;
-  top:10px;
-  right:10px;
-  background:rgba(0,0,0,.75);
-  color:#fff;
-  width:30px;
-  height:30px;
-  border-radius:50%;
+  background:#f3f3f3;
+  border:1px solid #d9d9d9;
+  box-shadow:0 5px 14px rgba(0,0,0,.08);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:.8rem;
-  font-weight:700;
-  backdrop-filter:blur(4px);
+}
+
+/* FOTO ADAPTABLE */
+
+.cert-photo-card img{
+  width:100%;
+  height:100%;
+  min-height:280px;
+  max-height:420px;
+  object-fit:contain;
+  background:#fff;
+  display:block;
 }
 
 /* ───────────────────────────── */
-/* FOOTER CERTIFICADO */
+/* FOOTER */
 /* ───────────────────────────── */
 
 .cert-footer{
-  margin-top:50px;
+  margin-top:34px;
+  padding-top:18px;
+  border-top:1px solid #2d3748;
+
   display:grid;
-  grid-template-columns:1fr auto 1fr;
+  grid-template-columns:1fr auto;
   align-items:end;
   gap:30px;
-  width:100%;
 }
 
-/* IZQUIERDA */
+/* FIRMAS */
 
 .cert-footer-left{
   display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  justify-content:flex-end;
-}
-
-/* FIRMA */
-
-.cert-signature{
-  text-align:center;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:26px;
   width:100%;
 }
 
+/* CADA FIRMA */
+
+.cert-signature{
+  flex:1;
+  text-align:center;
+}
+
+/* IMAGEN FIRMA MÁS GRANDE */
+
 .cert-signature img{
-  max-width:180px;
-  max-height:70px;
+  width:180px;
+  max-width:100%;
+  max-height:90px;
   object-fit:contain;
+  margin-bottom:6px;
+}
+
+/* LÍNEA */
+
+.cert-signature-line{
+  width:100%;
+  border-bottom:1px solid #4a5568;
   margin-bottom:8px;
 }
 
-.cert-signature-line{
-  width:220px;
-  height:1px;
-  background:#333;
-  margin:0 auto 8px auto;
-}
+/* TEXOS */
 
 .cert-signature-name{
+  font-size:.82rem;
   font-weight:700;
-  color:#111;
-  font-size:.95rem;
+  color:#222;
+  letter-spacing:.5px;
 }
 
 .cert-signature-role{
-  font-size:.85rem;
+  margin-top:3px;
+  font-size:.68rem;
   color:#666;
-}
-
-/* CENTRO */
-
-.cert-footer-center{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-end;
-}
-
-.cert-doc-date{
-  margin-top:10px;
-  color:#666;
-  font-size:.9rem;
-  text-align:center;
+  text-transform:uppercase;
+  letter-spacing:1px;
 }
 
 /* QR */
@@ -922,24 +922,23 @@ textarea { resize: vertical; min-height: 100px; }
   flex-direction:column;
   align-items:center;
   justify-content:flex-end;
+  min-width:120px;
 }
 
 .cert-qr{
-  width:95px;
-  height:95px;
+  width:100px;
+  height:100px;
   object-fit:contain;
   background:#fff;
-  padding:6px;
-  border-radius:12px;
+  padding:5px;
   border:1px solid #ddd;
-  box-shadow:0 4px 12px rgba(0,0,0,.12);
+  border-radius:10px;
 }
 
 .cert-qr-text{
-  margin-top:10px;
-  font-size:.72rem;
-  color:#666;
+  margin-top:8px;
   text-align:center;
-  line-height:1.4;
-  max-width:110px;
+  font-size:.68rem;
+  color:#555;
+  line-height:1.35;
 }
