@@ -566,186 +566,186 @@ function renderCertificate(data, id = null) {
   const emitted = now.toLocaleString('es-CO', { dateStyle: 'full', timeStyle: 'short' });
 
   const logoBomberos = document.getElementById('logoBomberos')?.src || '';
-const logoMunicipio = document.getElementById('logoMunicipio')?.src || '';
-const qrCodeImg = document.getElementById('qrCodeImg')?.src || '';
-
-const certHTML = `
-  <div class="cert-header">
-
-    <div class="cert-top">
-
-      <div class="cert-logo-side">
-        <img src="${logoBomberos}" class="cert-logo-img">
-      </div>
-
-      <div class="cert-center">
-        <div class="cert-entity">
-          CUERPO DE BOMBEROS
+  const logoMunicipio = document.getElementById('logoMunicipio')?.src || '';
+  const qrCodeImg = document.getElementById('qrCodeImg')?.src || '';
+  
+  const certHTML = `
+    <div class="cert-header">
+  
+      <div class="cert-top">
+  
+        <div class="cert-logo-side">
+          <img src="${logoBomberos}" class="cert-logo-img">
         </div>
-
-        <div class="cert-subtitle">
-          Certificado Oficial de Servicio de Emergencia
-        </div>
-
-        <div class="cert-doc-num">
-          N° DOC: CB-${docNum}
-        </div>
-
-        <div class="cert-doc-date">
-          Emitido: ${emitted}
-        </div>
-      </div>
-
-      <div class="cert-logo-side">
-        <img src="${logoMunicipio}" class="cert-logo-img">
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="cert-body-title">
-    Reporte de Intervención — ${data.evento || 'Evento no especificado'}
-  </div>
-
-  <div class="cert-grid">
-
-    <div class="cert-field">
-      <div class="cert-label">Fecha</div>
-      <div class="cert-value">${formatDate(data.fecha)}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Hora de Reporte</div>
-      <div class="cert-value">${data.horaReporte || '—'}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Hora de Llegada al Sitio</div>
-      <div class="cert-value">${data.horaLlegada || '—'}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Hora Final</div>
-      <div class="cert-value">${data.horaFinal || '—'}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Lugar</div>
-      <div class="cert-value">${data.lugar || '—'}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Dirección</div>
-      <div class="cert-value">${data.direccion || '—'}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Coordenadas GPS</div>
-      <div class="cert-value">${coords}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Tipo de Evento</div>
-      <div class="cert-value">${data.evento || '—'}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Vehículo Desplegado</div>
-      <div class="cert-value">${data.vehiculo || '—'}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Personal Comisionado</div>
-      <div class="cert-value">${data.personal || '—'}</div>
-    </div>
-
-    <div class="cert-field full">
-      <div class="cert-label">Descripción del Incidente</div>
-      <div class="cert-desc-box">
-        ${(data.descripcion || '—').replace(/\n/g,'<br>')}
-      </div>
-    </div>
-
-  </div>
-
-  <div class="cert-victims-bar">
-
-    <div class="cert-victim-box">
-      <div class="cert-victim-num">${data.lesionados || '0'}</div>
-      <div class="cert-victim-label">Lesionados</div>
-    </div>
-
-    <div class="cert-victim-box">
-      <div class="cert-victim-num">${data.victimas || '0'}</div>
-      <div class="cert-victim-label">Víctimas Fatales</div>
-    </div>
-
-  </div>
-
-  ${data.novedades ? `
-    <div class="cert-grid">
-      <div class="cert-field full">
-        <div class="cert-label">Novedades</div>
-        <div class="cert-desc-box">
-          ${data.novedades.replace(/\n/g,'<br>')}
-        </div>
-      </div>
-    </div>
-  ` : ''}
-
-  ${data.photos && data.photos.length ? `
-    <div class="cert-photo-section">
-
-      <div class="cert-photo-title">
-        Evidencia Fotográfica
-      </div>
-
-      <div class="cert-photo-grid">
-        ${data.photos.map(photo => `
-          <div class="cert-photo-card">
-            <img src="${photo}">
+  
+        <div class="cert-center">
+          <div class="cert-entity">
+            CUERPO DE BOMBEROS
           </div>
-        `).join('')}
+  
+          <div class="cert-subtitle">
+            Certificado Oficial de Servicio de Emergencia
+          </div>
+  
+          <div class="cert-doc-num">
+            N° DOC: CB-${docNum}
+          </div>
+  
+          <div class="cert-doc-date">
+            Emitido: ${emitted}
+          </div>
+        </div>
+  
+        <div class="cert-logo-side">
+          <img src="${logoMunicipio}" class="cert-logo-img">
+        </div>
+  
       </div>
-
+  
     </div>
-  ` : ''}
-
-  <div class="cert-footer">
-
-    <div class="cert-footer-left">
-
-      <div class="cert-sig">
-        <div class="cert-sig-line"></div>
-        <div class="cert-sig-label">Comandante de Unidad</div>
-      </div>
-
-      <div class="cert-sig">
-        <div class="cert-sig-line"></div>
-        <div class="cert-sig-label">Oficial de Turno</div>
-      </div>
-
-      <div class="cert-sig">
-        <div class="cert-sig-line"></div>
-        <div class="cert-sig-label">Jefe de Bomberos</div>
-      </div>
-
+  
+    <div class="cert-body-title">
+      Reporte de Intervención — ${data.evento || 'Evento no especificado'}
     </div>
-
-    <div class="cert-footer-right">
-
-      <img src="${qrCodeImg}" class="cert-qr">
-
-      <div class="cert-qr-text">
-        Verificación Digital<br>
-        DOC: CB-${docNum}
+  
+    <div class="cert-grid">
+  
+      <div class="cert-field">
+        <div class="cert-label">Fecha</div>
+        <div class="cert-value">${formatDate(data.fecha)}</div>
       </div>
-
+  
+      <div class="cert-field">
+        <div class="cert-label">Hora de Reporte</div>
+        <div class="cert-value">${data.horaReporte || '—'}</div>
+      </div>
+  
+      <div class="cert-field">
+        <div class="cert-label">Hora de Llegada al Sitio</div>
+        <div class="cert-value">${data.horaLlegada || '—'}</div>
+      </div>
+  
+      <div class="cert-field">
+        <div class="cert-label">Hora Final</div>
+        <div class="cert-value">${data.horaFinal || '—'}</div>
+      </div>
+  
+      <div class="cert-field">
+        <div class="cert-label">Lugar</div>
+        <div class="cert-value">${data.lugar || '—'}</div>
+      </div>
+  
+      <div class="cert-field">
+        <div class="cert-label">Dirección</div>
+        <div class="cert-value">${data.direccion || '—'}</div>
+      </div>
+  
+      <div class="cert-field">
+        <div class="cert-label">Coordenadas GPS</div>
+        <div class="cert-value">${coords}</div>
+      </div>
+  
+      <div class="cert-field">
+        <div class="cert-label">Tipo de Evento</div>
+        <div class="cert-value">${data.evento || '—'}</div>
+      </div>
+  
+      <div class="cert-field">
+        <div class="cert-label">Vehículo Desplegado</div>
+        <div class="cert-value">${data.vehiculo || '—'}</div>
+      </div>
+  
+      <div class="cert-field">
+        <div class="cert-label">Personal Comisionado</div>
+        <div class="cert-value">${data.personal || '—'}</div>
+      </div>
+  
+      <div class="cert-field full">
+        <div class="cert-label">Descripción del Incidente</div>
+        <div class="cert-desc-box">
+          ${(data.descripcion || '—').replace(/\n/g,'<br>')}
+        </div>
+      </div>
+  
     </div>
-
-  </div>
-`;
+  
+    <div class="cert-victims-bar">
+  
+      <div class="cert-victim-box">
+        <div class="cert-victim-num">${data.lesionados || '0'}</div>
+        <div class="cert-victim-label">Lesionados</div>
+      </div>
+  
+      <div class="cert-victim-box">
+        <div class="cert-victim-num">${data.victimas || '0'}</div>
+        <div class="cert-victim-label">Víctimas Fatales</div>
+      </div>
+  
+    </div>
+  
+    ${data.novedades ? `
+      <div class="cert-grid">
+        <div class="cert-field full">
+          <div class="cert-label">Novedades</div>
+          <div class="cert-desc-box">
+            ${data.novedades.replace(/\n/g,'<br>')}
+          </div>
+        </div>
+      </div>
+    ` : ''}
+  
+    ${data.photos && data.photos.length ? `
+      <div class="cert-photo-section">
+  
+        <div class="cert-photo-title">
+          Evidencia Fotográfica
+        </div>
+  
+        <div class="cert-photo-grid">
+          ${data.photos.map(photo => `
+            <div class="cert-photo-card">
+              <img src="${photo}">
+            </div>
+          `).join('')}
+        </div>
+  
+      </div>
+    ` : ''}
+  
+    <div class="cert-footer">
+  
+      <div class="cert-footer-left">
+  
+        <div class="cert-sig">
+          <div class="cert-sig-line"></div>
+          <div class="cert-sig-label">Comandante de Unidad</div>
+        </div>
+  
+        <div class="cert-sig">
+          <div class="cert-sig-line"></div>
+          <div class="cert-sig-label">Oficial de Turno</div>
+        </div>
+  
+        <div class="cert-sig">
+          <div class="cert-sig-line"></div>
+          <div class="cert-sig-label">Jefe de Bomberos</div>
+        </div>
+  
+      </div>
+  
+      <div class="cert-footer-right">
+  
+        <img src="${qrCodeImg}" class="cert-qr">
+  
+        <div class="cert-qr-text">
+          Verificación Digital<br>
+          DOC: CB-${docNum}
+        </div>
+  
+      </div>
+  
+    </div>
+  `;
   document.getElementById('certContent').innerHTML = certHTML;
   document.getElementById('certModal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
