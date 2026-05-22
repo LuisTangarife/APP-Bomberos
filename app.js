@@ -809,76 +809,85 @@ function renderCertificate(data, id = null) {
 
   ` : ''}
 
-  <!-- ───────────────────────────── -->
-  <!-- FOOTER -->
-  <!-- ───────────────────────────── -->
+<!-- ───────────────────────────── -->
+<!-- FOOTER -->
+<!-- ───────────────────────────── -->
 
-  <div class="cert-footer">
+<div class="cert-footer">
 
-    <!-- FIRMAS -->
-    <div class="cert-footer-left">
+  <!-- FIRMAS -->
+  <div class="cert-footer-left">
 
-      <!-- COMANDANTE -->
+    <!-- COMANDANTE -->
 
-      <div class="cert-signature">
+    <div class="cert-signature">
+
+      <div class="cert-signature-img-wrap">
 
         <img 
           src="${IMG_FIRMA}" 
           class="cert-firma-img"
         >
 
-        <div class="cert-signature-line"></div>
-
-        <div class="cert-signature-role">
-          COMANDANTE DE UNIDAD
-        </div>
-
       </div>
 
-      <!-- OFICIAL -->
+      <div class="cert-signature-line"></div>
 
-      <div class="cert-signature">
-
-        <div class="cert-signature-line"></div>
-
-        <div class="cert-signature-role">
-          OFICIAL DE TURNO
-        </div>
-
-      </div>
-
-      <!-- JEFE -->
-
-      <div class="cert-signature">
-
-        <div class="cert-signature-line"></div>
-
-        <div class="cert-signature-role">
-          JEFE DE BOMBEROS
-        </div>
-
+      <div class="cert-signature-role">
+        COMANDANTE DE UNIDAD
       </div>
 
     </div>
 
-    <!-- QR -->
+    <!-- OFICIAL -->
 
-    <div class="cert-footer-right">
+    <div class="cert-signature">
 
-      <img 
-        src="${qrCodeImg}" 
-        class="cert-qr"
-      >
+      <!-- ESPACIO VACÍO PARA ALINEAR -->
+      <div class="cert-signature-img-wrap"></div>
 
-      <div class="cert-qr-text">
-        Verificación Digital<br>
-        DOC: CB-${docNum}
+      <div class="cert-signature-line"></div>
+
+      <div class="cert-signature-role">
+        OFICIAL DE TURNO
+      </div>
+
+    </div>
+
+    <!-- JEFE -->
+
+    <div class="cert-signature">
+
+      <!-- ESPACIO VACÍO PARA ALINEAR -->
+      <div class="cert-signature-img-wrap"></div>
+
+      <div class="cert-signature-line"></div>
+
+      <div class="cert-signature-role">
+        JEFE DE BOMBEROS
       </div>
 
     </div>
 
   </div>
 
+  <!-- QR -->
+
+  <div class="cert-footer-right">
+
+    <img 
+      src="${qrCodeImg}" 
+      class="cert-qr"
+    >
+
+    <div class="cert-qr-text">
+      Verificación Digital<br>
+      DOC: CB-${docNum}
+    </div>
+
+  </div>
+
+</div>
 `;
   document.getElementById('certContent').innerHTML = certHTML;
   document.getElementById('certModal').style.display = 'flex';
