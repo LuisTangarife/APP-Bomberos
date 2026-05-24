@@ -1,11 +1,12 @@
+const STATIC_CACHE = 'bomberos-static-v2';
 const DYNAMIC_CACHE = 'bomberos-dynamic-v2';
+
 const STATIC_FILES = [
+  './',
   './index.html',
   './styles.css',
   './app.js',
-  './manifest.jsonconst STATIC_CACHE = 'bomberos-static-v2';
-
-  './',',
+  './manifest.json',
   './offline.html'
 ];
 
@@ -79,4 +80,5 @@ self.addEventListener('fetch', event => {
         if (cached) return cached;
 
         return fetch(request)
+          .then(response => {
 });
