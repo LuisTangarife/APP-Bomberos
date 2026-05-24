@@ -53,7 +53,14 @@ function openDB() {
 function saveToIDB(data) {
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE, 'readwrite');
-    tx.objectStore(STORE).add(data).onsuccess = e => resolve(e.target.result);
+    const report = {
+      ...data,
+      synced: navigator.onLine,
+      pending: !navigator.onLine,
+      createdAt: Date.now()
+    };
+    
+    tx.objectStore(STORE).add(report).onsuccess = e => resolve(e.target.result);
     tx.onerror = e => reject(e.target.error);
   });
 }
@@ -928,4 +935,40 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 
+async function syncPendingReports() {
 
+  if (!navigator.onLine) return;
+
+  const reports = await getAllFromIDB();
+
+  const pending = reports.filter(r => r.pending);
+
+  if (!pending.length) return;
+
+  console.log('Sincronizando:', pending.length);
+
+  for (const report of pending) {
+
+    try {
+
+      // AQUÍ irá tu API futura
+      // await fetch(...)
+
+      report.pending = false;
+      report.synced = true;
+
+      const tx = db.transaction(STORE, 'readwrite');
+
+      tx.objectStore(STORE).put(report);
+
+      console.log('Reporte sincronizado');
+
+    } catch (error) {
+
+      console.error('Error sincronizando:', error);
+
+    }
+  }
+}
+
+window.addEventListener('online', syncPendingReports);
