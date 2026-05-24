@@ -5,6 +5,8 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
 
     try {
+      await initDB();
+      await updatePendingBadge();
 
       const registration = await navigator.serviceWorker.register('./sw.js');
 
@@ -466,6 +468,8 @@ async function saveReport() {
   }
   try {
     const id = await saveToIDB(data);
+    await updatePendingBadge();
+    await loadSavedReports();
     fb.textContent = `✔ Reporte #${id} guardado correctamente en este dispositivo.`;
     fb.className = 'save-feedback ok';
     loadSavedReports();
@@ -969,6 +973,7 @@ async function syncPendingReports() {
 
     }
   }
+  await updatePendingBadge();
 }
 
 window.addEventListener('online', syncPendingReports);
