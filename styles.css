@@ -1563,3 +1563,22 @@ textarea { resize: vertical; min-height: 100px; }
   }
 
 }
+
+async function updatePendingBadge() {
+
+  const reports = await getAllFromIDB();
+
+  const pending = reports.filter(r => r.pending).length;
+
+  const badge = document.getElementById('pendingBadge');
+
+  if (!badge) return;
+
+  badge.textContent = `${pending} pendientes`;
+
+  badge.style.display = pending > 0
+    ? 'inline-block'
+    : 'none';
+}
+
+  
