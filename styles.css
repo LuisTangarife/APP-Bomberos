@@ -1581,8 +1581,6 @@ async function updatePendingBadge() {
     : 'none';
 }
 
-<style>
-
 /* ============================================================
    ESTILOS GENERALES (pantalla)
    Idéntica estructura al certificado ANBC Chile
@@ -1993,5 +1991,3 @@ body {
   }
 
 }
-
-</style>
