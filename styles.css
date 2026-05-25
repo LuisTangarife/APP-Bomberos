@@ -1582,10 +1582,6 @@ async function updatePendingBadge() {
 }
 
 
-/* =========================================================
-   IMPRESIÓN INSTITUCIONAL PREMIUM
-========================================================= */
-
 @media print {
 
   @page{
@@ -1595,11 +1591,11 @@ async function updatePendingBadge() {
 
   html,
   body{
-    margin:0 !important;
-    padding:0 !important;
+    margin:0;
+    padding:0;
     background:#fff !important;
-    font-family:"Georgia", serif !important;
-    color:#1a1a1a !important;
+    font-family:"Garamond", serif;
+    color:#222;
     -webkit-print-color-adjust:exact;
     print-color-adjust:exact;
   }
@@ -1614,39 +1610,34 @@ async function updatePendingBadge() {
   }
 
   #certModal{
-    position:absolute !important;
-    inset:0 !important;
-    background:#fff !important;
-    overflow:visible !important;
-    margin:0 !important;
-    padding:0 !important;
+    position:absolute;
+    inset:0;
+    background:#fff;
+    overflow:visible;
   }
 
   #certContent{
 
     position:relative;
+
     width:100%;
     min-height:100vh;
 
-    background:#fff !important;
-
     padding:
-      42mm
-      22mm
-      28mm
-      22mm !important;
+      150px
+      55px
+      60px
+      55px;
 
     box-sizing:border-box;
 
-    border:none !important;
-    border-radius:0 !important;
-    box-shadow:none !important;
+    background:#fff;
 
     overflow:hidden;
   }
 
   /* =====================================================
-     CABECERA SUPERIOR ROJA
+     FONDO SUPERIOR
   ===================================================== */
 
   #certContent::before{
@@ -1654,27 +1645,27 @@ async function updatePendingBadge() {
     content:'';
 
     position:absolute;
+
     top:0;
     left:0;
     right:0;
 
-    height:135px;
+    height:180px;
 
     background:
       linear-gradient(
         135deg,
-        #9e1111 0%,
+        #a11212 0%,
         #c62828 100%
       );
 
-    z-index:0;
+    clip-path:
+      ellipse(130% 100% at 50% 0%);
 
-    clip-path:ellipse(120% 100% at 50% 0%);
+    z-index:0;
   }
 
-  /* =====================================================
-     CURVA BLANCA DECORATIVA
-  ===================================================== */
+  /* CURVA */
 
   #certContent::after{
 
@@ -1682,16 +1673,17 @@ async function updatePendingBadge() {
 
     position:absolute;
 
-    top:72px;
+    top:105px;
     left:-5%;
+
     width:110%;
-    height:110px;
+    height:90px;
 
     background:#fff;
 
     border-radius:50%;
 
-    z-index:0;
+    z-index:1;
   }
 
   /* =====================================================
@@ -1701,73 +1693,70 @@ async function updatePendingBadge() {
   .cert-header{
 
     position:relative;
-    z-index:5;
+
+    z-index:10;
+
+    margin-bottom:40px;
 
     border:none !important;
-
-    margin-bottom:38px;
-
-    padding:0;
   }
 
   .cert-top{
 
     display:grid;
-    grid-template-columns:120px 1fr 120px;
+
+    grid-template-columns:
+      120px
+      1fr
+      120px;
 
     align-items:start;
 
-    gap:20px;
+    gap:10px;
   }
 
   .cert-logo-side{
 
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:flex-start;
   }
 
   .cert-logo-img{
 
-    width:95px !important;
-    height:95px !important;
+    width:92px !important;
+    height:92px !important;
 
     object-fit:contain;
-
-    filter:
-      drop-shadow(0 3px 6px rgba(0,0,0,.25));
   }
 
   .cert-center{
 
     text-align:center;
-    padding-top:4px;
   }
 
   .cert-subtitle{
 
     color:#fff !important;
 
-    font-size:16pt !important;
+    font-size:15pt !important;
 
-    font-weight:700 !important;
+    letter-spacing:5px;
 
-    letter-spacing:4px;
+    font-weight:700;
 
     text-transform:uppercase;
 
-    margin-top:4px;
-    margin-bottom:32px;
+    margin-top:5px;
 
-    text-shadow:
-      0 1px 2px rgba(0,0,0,.25);
+    margin-bottom:38px;
   }
 
   .cert-doc-num{
 
     font-size:11pt;
+
     font-weight:700;
-    color:#222;
 
     margin-bottom:4px;
   }
@@ -1775,36 +1764,31 @@ async function updatePendingBadge() {
   .cert-doc-date{
 
     font-size:10pt;
-    color:#444;
+
+    color:#555;
   }
 
   /* =====================================================
-     TÍTULO
+     TITULO
   ===================================================== */
 
   .cert-body-title{
 
-    position:relative;
-    z-index:5;
-
     text-align:center;
 
-    font-size:18pt !important;
+    font-size:19pt !important;
 
     font-weight:700;
+
+    color:#7a0000;
 
     text-transform:uppercase;
 
     letter-spacing:1px;
 
-    color:#8b0000;
+    margin-bottom:42px;
 
-    margin-bottom:30px;
-
-    padding-bottom:10px;
-
-    border-bottom:
-      2px solid #c9c9c9;
+    border:none !important;
 
     background:none !important;
   }
@@ -1815,131 +1799,125 @@ async function updatePendingBadge() {
 
   .cert-grid{
 
-    position:relative;
-    z-index:5;
-
-    display:grid !important;
-
-    grid-template-columns:
-      1fr 1fr;
-
-    gap:14px;
-
-    margin-bottom:22px;
+    display:block !important;
   }
 
   .cert-field{
 
+    margin-bottom:18px;
+
     border:none !important;
 
-    border-left:
-      4px solid #a71919;
+    background:none !important;
 
-    background:
-      #fafafa !important;
-
-    padding:
-      12px
-      14px;
-
-    border-radius:4px;
-
-    break-inside:avoid;
+    padding:0 !important;
   }
 
   .cert-field.full{
-    grid-column:1/-1;
+    margin-top:30px;
   }
 
   .cert-label{
 
-    font-size:9pt !important;
+    display:inline;
+
+    font-size:11pt !important;
 
     font-weight:700 !important;
 
-    letter-spacing:1px;
-
     text-transform:uppercase;
 
-    color:#8b0000;
+    color:#7a0000;
 
-    margin-bottom:6px;
+    letter-spacing:.5px;
+  }
+
+  .cert-label::after{
+    content:': ';
   }
 
   .cert-value{
 
-    font-size:11pt !important;
+    display:inline;
 
-    line-height:1.5;
+    font-size:11.5pt !important;
 
-    color:#222;
-  }
-
-  .cert-desc-box{
-
-    font-size:11pt;
-
-    line-height:1.9;
-
-    text-align:justify;
-
-    color:#222;
+    line-height:1.8;
   }
 
   /* =====================================================
-     VÍCTIMAS
+     DESCRIPCIÓN
+  ===================================================== */
+
+  .cert-desc-box{
+
+    margin-top:10px;
+
+    padding-left:16px;
+
+    border-left:
+      2px solid #c5c5c5;
+
+    font-size:11.5pt;
+
+    line-height:2;
+
+    text-align:justify;
+  }
+
+  /* =====================================================
+     VICTIMAS
   ===================================================== */
 
   .cert-victims-bar{
 
-    display:grid;
+    display:flex;
 
-    grid-template-columns:1fr 1fr;
+    justify-content:center;
 
-    gap:16px;
+    gap:70px;
 
     margin:
-      28px 0;
+      40px
+      0;
   }
 
   .cert-victim-box{
-
-    background:
-      linear-gradient(
-        135deg,
-        #9e1111,
-        #7f0000
-      ) !important;
-
-    color:#fff !important;
-
-    border:none !important;
-
-    padding:18px;
-
-    border-radius:10px;
 
     text-align:center;
   }
 
   .cert-victim-num{
 
-    font-size:28pt;
+    font-size:34pt;
 
     font-weight:700;
 
-    margin-bottom:8px;
+    color:#8b0000;
+
+    line-height:1;
   }
 
   .cert-victim-label{
 
-    font-size:10pt;
+    margin-top:8px;
 
-    text-transform:uppercase;
+    font-size:10pt;
 
     letter-spacing:1px;
 
-    font-weight:700;
+    text-transform:uppercase;
+  }
+
+  /* =====================================================
+     NOVEDADES
+  ===================================================== */
+
+  .cert-field.full .cert-label{
+
+    display:block;
+
+    margin-bottom:10px;
   }
 
   /* =====================================================
@@ -1948,27 +1926,22 @@ async function updatePendingBadge() {
 
   .cert-photo-section{
 
-    margin-top:30px;
-
-    page-break-inside:avoid;
+    margin-top:45px;
   }
 
   .cert-photo-title{
 
-    font-size:13pt;
+    text-align:center;
 
-    font-weight:700;
+    font-size:14pt;
 
     text-transform:uppercase;
 
-    color:#8b0000;
+    letter-spacing:2px;
 
-    border-bottom:
-      2px solid #d5d5d5;
+    color:#7a0000;
 
-    padding-bottom:8px;
-
-    margin-bottom:14px;
+    margin-bottom:20px;
   }
 
   .cert-photo-grid{
@@ -1983,15 +1956,6 @@ async function updatePendingBadge() {
   .cert-photo-card{
 
     border:none !important;
-
-    overflow:hidden;
-
-    border-radius:8px;
-
-    background:#fff;
-
-    box-shadow:
-      0 2px 8px rgba(0,0,0,.12);
   }
 
   .cert-photo-card img{
@@ -2002,7 +1966,8 @@ async function updatePendingBadge() {
 
     object-fit:cover;
 
-    display:block;
+    border:
+      1px solid #d8d8d8;
   }
 
   /* =====================================================
@@ -2011,12 +1976,7 @@ async function updatePendingBadge() {
 
   .cert-footer{
 
-    margin-top:40px;
-
-    padding-top:26px;
-
-    border-top:
-      1px solid #cfcfcf;
+    margin-top:55px;
 
     display:flex;
 
@@ -2024,7 +1984,7 @@ async function updatePendingBadge() {
 
     align-items:flex-end;
 
-    gap:24px;
+    gap:20px;
   }
 
   .cert-footer-left{
@@ -2035,7 +1995,7 @@ async function updatePendingBadge() {
 
     justify-content:space-between;
 
-    gap:18px;
+    gap:25px;
   }
 
   .cert-signature{
@@ -2047,18 +2007,18 @@ async function updatePendingBadge() {
 
   .cert-signature-img-wrap{
 
-    height:72px;
+    height:70px;
 
     display:flex;
 
-    align-items:flex-end;
-
     justify-content:center;
+
+    align-items:flex-end;
   }
 
   .cert-firma-img{
 
-    max-height:70px;
+    max-height:65px;
 
     object-fit:contain;
   }
@@ -2066,22 +2026,22 @@ async function updatePendingBadge() {
   .cert-signature-line{
 
     border-top:
-      1.5px solid #333;
+      1px solid #000;
 
     margin-top:6px;
 
-    margin-bottom:7px;
+    margin-bottom:6px;
   }
 
   .cert-signature-role{
 
     font-size:9pt;
 
-    font-weight:700;
-
     text-transform:uppercase;
 
-    letter-spacing:.5px;
+    font-weight:700;
+
+    line-height:1.5;
   }
 
   /* =====================================================
@@ -2090,48 +2050,43 @@ async function updatePendingBadge() {
 
   .cert-footer-right{
 
-    width:150px;
+    width:130px;
 
     text-align:center;
   }
 
   .cert-qr{
 
-    width:105px !important;
-    height:105px !important;
+    width:95px !important;
+    height:95px !important;
 
-    padding:6px;
+    object-fit:contain;
 
-    background:#fff;
-
-    border:
-      1px solid #d7d7d7;
-
-    border-radius:8px;
+    border:none !important;
   }
 
   .cert-qr-text{
 
-    margin-top:8px;
+    margin-top:6px;
 
     font-size:8.5pt;
 
-    color:#555;
+    line-height:1.5;
 
-    line-height:1.4;
+    color:#666;
   }
 
   /* =====================================================
      MARCA DE AGUA
   ===================================================== */
 
-  .cert-center::after{
+  .cert-header::after{
 
     content:'';
 
     position:fixed;
 
-    top:35%;
+    top:50%;
     left:50%;
 
     transform:
@@ -2147,21 +2102,9 @@ async function updatePendingBadge() {
     background-position:center;
     background-size:contain;
 
-    opacity:.035;
+    opacity:.04;
 
     z-index:-1;
-  }
-
-  /* =====================================================
-     EVITAR CORTES
-  ===================================================== */
-
-  .cert-field,
-  .cert-victim-box,
-  .cert-photo-card,
-  .cert-footer,
-  .cert-photo-section{
-    page-break-inside:avoid;
   }
 
 }
