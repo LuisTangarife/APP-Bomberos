@@ -1583,76 +1583,317 @@ async function updatePendingBadge() {
 
 
 /* =========================================================
-   CERTIFICADO PREMIUM
+   IMPRESIÓN PROFESIONAL OFICIAL
 ========================================================= */
 
-.cert-wrapper{
-  position:relative;
-  background:#fff;
-  border-radius:24px;
-  overflow:hidden;
-  padding:42px;
-  box-shadow:0 15px 50px rgba(0,0,0,.15);
-  font-family:'Inter',sans-serif;
-  color:#111;
-}
+@media print {
 
-.cert-watermark{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none;
-  opacity:.035;
-}
+  /* -----------------------------------------------------
+     CONFIGURACIÓN GENERAL
+  ----------------------------------------------------- */
 
-.cert-watermark img{
-  width:420px;
-}
+  @page{
+    size: A4;
+    margin: 14mm;
+  }
 
-.cert-header{
-  position:relative;
-  z-index:2;
-  border:2px solid #c1121f;
-  border-radius:20px;
-  overflow:hidden;
-  margin-bottom:28px;
-}
+  html,
+  body{
+    background:#fff !important;
+    margin:0 !important;
+    padding:0 !important;
+    font-family:"Times New Roman", serif !important;
+    color:#000 !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
 
-.cert-header-topline{
-  height:8px;
-  background:linear-gradient(90deg,#7f0000,#d00000,#7f0000);
-}
+  body *{
+    visibility:hidden;
+  }
 
-.cert-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:26px 30px;
-  gap:20px;
-}
+  #certModal,
+  #certModal *{
+    visibility:visible;
+  }
 
-.cert-logo-img{
-  width:95px;
-  height:95px;
-  object-fit:contain;
-}
+  #certModal{
+    position:absolute !important;
+    inset:0 !important;
+    background:#fff !important;
+    overflow:visible !important;
+    padding:0 !important;
+    margin:0 !important;
+  }
 
-.cert-center{
-  flex:1;
-  text-align:center;
-}
+  #certContent{
+    width:100% !important;
+    max-width:none !important;
+    margin:0 auto !important;
+    background:#fff !important;
+    border:none !important;
+    box-shadow:none !important;
+    border-radius:0 !important;
+    padding:0 !important;
+  }
 
-.cert-gov{
-  font-size:14px;
-  font-weight:700;
-  letter-spacing:2px;
-  color:#666;
-  margin-bottom:8px;
-}
+  /* -----------------------------------------------------
+     HEADER
+  ----------------------------------------------------- */
 
-.cert-title{
-  font-size:34px;
-  font-weight:900;
-  
+  .cert-header{
+    border-bottom:2px solid #000;
+    padding-bottom:14px;
+    margin-bottom:20px;
+  }
+
+  .cert-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+  }
+
+  .cert-logo-side{
+    width:110px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .cert-logo-img{
+    width:85px !important;
+    height:85px !important;
+    object-fit:contain;
+  }
+
+  .cert-center{
+    flex:1;
+    text-align:center;
+  }
+
+  .cert-subtitle{
+    font-size:18pt !important;
+    font-weight:700 !important;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+
+  .cert-doc-num,
+  .cert-doc-date{
+    font-size:11pt;
+    margin-top:3px;
+  }
+
+  /* -----------------------------------------------------
+     TÍTULO
+  ----------------------------------------------------- */
+
+  .cert-body-title{
+    text-align:center;
+    font-size:15pt !important;
+    font-weight:700 !important;
+    text-transform:uppercase;
+    border:1.5px solid #000;
+    padding:10px;
+    margin-bottom:20px;
+    background:#f5f5f5 !important;
+  }
+
+  /* -----------------------------------------------------
+     GRID INFORMACIÓN
+  ----------------------------------------------------- */
+
+  .cert-grid{
+    display:grid !important;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:18px;
+  }
+
+  .cert-field{
+    border:1px solid #000;
+    padding:10px;
+    border-radius:0 !important;
+    background:#fff !important;
+    break-inside:avoid;
+  }
+
+  .cert-field.full{
+    grid-column:1 / -1;
+  }
+
+  .cert-label{
+    font-size:10pt !important;
+    font-weight:700 !important;
+    text-transform:uppercase;
+    margin-bottom:6px;
+    border-bottom:1px solid #999;
+    padding-bottom:4px;
+  }
+
+  .cert-value{
+    font-size:11pt !important;
+    line-height:1.5;
+  }
+
+  .cert-desc-box{
+    font-size:11pt;
+    line-height:1.7;
+    text-align:justify;
+    white-space:normal;
+  }
+
+  /* -----------------------------------------------------
+     VÍCTIMAS
+  ----------------------------------------------------- */
+
+  .cert-victims-bar{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin:20px 0;
+  }
+
+  .cert-victim-box{
+    border:1.5px solid #000;
+    text-align:center;
+    padding:14px;
+  }
+
+  .cert-victim-num{
+    font-size:24pt;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+
+  .cert-victim-label{
+    font-size:11pt;
+    text-transform:uppercase;
+    font-weight:700;
+  }
+
+  /* -----------------------------------------------------
+     FOTOS
+  ----------------------------------------------------- */
+
+  .cert-photo-section{
+    margin-top:25px;
+    page-break-inside:avoid;
+  }
+
+  .cert-photo-title{
+    font-size:13pt;
+    font-weight:700;
+    text-transform:uppercase;
+    margin-bottom:12px;
+    border-bottom:2px solid #000;
+    padding-bottom:6px;
+  }
+
+  .cert-photo-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .cert-photo-card{
+    border:1px solid #000;
+    padding:4px;
+    background:#fff !important;
+  }
+
+  .cert-photo-card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    display:block;
+  }
+
+  /* -----------------------------------------------------
+     FOOTER
+  ----------------------------------------------------- */
+
+  .cert-footer{
+    margin-top:40px;
+    padding-top:25px;
+    border-top:2px solid #000;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+  }
+
+  .cert-footer-left{
+    flex:1;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+  }
+
+  .cert-signature{
+    flex:1;
+    text-align:center;
+  }
+
+  .cert-signature-img-wrap{
+    height:70px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+  }
+
+  .cert-firma-img{
+    max-height:65px;
+    object-fit:contain;
+  }
+
+  .cert-signature-line{
+    border-top:1.5px solid #000;
+    margin-top:5px;
+    margin-bottom:6px;
+  }
+
+  .cert-signature-role{
+    font-size:10pt;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+
+  /* -----------------------------------------------------
+     QR
+  ----------------------------------------------------- */
+
+  .cert-footer-right{
+    width:150px;
+    text-align:center;
+  }
+
+  .cert-qr{
+    width:110px !important;
+    height:110px !important;
+    object-fit:contain;
+    border:1px solid #000;
+    padding:4px;
+    background:#fff !important;
+  }
+
+  .cert-qr-text{
+    margin-top:8px;
+    font-size:9pt;
+    line-height:1.4;
+  }
+
+  /* -----------------------------------------------------
+     SALTOS
+  ----------------------------------------------------- */
+
+  .cert-photo-section,
+  .cert-footer,
+  .cert-field,
+  .cert-victim-box{
+    page-break-inside:avoid;
+  }
+
+}
