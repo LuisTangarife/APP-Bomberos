@@ -1598,8 +1598,6 @@ async function updatePendingBadge() {
 
 @media print {
 
-  /* RESET */
-
   html,
   body{
     margin:0 !important;
@@ -1607,29 +1605,29 @@ async function updatePendingBadge() {
     background:white !important;
   }
 
-  body *{
+  /* OCULTAR APP */
+
+  body > *{
     display:none !important;
   }
 
-  /* MOSTRAR SOLO EL CERTIFICADO */
+  /* MOSTRAR PRINT */
 
-  #printCert,
-  #printCert *{
+  #printCert{
     display:block !important;
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    background:white;
+    z-index:999999;
+  }
+
+  #printCert *{
     visibility:visible !important;
   }
 
-  #printCert{
-    position:static !important;
-    width:100%;
-    background:white;
-    margin:0;
-    padding:0;
-  }
-
-  /* =========================================================
-     PÁGINA
-  ========================================================= */
+  /* PÁGINA */
 
   .print-page{
     width:210mm;
@@ -1640,15 +1638,12 @@ async function updatePendingBadge() {
     background:white;
     color:#111;
     font-family:Arial,sans-serif;
-    position:relative;
   }
 
-  /* =========================================================
-     HEADER
-  ========================================================= */
+  /* HEADER */
 
   .print-header{
-    display:flex !important;
+    display:flex;
     justify-content:space-between;
     align-items:center;
     border-bottom:4px solid #b71c1c;
@@ -1671,17 +1666,14 @@ async function updatePendingBadge() {
   .print-title h1{
     margin:0;
     font-size:24px;
-    line-height:1.2;
     color:#b71c1c;
-    font-weight:700;
-    text-transform:uppercase;
+    line-height:1.2;
   }
 
   .print-title p{
-    margin-top:8px;
+    margin-top:6px;
     font-size:13px;
-    color:#444;
-    letter-spacing:1px;
+    color:#555;
   }
 
   .print-doc{
@@ -1689,120 +1681,88 @@ async function updatePendingBadge() {
     margin-bottom:18px;
     font-size:12px;
     font-weight:bold;
-    color:#333;
   }
 
-  /* =========================================================
-     SECCIONES
-  ========================================================= */
+  /* SECCIONES */
 
   .print-section-title{
     background:#b71c1c;
     color:white;
     padding:10px 14px;
+    border-radius:4px;
     font-size:13px;
     font-weight:bold;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    border-radius:4px;
-    margin:22px 0 14px;
+    margin:20px 0 12px;
   }
 
-  /* =========================================================
-     GRID
-  ========================================================= */
+  /* GRID */
 
   .print-grid{
-    display:grid !important;
+    display:grid;
     grid-template-columns:1fr 1fr;
     gap:14px;
-    margin-bottom:20px;
   }
 
   .print-field{
-    display:flex !important;
+    display:flex;
     flex-direction:column;
   }
 
   .print-label{
     font-size:11px;
-    font-weight:700;
+    font-weight:bold;
     margin-bottom:5px;
     text-transform:uppercase;
     color:#555;
-    letter-spacing:0.4px;
   }
 
   .print-value{
-    border:1px solid #cfcfcf;
+    border:1px solid #ccc;
     border-radius:5px;
     padding:10px;
     min-height:18px;
-    background:white;
     font-size:13px;
-    color:#111;
-    line-height:1.4;
-    word-break:break-word;
   }
 
-  /* =========================================================
-     DESCRIPCIÓN
-  ========================================================= */
+  /* DESCRIPCIÓN */
 
   .print-description{
-    border:1px solid #cfcfcf;
+    border:1px solid #ccc;
     border-radius:5px;
     padding:14px;
     min-height:120px;
-    background:white;
     line-height:1.6;
     font-size:13px;
-    color:#111;
-    white-space:normal;
-    overflow-wrap:break-word;
+    margin-bottom:10px;
   }
 
-  /* =========================================================
-     FOTOS
-  ========================================================= */
+  /* FOTOS */
 
   .print-photos{
-    display:grid !important;
+    display:grid;
     grid-template-columns:1fr 1fr;
     gap:14px;
-    margin-top:10px;
   }
 
   .print-photos img{
     width:100%;
     height:220px;
     object-fit:cover;
+    border:1px solid #ccc;
     border-radius:6px;
-    border:1px solid #cfcfcf;
-    background:#eee;
   }
 
-  /* =========================================================
-     FOOTER
-  ========================================================= */
+  /* FOOTER */
 
   .print-footer{
-    margin-top:45px;
-    display:flex !important;
+    margin-top:40px;
+    display:flex;
     justify-content:space-between;
     align-items:flex-end;
-    gap:30px;
   }
 
-  /* =========================================================
-     FIRMAS
-  ========================================================= */
-
   .print-sign{
-    display:flex !important;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-end;
+    text-align:center;
   }
 
   .print-sign-img{
@@ -1816,33 +1776,14 @@ async function updatePendingBadge() {
     width:240px;
     border-top:1px solid #111;
     padding-top:8px;
-    text-align:center;
     font-size:11px;
     font-weight:bold;
-    text-transform:uppercase;
-    color:#111;
   }
-
-  /* =========================================================
-     QR
-  ========================================================= */
 
   .print-qr{
     width:100px;
     height:100px;
     object-fit:contain;
-  }
-
-  /* =========================================================
-     EVITAR CORTES
-  ========================================================= */
-
-  .print-header,
-  .print-grid,
-  .print-description,
-  .print-photos,
-  .print-footer{
-    page-break-inside:avoid;
   }
 
 }
