@@ -918,6 +918,133 @@ function renderCertificate(data, id = null) {
 `;
 
   document.getElementById('certContent').innerHTML = certHTML;
+  const printHTML = `
+
+<div class="print-page">
+
+  <div class="print-header">
+
+    <img src="${logoBomberos}" class="print-logo">
+
+    <div class="print-title">
+
+      <h1>
+        BENEMÉRITO CUERPO DE BOMBEROS VOLUNTARIOS
+      </h1>
+
+      <p>
+        REPORTE OFICIAL DE INTERVENCIÓN
+      </p>
+
+    </div>
+
+    <img src="${logoMunicipio}" class="print-logo">
+
+  </div>
+
+  <div class="print-doc">
+    DOCUMENTO: CB-${docNum}
+  </div>
+
+  <div class="print-section-title">
+    INFORMACIÓN GENERAL
+  </div>
+
+  <div class="print-grid">
+
+    <div class="print-field">
+      <span class="print-label">Fecha</span>
+      <div class="print-value">
+        ${formatDate(data.fecha)}
+      </div>
+    </div>
+
+    <div class="print-field">
+      <span class="print-label">Evento</span>
+      <div class="print-value">
+        ${data.evento || '—'}
+      </div>
+    </div>
+
+    <div class="print-field">
+      <span class="print-label">Hora reporte</span>
+      <div class="print-value">
+        ${data.horaReporte || '—'}
+      </div>
+    </div>
+
+    <div class="print-field">
+      <span class="print-label">Hora llegada</span>
+      <div class="print-value">
+        ${data.horaLlegada || '—'}
+      </div>
+    </div>
+
+    <div class="print-field">
+      <span class="print-label">Dirección</span>
+      <div class="print-value">
+        ${data.direccion || '—'}
+      </div>
+    </div>
+
+    <div class="print-field">
+      <span class="print-label">Vehículo</span>
+      <div class="print-value">
+        ${data.vehiculo || '—'}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="print-section-title">
+    DESCRIPCIÓN DEL INCIDENTE
+  </div>
+
+  <div class="print-description">
+    ${(data.descripcion || '—').replace(/\n/g,'<br>')}
+  </div>
+
+  ${
+    data.photos?.length
+      ? `
+      <div class="print-section-title">
+        EVIDENCIA FOTOGRÁFICA
+      </div>
+
+      <div class="print-photos">
+
+        ${data.photos.map(photo => `
+          <img src="${photo}">
+        `).join('')}
+
+      </div>
+    `
+      : ''
+  }
+
+  <div class="print-footer">
+
+    <div class="print-sign">
+
+      <img src="${IMG_FIRMA}" class="print-sign-img">
+
+      <div class="print-sign-line">
+        COMANDANTE
+      </div>
+
+    </div>
+
+    <div>
+
+      <img src="${qrCodeImg}" class="print-qr">
+
+    </div>
+
+  </div>
+
+</div>
+`;
+  document.getElementById('printCert').innerHTML = printHTML;
   document.getElementById('certModal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
 
