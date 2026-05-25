@@ -1582,160 +1582,155 @@ async function updatePendingBadge() {
 }
 
 /* =========================
-   SOLO IMPRESIÓN
+   IMPRESIÓN
 ========================= */
 
-#certContent .print-page{
-    width:210mm;
-    min-height:297mm;
-    background:#fff;
-    color:#111;
-    padding:18mm;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-    position:relative;
-}
-
-#certContent .print-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:2px solid #c62828;
-    padding-bottom:10px;
-    margin-bottom:20px;
-}
-
-#certContent .print-logo{
-    width:90px;
-    height:auto;
-}
-
-#certContent .print-title{
-    text-align:center;
-    flex:1;
-}
-
-#certContent .print-title h1{
-    margin:0;
-    font-size:24px;
-    color:#b71c1c;
-}
-
-#certContent .print-title p{
-    margin:4px 0 0;
-    font-size:13px;
-}
-
-#certContent .print-doc{
-    text-align:right;
-    font-size:12px;
-}
-
-#certContent .print-section{
-    margin-bottom:18px;
-}
-
-#certContent .print-section-title{
-    background:#b71c1c;
-    color:#fff;
-    padding:8px 12px;
-    font-weight:bold;
-    margin-bottom:10px;
-    border-radius:4px;
-}
-
-#certContent .print-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-#certContent .print-field{
-    display:flex;
-    flex-direction:column;
-}
-
-#certContent .print-label{
-    font-size:11px;
-    font-weight:bold;
-    color:#555;
-    margin-bottom:4px;
-    text-transform:uppercase;
-}
-
-#certContent .print-value{
-    border:1px solid #ccc;
-    padding:8px;
-    border-radius:4px;
-    min-height:18px;
-}
-
-#certContent .print-description{
-    border:1px solid #ccc;
-    padding:12px;
-    border-radius:4px;
-    line-height:1.5;
-    min-height:120px;
-}
-
-#certContent .print-photos{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-#certContent .print-photos img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-    border-radius:6px;
-    border:1px solid #ccc;
-}
-
-#certContent .print-footer{
-    margin-top:40px;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-}
-
-#certContent .print-sign{
-    width:250px;
-    text-align:center;
-}
-
-#certContent .print-sign-line{
-    border-top:1px solid #000;
-    margin-top:60px;
-    padding-top:8px;
-}
-
-#certContent .print-qr{
-    width:100px;
+#printCert{
+  display:none;
 }
 
 @media print {
 
-    body *{
-        visibility:hidden;
-    }
+  body *{
+    visibility:hidden;
+  }
 
-    #certModal,
-    #certModal *{
-        visibility:visible;
-    }
+  #printCert,
+  #printCert *{
+    visibility:visible;
+  }
 
-    #certModal{
-        position:absolute;
-        left:0;
-        top:0;
-        width:100%;
-        background:white;
-    }
+  #printCert{
+    display:block;
+    position:absolute;
+    inset:0;
+    background:white;
+  }
 
-    #certContent .print-page{
-        margin:0;
-        box-shadow:none;
-    }
+  .print-page{
+    width:210mm;
+    min-height:297mm;
+    padding:15mm;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+    color:#111;
+    background:white;
+  }
+
+  .print-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:3px solid #b71c1c;
+    padding-bottom:12px;
+    margin-bottom:18px;
+  }
+
+  .print-logo{
+    width:80px;
+  }
+
+  .print-title{
+    flex:1;
+    text-align:center;
+    padding:0 20px;
+  }
+
+  .print-title h1{
+    margin:0;
+    font-size:24px;
+    color:#b71c1c;
+  }
+
+  .print-title p{
+    margin-top:6px;
+    font-size:13px;
+  }
+
+  .print-doc{
+    text-align:right;
+    margin-bottom:18px;
+    font-size:12px;
+    font-weight:bold;
+  }
+
+  .print-section-title{
+    background:#b71c1c;
+    color:white;
+    padding:10px;
+    font-weight:bold;
+    margin:18px 0 10px;
+  }
+
+  .print-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .print-field{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .print-label{
+    font-size:11px;
+    font-weight:bold;
+    margin-bottom:4px;
+    text-transform:uppercase;
+  }
+
+  .print-value{
+    border:1px solid #ccc;
+    padding:10px;
+    border-radius:4px;
+  }
+
+  .print-description{
+    border:1px solid #ccc;
+    padding:14px;
+    min-height:120px;
+    line-height:1.5;
+  }
+
+  .print-photos{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .print-photos img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border:1px solid #ccc;
+  }
+
+  .print-footer{
+    margin-top:40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+  }
+
+  .print-sign{
+    text-align:center;
+  }
+
+  .print-sign-img{
+    max-width:140px;
+    max-height:70px;
+    object-fit:contain;
+  }
+
+  .print-sign-line{
+    border-top:1px solid #000;
+    padding-top:8px;
+    width:240px;
+  }
+
+  .print-qr{
+    width:100px;
+  }
 
 }
