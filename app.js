@@ -1055,7 +1055,9 @@ function closeModal() {
 }
 
 function printCertificate() {
+  setTimeout(() => {
   window.print();
+}, 300);
 }
 
 // Close modal on overlay click
