@@ -1583,27 +1583,23 @@ async function updatePendingBadge() {
 
 
 /* =========================================================
-   IMPRESIÓN PROFESIONAL OFICIAL
+   IMPRESIÓN INSTITUCIONAL PREMIUM
 ========================================================= */
 
 @media print {
 
-  /* -----------------------------------------------------
-     CONFIGURACIÓN GENERAL
-  ----------------------------------------------------- */
-
   @page{
-    size: A4;
-    margin: 14mm;
+    size:A4;
+    margin:0;
   }
 
   html,
   body{
-    background:#fff !important;
     margin:0 !important;
     padding:0 !important;
-    font-family:"Times New Roman", serif !important;
-    color:#000 !important;
+    background:#fff !important;
+    font-family:"Georgia", serif !important;
+    color:#1a1a1a !important;
     -webkit-print-color-adjust:exact;
     print-color-adjust:exact;
   }
@@ -1622,277 +1618,549 @@ async function updatePendingBadge() {
     inset:0 !important;
     background:#fff !important;
     overflow:visible !important;
-    padding:0 !important;
     margin:0 !important;
+    padding:0 !important;
   }
 
   #certContent{
-    width:100% !important;
-    max-width:none !important;
-    margin:0 auto !important;
+
+    position:relative;
+    width:100%;
+    min-height:100vh;
+
     background:#fff !important;
+
+    padding:
+      42mm
+      22mm
+      28mm
+      22mm !important;
+
+    box-sizing:border-box;
+
     border:none !important;
-    box-shadow:none !important;
     border-radius:0 !important;
-    padding:0 !important;
+    box-shadow:none !important;
+
+    overflow:hidden;
   }
 
-  /* -----------------------------------------------------
+  /* =====================================================
+     CABECERA SUPERIOR ROJA
+  ===================================================== */
+
+  #certContent::before{
+
+    content:'';
+
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+
+    height:135px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #9e1111 0%,
+        #c62828 100%
+      );
+
+    z-index:0;
+
+    clip-path:ellipse(120% 100% at 50% 0%);
+  }
+
+  /* =====================================================
+     CURVA BLANCA DECORATIVA
+  ===================================================== */
+
+  #certContent::after{
+
+    content:'';
+
+    position:absolute;
+
+    top:72px;
+    left:-5%;
+    width:110%;
+    height:110px;
+
+    background:#fff;
+
+    border-radius:50%;
+
+    z-index:0;
+  }
+
+  /* =====================================================
      HEADER
-  ----------------------------------------------------- */
+  ===================================================== */
 
   .cert-header{
-    border-bottom:2px solid #000;
-    padding-bottom:14px;
-    margin-bottom:20px;
+
+    position:relative;
+    z-index:5;
+
+    border:none !important;
+
+    margin-bottom:38px;
+
+    padding:0;
   }
 
   .cert-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+
+    display:grid;
+    grid-template-columns:120px 1fr 120px;
+
+    align-items:start;
+
     gap:20px;
   }
 
   .cert-logo-side{
-    width:110px;
+
     display:flex;
     align-items:center;
     justify-content:center;
   }
 
   .cert-logo-img{
-    width:85px !important;
-    height:85px !important;
+
+    width:95px !important;
+    height:95px !important;
+
     object-fit:contain;
+
+    filter:
+      drop-shadow(0 3px 6px rgba(0,0,0,.25));
   }
 
   .cert-center{
-    flex:1;
+
     text-align:center;
+    padding-top:4px;
   }
 
   .cert-subtitle{
-    font-size:18pt !important;
+
+    color:#fff !important;
+
+    font-size:16pt !important;
+
     font-weight:700 !important;
-    letter-spacing:.5px;
+
+    letter-spacing:4px;
+
     text-transform:uppercase;
-    margin-bottom:10px;
+
+    margin-top:4px;
+    margin-bottom:32px;
+
+    text-shadow:
+      0 1px 2px rgba(0,0,0,.25);
   }
 
-  .cert-doc-num,
-  .cert-doc-date{
+  .cert-doc-num{
+
     font-size:11pt;
-    margin-top:3px;
+    font-weight:700;
+    color:#222;
+
+    margin-bottom:4px;
   }
 
-  /* -----------------------------------------------------
+  .cert-doc-date{
+
+    font-size:10pt;
+    color:#444;
+  }
+
+  /* =====================================================
      TÍTULO
-  ----------------------------------------------------- */
+  ===================================================== */
 
   .cert-body-title{
+
+    position:relative;
+    z-index:5;
+
     text-align:center;
-    font-size:15pt !important;
-    font-weight:700 !important;
+
+    font-size:18pt !important;
+
+    font-weight:700;
+
     text-transform:uppercase;
-    border:1.5px solid #000;
-    padding:10px;
-    margin-bottom:20px;
-    background:#f5f5f5 !important;
+
+    letter-spacing:1px;
+
+    color:#8b0000;
+
+    margin-bottom:30px;
+
+    padding-bottom:10px;
+
+    border-bottom:
+      2px solid #c9c9c9;
+
+    background:none !important;
   }
 
-  /* -----------------------------------------------------
-     GRID INFORMACIÓN
-  ----------------------------------------------------- */
+  /* =====================================================
+     GRID
+  ===================================================== */
 
   .cert-grid{
+
+    position:relative;
+    z-index:5;
+
     display:grid !important;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-bottom:18px;
+
+    grid-template-columns:
+      1fr 1fr;
+
+    gap:14px;
+
+    margin-bottom:22px;
   }
 
   .cert-field{
-    border:1px solid #000;
-    padding:10px;
-    border-radius:0 !important;
-    background:#fff !important;
+
+    border:none !important;
+
+    border-left:
+      4px solid #a71919;
+
+    background:
+      #fafafa !important;
+
+    padding:
+      12px
+      14px;
+
+    border-radius:4px;
+
     break-inside:avoid;
   }
 
   .cert-field.full{
-    grid-column:1 / -1;
+    grid-column:1/-1;
   }
 
   .cert-label{
-    font-size:10pt !important;
+
+    font-size:9pt !important;
+
     font-weight:700 !important;
+
+    letter-spacing:1px;
+
     text-transform:uppercase;
+
+    color:#8b0000;
+
     margin-bottom:6px;
-    border-bottom:1px solid #999;
-    padding-bottom:4px;
   }
 
   .cert-value{
+
     font-size:11pt !important;
+
     line-height:1.5;
+
+    color:#222;
   }
 
   .cert-desc-box{
+
     font-size:11pt;
-    line-height:1.7;
+
+    line-height:1.9;
+
     text-align:justify;
-    white-space:normal;
+
+    color:#222;
   }
 
-  /* -----------------------------------------------------
+  /* =====================================================
      VÍCTIMAS
-  ----------------------------------------------------- */
+  ===================================================== */
 
   .cert-victims-bar{
+
     display:grid;
+
     grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin:20px 0;
+
+    gap:16px;
+
+    margin:
+      28px 0;
   }
 
   .cert-victim-box{
-    border:1.5px solid #000;
+
+    background:
+      linear-gradient(
+        135deg,
+        #9e1111,
+        #7f0000
+      ) !important;
+
+    color:#fff !important;
+
+    border:none !important;
+
+    padding:18px;
+
+    border-radius:10px;
+
     text-align:center;
-    padding:14px;
   }
 
   .cert-victim-num{
-    font-size:24pt;
+
+    font-size:28pt;
+
     font-weight:700;
-    margin-bottom:6px;
+
+    margin-bottom:8px;
   }
 
   .cert-victim-label{
-    font-size:11pt;
+
+    font-size:10pt;
+
     text-transform:uppercase;
+
+    letter-spacing:1px;
+
     font-weight:700;
   }
 
-  /* -----------------------------------------------------
+  /* =====================================================
      FOTOS
-  ----------------------------------------------------- */
+  ===================================================== */
 
   .cert-photo-section{
-    margin-top:25px;
+
+    margin-top:30px;
+
     page-break-inside:avoid;
   }
 
   .cert-photo-title{
+
     font-size:13pt;
+
     font-weight:700;
+
     text-transform:uppercase;
-    margin-bottom:12px;
-    border-bottom:2px solid #000;
-    padding-bottom:6px;
+
+    color:#8b0000;
+
+    border-bottom:
+      2px solid #d5d5d5;
+
+    padding-bottom:8px;
+
+    margin-bottom:14px;
   }
 
   .cert-photo-grid{
+
     display:grid;
+
     grid-template-columns:1fr 1fr;
-    gap:12px;
+
+    gap:14px;
   }
 
   .cert-photo-card{
-    border:1px solid #000;
-    padding:4px;
-    background:#fff !important;
+
+    border:none !important;
+
+    overflow:hidden;
+
+    border-radius:8px;
+
+    background:#fff;
+
+    box-shadow:
+      0 2px 8px rgba(0,0,0,.12);
   }
 
   .cert-photo-card img{
+
     width:100%;
+
     height:240px;
+
     object-fit:cover;
+
     display:block;
   }
 
-  /* -----------------------------------------------------
+  /* =====================================================
      FOOTER
-  ----------------------------------------------------- */
+  ===================================================== */
 
   .cert-footer{
+
     margin-top:40px;
-    padding-top:25px;
-    border-top:2px solid #000;
+
+    padding-top:26px;
+
+    border-top:
+      1px solid #cfcfcf;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:flex-end;
-    gap:20px;
+
+    gap:24px;
   }
 
   .cert-footer-left{
+
     flex:1;
+
     display:flex;
+
     justify-content:space-between;
-    gap:20px;
+
+    gap:18px;
   }
 
   .cert-signature{
+
     flex:1;
+
     text-align:center;
   }
 
   .cert-signature-img-wrap{
-    height:70px;
+
+    height:72px;
+
     display:flex;
+
     align-items:flex-end;
+
     justify-content:center;
   }
 
   .cert-firma-img{
-    max-height:65px;
+
+    max-height:70px;
+
     object-fit:contain;
   }
 
   .cert-signature-line{
-    border-top:1.5px solid #000;
-    margin-top:5px;
-    margin-bottom:6px;
+
+    border-top:
+      1.5px solid #333;
+
+    margin-top:6px;
+
+    margin-bottom:7px;
   }
 
   .cert-signature-role{
-    font-size:10pt;
+
+    font-size:9pt;
+
     font-weight:700;
+
     text-transform:uppercase;
+
+    letter-spacing:.5px;
   }
 
-  /* -----------------------------------------------------
+  /* =====================================================
      QR
-  ----------------------------------------------------- */
+  ===================================================== */
 
   .cert-footer-right{
+
     width:150px;
+
     text-align:center;
   }
 
   .cert-qr{
-    width:110px !important;
-    height:110px !important;
-    object-fit:contain;
-    border:1px solid #000;
-    padding:4px;
-    background:#fff !important;
+
+    width:105px !important;
+    height:105px !important;
+
+    padding:6px;
+
+    background:#fff;
+
+    border:
+      1px solid #d7d7d7;
+
+    border-radius:8px;
   }
 
   .cert-qr-text{
+
     margin-top:8px;
-    font-size:9pt;
+
+    font-size:8.5pt;
+
+    color:#555;
+
     line-height:1.4;
   }
 
-  /* -----------------------------------------------------
-     SALTOS
-  ----------------------------------------------------- */
+  /* =====================================================
+     MARCA DE AGUA
+  ===================================================== */
 
-  .cert-photo-section,
-  .cert-footer,
+  .cert-center::after{
+
+    content:'';
+
+    position:fixed;
+
+    top:35%;
+    left:50%;
+
+    transform:
+      translate(-50%,-50%);
+
+    width:420px;
+    height:420px;
+
+    background-image:
+      url('/logo-bomberos.png');
+
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:contain;
+
+    opacity:.035;
+
+    z-index:-1;
+  }
+
+  /* =====================================================
+     EVITAR CORTES
+  ===================================================== */
+
   .cert-field,
-  .cert-victim-box{
+  .cert-victim-box,
+  .cert-photo-card,
+  .cert-footer,
+  .cert-photo-section{
     page-break-inside:avoid;
   }
 
