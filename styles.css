@@ -582,7 +582,7 @@ textarea { resize: vertical; min-height: 100px; }
 }
 
 .cert-preview-wrapper .page {
-  font-family: "Garamond", "Georgia", serif;
+  font-family: "Century Gothic", sans-serif;
 }
 
 /* Hoja A4 simulada */
@@ -591,7 +591,7 @@ textarea { resize: vertical; min-height: 100px; }
 ============================================================ */
 
 .page {
-  font-family: "Garamond", "Georgia", serif;
+  font-family: "Century Gothic", sans-serif;
   color: #222;
   background: #fff;
 
@@ -703,6 +703,7 @@ textarea { resize: vertical; min-height: 100px; }
 }
 
 .cert-inst-name p {
+  font-family: "Century Gothic", sans-serif;
   font-size: 9pt;
   color: #555;
   margin-top: 2px;
