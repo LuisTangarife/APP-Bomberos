@@ -709,6 +709,16 @@ textarea { resize: vertical; min-height: 100px; }
    Paleta: amarillo/negro institucional Villamaría, Caldas
    ============================================================ */
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Garamond", "Georgia", serif;
+  color: #222;
+  background: #e8e8e8;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
 
 /* Hoja A4 simulada */
 .page {
