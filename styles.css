@@ -714,16 +714,10 @@ textarea { resize: vertical; min-height: 100px; }
 .page {
   width: 794px;
   min-height: 1123px;
-
   background: #fff;
-
-  font-family: "Garamond", "Georgia", serif;
-
   position: relative;
 
-  overflow: hidden;
-
-  margin: 0 auto;
+  overflow: visible;
 
   box-shadow: 0 4px 32px rgba(0,0,0,.18);
 }
