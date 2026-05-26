@@ -478,7 +478,13 @@ textarea { resize: vertical; min-height: 100px; }
 
 
 
-/* ───────────────────────────── */
+/* ============================================================
+   SUBIDA DE FOTOS
+============================================================ */
+
+.photo-upload-box{
+  border: 2px dashed rgba(255,255,255,.12);
+  border-radius: 20px;
   padding: 34px 20px;
   text-align: center;
   cursor: pointer;
