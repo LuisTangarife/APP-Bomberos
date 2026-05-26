@@ -883,10 +883,34 @@ function closeModal() {
 
 function printCertificate() {
 
-  setTimeout(() => {
-    printWindow.focus();
-    printWindow.print();
-  }, 700);
+  if (!currentPrintHTML) {
+    alert('Primero genera el certificado.');
+    return;
+  }
+
+  const printWindow = window.open('', '_blank');
+
+  if (!printWindow) {
+    alert('El navegador bloqueó la ventana emergente.');
+    return;
+  }
+
+  printWindow.document.open();
+
+  printWindow.document.write(currentPrintHTML);
+
+  printWindow.document.close();
+
+  printWindow.onload = () => {
+
+    setTimeout(() => {
+
+      printWindow.focus();
+      printWindow.print();
+
+    }, 500);
+
+  };
 
 }
 // Close modal on overlay click
