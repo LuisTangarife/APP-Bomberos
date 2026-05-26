@@ -788,37 +788,27 @@ textarea { resize: vertical; min-height: 100px; }
 /* Descripción / novedades */
 .cert-desc-box {
 
-  /* separación superior */
   margin-top: 8px;
 
-  /* espacio interno */
-  padding: 14px 18px;
+  padding-left: 16px;
 
-  /* borde institucional lateral */
-  border-left: 3px solid #c5a100;
+  border-left: 2px solid #c5a100;
 
-  /* fondo gris claro */
-  background: #f3f3f3;
+  background: transparent;
 
-  /* tipografía */
-  font-size: 11pt;
+  font-size: 11.5pt;
   line-height: 1.9;
   color: #222;
 
-  /* alineación del texto */
   text-align: justify;
 
-  /* conserva saltos de línea */
   white-space: pre-wrap;
 
-  /* evita desbordamiento horizontal */
   word-break: break-word;
   overflow-wrap: break-word;
 
-  /* nunca exceder ancho del contenedor */
   max-width: 100%;
 
-  /* evita cortes feos al imprimir */
   page-break-inside: avoid;
 }
 
