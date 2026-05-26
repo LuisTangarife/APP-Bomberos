@@ -526,7 +526,7 @@ textarea { resize: vertical; min-height: 100px; }
 @media (max-width: 500px) {
   .cert-grid { grid-template-columns: 1fr; }
 }
-.cert-field { border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.cert-field { border-bottom: none; padding-bottom: 8px; }
 .cert-label {
   font-size: 0.68rem;
   font-weight: 600;
