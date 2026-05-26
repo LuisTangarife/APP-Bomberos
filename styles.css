@@ -893,9 +893,6 @@ textarea { resize: vertical; min-height: 100px; }
 }
 
 /* ---- Campos de datos ---- */
-.cert-field {
-  margin-bottom: 16px;
-}
 
 .cert-field.full {
   margin-top: 24px;
