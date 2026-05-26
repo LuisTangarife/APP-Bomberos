@@ -618,7 +618,7 @@ function renderCertificate(data, id = null) {
 
   <!-- Marca de agua -->
   <img class="watermark"
-       src="${logoBomberos}"
+       src="${logoMunicipio}"
        alt="">
 
   <!-- BARRA SUPERIOR — igual que "ACADEMIA NACIONAL DE BOMBEROS DE CHILE" -->
@@ -634,7 +634,7 @@ function renderCertificate(data, id = null) {
 
       <!-- Logo centrado igual que el escudo chileno -->
       <img class="cert-logo-center"
-           src="${logoBomberos}"
+           src="${logoMunicipio}"
            alt="Bomberos Colombia">
 
       <!-- Nombre institucional -->
