@@ -912,27 +912,38 @@ textarea { resize: vertical; min-height: 100px; }
 /* Descripción con borde lateral — idéntico a Chile */
 /* Descripción / novedades */
 .cert-desc-box {
+
+  /* separación superior */
   margin-top: 8px;
+
+  /* espacio interno */
   padding: 14px 18px;
 
+  /* borde institucional lateral */
   border-left: 3px solid #c5a100;
-  background: rgba(245, 196, 0, 0.04);
 
+  /* fondo gris claro */
+  background: #f3f3f3;
+
+  /* tipografía */
   font-size: 11pt;
   line-height: 1.9;
   color: #222;
 
+  /* alineación del texto */
   text-align: justify;
 
-  /* IMPORTANTE */
+  /* conserva saltos de línea */
   white-space: pre-wrap;
+
+  /* evita desbordamiento horizontal */
   word-break: break-word;
   overflow-wrap: break-word;
 
-  /* evita que se salga */
+  /* nunca exceder ancho del contenedor */
   max-width: 100%;
 
-  /* evita cortes raros en impresión */
+  /* evita cortes feos al imprimir */
   page-break-inside: avoid;
 }
 
