@@ -711,13 +711,19 @@ textarea { resize: vertical; min-height: 100px; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
-  font-family: "Garamond", "Georgia", serif;
-  color: #222;
+/* ============================================================
+   SOLO CERTIFICADO / PREVIEW PDF
+============================================================ */
+
+.cert-preview-wrapper {
   background: #e8e8e8;
   display: flex;
   justify-content: center;
   padding: 40px 20px;
+}
+
+.cert-preview-wrapper .page {
+  font-family: "Garamond", "Georgia", serif;
 }
 
 /* Hoja A4 simulada */
