@@ -645,8 +645,8 @@ function renderCertificate(data, id = null) {
 
       <!-- Número y fecha del documento -->
       <div class="cert-doc-info">
-        <p class="cert-doc-num">DOC: CB-${docNum}</div>
-        <p class="cert-doc-date">Emitido: ${emitted}</div>
+        <p class="cert-doc-num">DOC: CB-${docNum}</p>
+        <p class="cert-doc-date">Emitido: ${emitted}</p>
       </div>
 
   </div>
