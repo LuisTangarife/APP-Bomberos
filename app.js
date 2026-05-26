@@ -865,12 +865,6 @@ currentPrintHTML = `
 
 </html>
 `;
-
-  const printWindow = window.open('', '_blank');
-
-  printWindow.document.open();
-  printWindow.document.write(currentPrintHTML);
-  printWindow.document.close();
   
   document.getElementById('certModal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
