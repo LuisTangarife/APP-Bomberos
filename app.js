@@ -54,19 +54,34 @@ function openDB() {
 
 function saveToIDB(data) {
   return new Promise((resolve, reject) => {
+
     const tx = db.transaction(STORE, 'readwrite');
+
+    const store = tx.objectStore(STORE);
+
     const report = {
       ...data,
       synced: navigator.onLine,
       pending: !navigator.onLine,
       createdAt: Date.now()
     };
-    
-    tx.objectStore(STORE).add(report).onsuccess = e => resolve(e.target.result);
-    tx.onerror = e => reject(e.target.error);
+
+    const request = store.add(report);
+
+    request.onsuccess = e => {
+      resolve(e.target.result);
+    };
+
+    request.onerror = e => {
+      reject(e.target.error);
+    };
+
+    tx.onerror = e => {
+      reject(e.target.error);
+    };
+
   });
 }
-
 function getAllFromIDB() {
   return new Promise((resolve, reject) => {
     const req = db.transaction(STORE).objectStore(STORE).getAll();
@@ -472,7 +487,6 @@ async function saveReport() {
     await loadSavedReports();
     fb.textContent = `✔ Reporte #${id} guardado correctamente en este dispositivo.`;
     fb.className = 'save-feedback ok';
-    loadSavedReports();
     setTimeout(() => { fb.textContent = ''; fb.className = 'save-feedback'; }, 4000);
   } catch (e) {
     fb.textContent = '⚠️ Error al guardar. Intente de nuevo.';
