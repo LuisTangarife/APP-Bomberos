@@ -645,8 +645,8 @@ function renderCertificate(data, id = null) {
 
       <!-- Número y fecha del documento -->
       <div class="cert-doc-info">
-        <p class="cert-doc-num">DOC: CB-00019</p>
-        <p class="cert-doc-date">23 de mayo de 2026</p>
+        <p class="cert-doc-num">DOC: CB-${docNum}</div>
+        <p class="cert-doc-date">Emitido: ${emitted}</div>
       </div>
 
   </div>
@@ -675,27 +675,27 @@ function renderCertificate(data, id = null) {
 
     <div class="cert-field">
       <div class="cert-label">Hora de Reporte</div>
-      <div class="cert-value">${data.horaReporte || '—'}</div>
+      <div class="cert-value">${data.horaReporte}</div>
     </div>
 
     <div class="cert-field">
       <div class="cert-label">Hora de Llegada al Sitio</div>
-      <div class="cert-value">${data.horaLlegada || '—'}</div>
+      <div class="cert-value">${data.horaLlegada}</div>
     </div>
 
     <div class="cert-field">
       <div class="cert-label">Hora Final</div>
-      <div class="cert-value">${data.horaFinal || '—'}</div>
+      <div class="cert-value">${data.horaFinal}</div>
     </div>
 
     <div class="cert-field">
       <div class="cert-label">Lugar</div>
-      <div class="cert-value">${data.lugar || '—'}</div>
+      <div class="cert-value">${data.lugar}</div>
     </div>
 
     <div class="cert-field">
       <div class="cert-label">Dirección</div>
-      <div class="cert-value">${data.direccion || '—'}</div>
+      <div class="cert-value">${data.direccion}</div>
     </div>
 
     <div class="cert-field">
@@ -705,23 +705,23 @@ function renderCertificate(data, id = null) {
 
     <div class="cert-field">
       <div class="cert-label">Tipo de Evento</div>
-      <div class="cert-value">${data.evento || '—'}</div>
+      <div class="cert-value">${data.evento}</div>
     </div>
 
     <div class="cert-field">
       <div class="cert-label">Vehículo Desplegado</div>
-      <div class="cert-value">${data.vehiculo || '—'}</div>
+      <div class="cert-value">${data.vehiculo}</div>
     </div>
 
     <div class="cert-field">
       <div class="cert-label">Personal Comisionado</div>
-      <div class="cert-value">${data.personal || '—'}</div>
+      <div class="cert-value">${data.personal}</div>
     </div>
 
     <!-- DESCRIPCIÓN -->
     <div class="cert-field full">
       <div class="cert-label">Descripción del Incidente</div>
-      <div class="cert-desc-box">${(data.descripcion || '—').replace(/\n/g,'<br>')}</div>
+      <div class="cert-desc-box">${(data.descripcion).replace(/\n/g,'<br>')}</div>
 
     </div>
 
