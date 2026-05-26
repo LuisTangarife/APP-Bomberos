@@ -1,3 +1,4 @@
+let currentPrintHTML = '';
 window.uploadedPhotos = [];
 // ── SERVICE WORKER REGISTRATION ──────────────────────────────────────────
 if ('serviceWorker' in navigator) {
@@ -867,7 +868,7 @@ currentPrintHTML = `
   const printWindow = window.open('', '_blank');
 
   printWindow.document.open();
-  printWindow.document.write(printHTML);
+  printWindow.document.write(currentPrintHTML);
   printWindow.document.close();
   
   document.getElementById('certModal').style.display = 'flex';
@@ -880,12 +881,6 @@ function closeModal() {
 }
 
 function printCertificate() {
-
-  const printWindow = window.open('', '_blank');
-
-  printWindow.document.open();
-  printWindow.document.write(currentPrintHTML);
-  printWindow.document.close();
 
   setTimeout(() => {
     printWindow.focus();
