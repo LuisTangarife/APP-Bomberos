@@ -648,8 +648,9 @@ function renderCertificate(data, id = null) {
         <p class="cert-doc-date">23 de mayo de 2026</p>
       </div>
 
-    </div>
   </div>
+  </div>
+  <div class="cert-body">
   <!-- ───────────────────────────── -->
   <!-- TÍTULO -->
   <!-- ───────────────────────────── -->
@@ -771,7 +772,7 @@ function renderCertificate(data, id = null) {
       </div>
     </div>
     ` : ''}
-
+</div>
 <!-- ───────────────────────────── -->
 <!-- FOOTER -->
 <!-- ───────────────────────────── -->
@@ -832,133 +833,43 @@ function renderCertificate(data, id = null) {
 `;
 
   document.getElementById('certContent').innerHTML = certHTML;
-  const printHTML = `
+  const styles = Array.from(document.styleSheets)
+  .map(sheet => {
+    try {
+      return Array.from(sheet.cssRules)
+        .map(rule => rule.cssText)
+        .join('');
+    } catch (e) {
+      return '';
+    }
+  })
+  .join('');
 
-<div class="print-page">
+currentPrintHTML = `
+<!DOCTYPE html>
+<html lang="es">
 
-  <div class="print-header">
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte Bomberos</title>
 
-    <img src="${logoBomberos}" class="print-logo">
+  <style>
+    ${styles}
+  </style>
+</head>
 
-    <div class="print-title">
+<body>
+  ${certHTML}
+</body>
 
-      <h1>
-        BENEMÉRITO CUERPO DE BOMBEROS VOLUNTARIOS
-      </h1>
-
-      <p>
-        REPORTE OFICIAL DE INTERVENCIÓN
-      </p>
-
-    </div>
-
-    <img src="${logoMunicipio}" class="print-logo">
-
-  </div>
-
-  <div class="print-doc">
-    DOCUMENTO: CB-${docNum}
-  </div>
-
-  <div class="print-section-title">
-    INFORMACIÓN GENERAL
-  </div>
-
-  <div class="print-grid">
-
-    <div class="print-field">
-      <span class="print-label">Fecha</span>
-      <div class="print-value">
-        ${formatDate(data.fecha)}
-      </div>
-    </div>
-
-    <div class="print-field">
-      <span class="print-label">Evento</span>
-      <div class="print-value">
-        ${data.evento || '—'}
-      </div>
-    </div>
-
-    <div class="print-field">
-      <span class="print-label">Hora reporte</span>
-      <div class="print-value">
-        ${data.horaReporte || '—'}
-      </div>
-    </div>
-
-    <div class="print-field">
-      <span class="print-label">Hora llegada</span>
-      <div class="print-value">
-        ${data.horaLlegada || '—'}
-      </div>
-    </div>
-
-    <div class="print-field">
-      <span class="print-label">Dirección</span>
-      <div class="print-value">
-        ${data.direccion || '—'}
-      </div>
-    </div>
-
-    <div class="print-field">
-      <span class="print-label">Vehículo</span>
-      <div class="print-value">
-        ${data.vehiculo || '—'}
-      </div>
-    </div>
-
-  </div>
-
-  <div class="print-section-title">
-    DESCRIPCIÓN DEL INCIDENTE
-  </div>
-
-  <div class="print-description">
-    ${(data.descripcion || '—').replace(/\n/g,'<br>')}
-  </div>
-
-  ${
-    data.photos?.length
-      ? `
-      <div class="print-section-title">
-        EVIDENCIA FOTOGRÁFICA
-      </div>
-
-      <div class="print-photos">
-
-        ${data.photos.map(photo => `
-          <img src="${photo}">
-        `).join('')}
-
-      </div>
-    `
-      : ''
-  }
-
-  <div class="print-footer">
-
-    <div class="print-sign">
-
-      <img src="${IMG_FIRMA}" class="print-sign-img">
-
-      <div class="print-sign-line">
-        COMANDANTE
-      </div>
-
-    </div>
-
-    <div>
-
-      <img src="${qrCodeImg}" class="print-qr">
-
-    </div>
-
-  </div>
-
-</div>
+</html>
 `;
-  document.getElementById('printCert').innerHTML = printHTML;
+  const printWindow = window.open('', '_blank');
+
+  printWindow.document.open();
+  printWindow.document.write(printHTML);
+  printWindow.document.close();
+  
   document.getElementById('certModal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
 
@@ -969,11 +880,19 @@ function closeModal() {
 }
 
 function printCertificate() {
-  setTimeout(() => {
-  window.print();
-}, 300);
-}
 
+  const printWindow = window.open('', '_blank');
+
+  printWindow.document.open();
+  printWindow.document.write(currentPrintHTML);
+  printWindow.document.close();
+
+  setTimeout(() => {
+    printWindow.focus();
+    printWindow.print();
+  }, 700);
+
+}
 // Close modal on overlay click
 document.getElementById('certModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
