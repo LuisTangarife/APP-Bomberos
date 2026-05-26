@@ -709,26 +709,22 @@ textarea { resize: vertical; min-height: 100px; }
    Paleta: amarillo/negro institucional Villamaría, Caldas
    ============================================================ */
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: "Garamond", "Georgia", serif;
-  color: #222;
-  background: #e8e8e8;
-  display: flex;
-  justify-content: center;
-  padding: 40px 20px;
-}
 
 /* Hoja A4 simulada */
 .page {
   width: 794px;
   min-height: 1123px;
+
   background: #fff;
+  color: #222;
+
+  font-family: "Garamond", "Georgia", serif;
+
   position: relative;
 
-  /* CAMBIAR */
-  overflow: visible;
+  overflow: hidden;
+
+  margin: 0 auto;
 
   box-shadow: 0 4px 32px rgba(0,0,0,.18);
 }
@@ -864,10 +860,7 @@ body {
   position: relative;
   z-index: 5;
   
-  /* IMPORTANTE */
-  overflow: hidden;
 }
-
 
 /* Título del reporte — mismo estilo que "CERTIFICADO" en Chile */
 .cert-body-title {
@@ -920,25 +913,28 @@ body {
 /* Descripción con borde lateral — idéntico a Chile */
 /* Descripción / novedades */
 .cert-desc-box {
-  margin-top: 8px;
-  padding: 14px 18px;
+  margin-top: 10px;
 
-  border-left: 3px solid #c5a100;
-  background: rgba(245, 196, 0, 0.04);
+  padding: 16px 20px;
+
+  border-left: 4px solid #c5a100;
+
+  background: rgba(245,196,0,.05);
 
   font-size: 11pt;
   line-height: 1.9;
+
   color: #222;
 
   text-align: justify;
 
-  /* IMPORTANTE */
   white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
 
-  /* evita que se salga */
+  overflow-wrap: break-word;
+  word-break: break-word;
+
   max-width: 100%;
+}
 
   /* evita cortes raros en impresión */
   page-break-inside: avoid;
