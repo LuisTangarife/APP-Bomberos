@@ -1595,7 +1595,10 @@ async function updatePendingBadge() {
 /* =========================================================
    SOLO IMPRESIÓN
 ========================================================= */
-
+@page{
+  size:A4;
+  margin:0;
+}
 @media print {
 
   html,
@@ -1608,7 +1611,7 @@ async function updatePendingBadge() {
   /* OCULTAR APP */
 
   body > *{
-    display:none !important;
+    visibility:hidden !important;
   }
 
   /* MOSTRAR PRINT */
@@ -1621,12 +1624,27 @@ async function updatePendingBadge() {
     width:100%;
     background:white;
     z-index:999999;
+  
+    visibility:visible !important;
+    overflow:visible !important;
   }
 
   #printCert *{
     visibility:visible !important;
   }
 
+  img{
+    print-color-adjust:exact !important;
+    -webkit-print-color-adjust:exact !important;
+  }
+  
+  .print-page{
+    page-break-after:always;
+  }
+  
+  .print-page:last-child{
+    page-break-after:auto;
+  }
   /* PÁGINA */
 
   .print-page{
