@@ -658,7 +658,7 @@ function renderCertificate(data, id = null) {
 
 <div class="cert-body-title">
   <h2>
-    Reporte de Intervención — ${data.evento || 'Evento no especificado'}
+    Reporte de Intervención ${data.evento || 'Evento no especificado'}
   </h2>
 </div>
 
