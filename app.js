@@ -884,7 +884,7 @@ function printCertificate() {
 
   setTimeout(() => {
     printWindow.focus();
-    printWindow.print();
+    onclick="printCertificate()"
   }, 700);
 
 }
