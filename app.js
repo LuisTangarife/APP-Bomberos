@@ -541,7 +541,7 @@ async function loadSavedReports() {
         <span class="report-tag">#${r.id}</span>
         <div class="report-info">
           <div class="report-title">${r.evento || '(Sin evento)'} — ${r.lugar || '(Sin lugar)'}</div>
-          <div class="report-meta">${formatDate(r.fecha)} · ${r.horaReporte} · ${r.vehiculo || ''} · ${r.personal || ''}</div>
+          <div class="report-meta">${formatDate(r.fecha)} · ${r.horaReporte} · ${r.vehiculo || ''} · ${Array.isArray(r.personal) ? r.personal.join(', ') : (r.personal || '')}</div>
         </div>
         <div class="report-actions">
           <button class="btn-mini" onclick="showCert(${r.id})">📄 Cert.</button>
