@@ -89,14 +89,18 @@ function saveToIDB(data) {
 async function syncToCloud(data) {
 
   try {
+
     console.log('Enviando a cloud:', data);
-    const response = await fetch(API_URL, {
+
+    await fetch(API_URL, {
       method: 'POST',
       mode: 'no-cors',
       body: JSON.stringify(data)
     });
 
-    return await response.json();
+    return {
+      success: true
+    };
 
   } catch (err) {
 
@@ -106,9 +110,10 @@ async function syncToCloud(data) {
       success: false,
       error: err
     };
-  }
-}
 
+  }
+
+}
 function getAllFromIDB() {
   return new Promise((resolve, reject) => {
     const req = db.transaction(STORE).objectStore(STORE).getAll();
