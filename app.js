@@ -92,9 +92,7 @@ async function syncToCloud(data) {
     console.log('Enviando a cloud:', data);
     const response = await fetch(API_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      mode: 'no-cors',
       body: JSON.stringify(data)
     });
 
