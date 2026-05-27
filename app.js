@@ -84,6 +84,31 @@ function saveToIDB(data) {
 
   });
 }
+async function syncToCloud(data) {
+
+  try {
+
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    return await response.json();
+
+  } catch (err) {
+
+    console.error('Error sincronizando:', err);
+
+    return {
+      success: false,
+      error: err
+    };
+  }
+}
+
 function getAllFromIDB() {
   return new Promise((resolve, reject) => {
     const req = db.transaction(STORE).objectStore(STORE).getAll();
@@ -476,26 +501,113 @@ function validateForm(data) {
 }
 
 async function saveReport() {
-  const data = getFormData();
-  data.photos = window.uploadedPhotos || [];
-  const err = validateForm(data);
   const fb = document.getElementById('saveFeedback');
+
   if (err) {
+
     fb.textContent = err;
     fb.className = 'save-feedback err';
+
     return;
   }
+
   try {
+
+    // =====================
+    // GUARDADO LOCAL
+    // =====================
+
     const id = await saveToIDB(data);
-    await updatePendingBadge();
-    await loadSavedReports();
-    fb.textContent = `✔ Reporte #${id} guardado correctamente en este dispositivo.`;
+
+    // =====================
+    // GENERAR PDF BASE64
+    // =====================
+
+    try {
+
+      const pdfBlob = await generateCertificatePDFBlob();
+
+      data.pdfBase64 = await blobToBase64(pdfBlob);
+
+    } catch(pdfErr) {
+
+      console.warn('No se pudo generar PDF:', pdfErr);
+    }
+
+    // =====================
+    // GOOGLE DRIVE / SHEETS
+    // =====================
+
+    if (navigator.onLine) {
+
+      const syncResult = await syncToCloud(data);
+
+      console.log('Sync cloud:', syncResult);
+    }
+
+    // =====================
+    // UI
+    // =====================
+
+    fb.textContent = `✔ Reporte #${id} guardado correctamente.`;
+
     fb.className = 'save-feedback ok';
-    setTimeout(() => { fb.textContent = ''; fb.className = 'save-feedback'; }, 4000);
+
+    try {
+      await updatePendingBadge();
+      await loadSavedReports();
+    } catch(secErr) {
+      console.warn(secErr);
+    }
+
+    setTimeout(() => {
+      fb.textContent = '';
+      fb.className = 'save-feedback';
+    }, 4000);
+
   } catch (e) {
-    fb.textContent = '⚠️ Error al guardar. Intente de nuevo.';
+
+    console.error(e);
+
+    fb.textContent = '⚠️ Error al guardar. Intente nuevamente';
+
     fb.className = 'save-feedback err';
   }
+}
+
+function blobToBase64(blob) {
+
+  return new Promise((resolve, reject) => {
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => resolve(reader.result);
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function generateCertificatePDFBlob() {
+
+  const element = document.getElementById('printCert');
+
+  const canvas = await html2canvas(element, {
+    scale: 2
+  });
+
+  const imgData = canvas.toDataURL('image/png');
+
+  const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+
+  const width = 210;
+
+  const height = canvas.height * width / canvas.width;
+
+  pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+
+  return pdf.output('blob');
 }
 
 function clearForm() {
