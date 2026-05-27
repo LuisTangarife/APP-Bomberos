@@ -648,21 +648,62 @@ function blobToBase64(blob) {
 
 async function generateCertificatePDFBlob() {
 
-  const element = document.getElementById('printCert');
+  const certElement = document.querySelector('.page');
 
-  const canvas = await html2canvas(element, {
-    scale: 2
+  if (!certElement) {
+    throw new Error('No se encontró el certificado.');
+  }
+
+  // Esperar render
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  // Esperar imágenes
+  const images = certElement.querySelectorAll('img');
+
+  await Promise.all(
+    Array.from(images).map(img => {
+
+      return new Promise(resolve => {
+
+        if (img.complete) {
+          resolve();
+        } else {
+
+          img.onload = resolve;
+          img.onerror = resolve;
+
+        }
+
+      });
+
+    })
+  );
+
+  // Generar canvas
+  const canvas = await html2canvas(certElement, {
+    scale: 2,
+    useCORS: true,
+    allowTaint: true,
+    backgroundColor: '#ffffff'
   });
 
-  const imgData = canvas.toDataURL('image/png');
+  const imgData = canvas.toDataURL('image/jpeg', 1.0);
 
-  const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+  const { jsPDF } = window.jspdf;
 
-  const width = 210;
+  const pdf = new jsPDF('p', 'mm', 'a4');
 
-  const height = canvas.height * width / canvas.width;
+  const pageWidth = 210;
+  const pageHeight = 297;
 
-  pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+  pdf.addImage(
+    imgData,
+    'JPEG',
+    0,
+    0,
+    pageWidth,
+    pageHeight
+  );
 
   return pdf.output('blob');
 }
