@@ -266,23 +266,36 @@
           <option>Móvil 7</option>
         </select>
       </div>
-      <div class="field-group">
-        <label>Personal <span class="req">*</span></label>
-        <select id="personal" required>
-          <option value="">— Seleccione —</option>
-          <option>1 Bombero</option>
-          <option>2 Bomberos</option>
-          <option>3 Bomberos</option>
-          <option>4 Bomberos</option>
-          <option>5 Bomberos</option>
-          <option>6 Bomberos</option>
-          <option>7 Bomberos</option>
-          <option>8 Bomberos</option>
-          <option>9 Bomberos</option>
-          <option>10 Bomberos</option>
-          <option>Más de 10 Bomberos</option>
-        </select>
-      </div>
+    <!-- Tom Select CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+    
+    <div class="field-group">
+      <label>Bomberos <span class="req">*</span></label>
+    
+      <select id="personal" multiple required>
+        <option value="Juan Pérez">Juan Pérez</option>
+        <option value="Carlos Gómez">Carlos Gómez</option>
+        <option value="Andrés Martínez">Andrés Martínez</option>
+        <option value="Luis Rodríguez">Luis Rodríguez</option>
+        <option value="Miguel Herrera">Miguel Herrera</option>
+        <option value="Pedro Ramírez">Pedro Ramírez</option>
+        <option value="Jhon Arias">Jhon Arias</option>
+        <option value="Daniel Torres">Daniel Torres</option>
+      </select>
+    </div>
+    
+    <!-- Tom Select JS -->
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+    
+    <script>
+      new TomSelect("#personal", {
+        plugins: ['remove_button'],
+        placeholder: "Buscar y seleccionar bomberos",
+        maxItems: null, // ilimitados
+        persist: false,
+        create: false
+      });
+    </script>
     </div>
 
     <div class="section-title">
