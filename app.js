@@ -574,30 +574,24 @@ async function saveReport() {
     // =====================
     // GOOGLE DRIVE / SHEETS
     // =====================
-
+    
     if (navigator.onLine) {
-
-      const pdfBase64 = await generatePDFBase64();
-
-      data.certHTML = certHTML;
-      data.certStyles = styles;
-      data.pdfBase64 = pdfBase64;
-      
+    
       const syncResult = await syncToCloud(data);
-      
+    
       console.log('Resultado sincronización:', syncResult);
-
+    
       if (!syncResult.success) {
-
+    
         console.error(syncResult.error);
-
+    
         fb.textContent =
           '⚠️ Guardado localmente, pero falló sincronización cloud.';
-
+    
         fb.className = 'save-feedback err';
-
+    
       }
-
+    
     }
 
     // =====================
