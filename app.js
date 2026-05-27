@@ -563,7 +563,7 @@ async function saveReport() {
     try {
 
      await new Promise(r => setTimeout(r, 1200));
-     const pdfBlob = await generateCertificatePDFBlob();
+     const pdfBlob = await generateCertificatePDFBlob(data);
      data.pdfBase64 = await blobToBase64(pdfBlob);
 
     } catch(pdfErr) {
@@ -640,18 +640,12 @@ function blobToBase64(blob) {
   });
 }
 
-async function generateCertificatePDFBlob() {
+async function generateCertificatePDFBlob(data) {
 
-  const certElement = document.querySelector('.page');
+  const tempContainer = await buildHiddenCertificate(data);
 
-  if (!certElement) {
-    throw new Error('No se encontró el certificado.');
-  }
+  const certElement = tempContainer.querySelector('.page');
 
-  // Esperar render
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
-  // Esperar imágenes
   const images = certElement.querySelectorAll('img');
 
   await Promise.all(
@@ -673,7 +667,6 @@ async function generateCertificatePDFBlob() {
     })
   );
 
-  // Generar canvas
   const canvas = await html2canvas(certElement, {
     scale: 2,
     useCORS: true,
@@ -687,21 +680,19 @@ async function generateCertificatePDFBlob() {
 
   const pdf = new jsPDF('p', 'mm', 'a4');
 
-  const pageWidth = 210;
-  const pageHeight = 297;
-
   pdf.addImage(
     imgData,
     'JPEG',
     0,
     0,
-    pageWidth,
-    pageHeight
+    210,
+    297
   );
+
+  document.body.removeChild(tempContainer);
 
   return pdf.output('blob');
 }
-
 function clearForm() {
   if (!confirm('¿Desea limpiar todos los campos del formulario?')) return;
   document.getElementById('lugar').value       = '';
@@ -805,6 +796,44 @@ async function showCert(id) {
   renderCertificate(r, id);
 }
 
+async function buildHiddenCertificate(data) {
+
+  const temp = document.createElement('div');
+
+  temp.style.position = 'fixed';
+  temp.style.left = '-99999px';
+  temp.style.top = '0';
+  temp.style.zIndex = '-1';
+
+  temp.innerHTML = buildCertificateHTML(data);
+
+  document.body.appendChild(temp);
+
+  await new Promise(r => setTimeout(r, 1200));
+
+  return temp;
+}
+function buildCertificateHTML(data) {
+
+  const emitted = new Date().toLocaleString('es-CO');
+
+  const docNum = Date.now();
+
+  const coords =
+    data.latitud && data.longitud
+      ? `${data.latitud}, ${data.longitud}`
+      : 'No disponibles';
+
+  return `
+    <div class="cert-preview-wrapper">
+      <div class="page">
+
+        <!-- TODO TU certHTML COMPLETO -->
+
+      </div>
+    </div>
+  `;
+}
 function renderCertificate(data, id = null) {
   const docNum = id ? String(id).padStart(5, '0') : Math.floor(Math.random()*99999).toString().padStart(5,'0');
   const coords = (data.latitud && data.longitud)
