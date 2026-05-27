@@ -562,7 +562,7 @@ async function saveReport() {
 
     try {
 
-  
+     await new Promise(r => setTimeout(r, 1200));
      const pdfBlob = await generateCertificatePDFBlob();
      data.pdfBase64 = await blobToBase64(pdfBlob);
 
