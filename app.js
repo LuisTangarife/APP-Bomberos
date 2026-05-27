@@ -442,7 +442,9 @@ function getFormData() {
     latitud:     document.getElementById('latitud').value,
     longitud:    document.getElementById('longitud').value,
     evento:      document.getElementById('evento').value,
-    personal:    document.getElementById('personal').value,
+    personal: Array.from(
+      document.getElementById('personal').selectedOptions
+    ).map(option => option.value),
     vehiculo:    document.getElementById('vehiculo').value,
     descripcion: document.getElementById('descripcion').value.trim(),
     lesionados:  document.getElementById('lesionados').value || '0',
