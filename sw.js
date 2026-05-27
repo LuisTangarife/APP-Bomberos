@@ -10,7 +10,10 @@ const STATIC_FILES = [
   './offline.html'
 ];
 
+// =========================
 // INSTALACIÓN
+// =========================
+
 self.addEventListener('install', event => {
 
   event.waitUntil(
@@ -19,9 +22,13 @@ self.addEventListener('install', event => {
   );
 
   self.skipWaiting();
+
 });
 
+// =========================
 // ACTIVACIÓN
+// =========================
+
 self.addEventListener('activate', event => {
 
   event.waitUntil(
@@ -37,9 +44,13 @@ self.addEventListener('activate', event => {
   );
 
   self.clients.claim();
+
 });
 
+// =========================
 // FETCH
+// =========================
+
 self.addEventListener('fetch', event => {
 
   const request = event.request;
@@ -51,6 +62,7 @@ self.addEventListener('fetch', event => {
   if (request.headers.get('accept')?.includes('text/html')) {
 
     event.respondWith(
+
       fetch(request)
         .then(response => {
 
@@ -60,13 +72,16 @@ self.addEventListener('fetch', event => {
             .then(cache => cache.put(request, clone));
 
           return response;
+
         })
         .catch(async () => {
 
           const cached = await caches.match(request);
 
           return cached || caches.match('./offline.html');
+
         })
+
     );
 
     return;
@@ -74,6 +89,7 @@ self.addEventListener('fetch', event => {
 
   // CSS / JS / imágenes → Cache First
   event.respondWith(
+
     caches.match(request)
       .then(cached => {
 
@@ -81,4 +97,18 @@ self.addEventListener('fetch', event => {
 
         return fetch(request)
           .then(response => {
+
+            const clone = response.clone();
+
+            caches.open(DYNAMIC_CACHE)
+              .then(cache => cache.put(request, clone));
+
+            return response;
+
+          });
+
+      })
+
+  );
+
 });
