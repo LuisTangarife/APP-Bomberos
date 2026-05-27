@@ -713,11 +713,15 @@ function renderCertificate(data, id = null) {
       <div class="cert-value">${data.vehiculo}</div>
     </div>
 
-    <div class="cert-field">
-      <div class="cert-label">Personal Comisionado</div>
-      <div class="cert-value">${data.personal}</div>
+  <div class="cert-field">
+    <div class="cert-label">Personal Comisionado</div>
+    <div class="cert-value">
+      ${Array.isArray(data.personal) 
+        ? data.personal.join(', ') 
+        : data.personal}
     </div>
-
+  </div>
+  
     <!-- DESCRIPCIÓN -->
     <div class="cert-field full">
       <div class="cert-label">Descripción del Incidente</div>
