@@ -4,23 +4,25 @@ window.uploadedPhotos = [];
 // ── SERVICE WORKER REGISTRATION ──────────────────────────────────────────
 if ('serviceWorker' in navigator) {
 
-  window.addEventListener('load', async () => {
+window.addEventListener('load', async () => {
 
-    try {
-      await initDB();
-      await updatePendingBadge();
+  try {
 
-      const registration = await navigator.serviceWorker.register('./sw.js');
+    await openDB();
 
-      console.log('SW registrado:', registration);
+    await updatePendingBadge();
 
-    } catch (error) {
+    const registration = await navigator.serviceWorker.register('./sw.js');
 
-      console.error('Error registrando SW:', error);
+    console.log('SW registrado:', registration);
 
-    }
+  } catch (error) {
 
-  });
+    console.error('Error registrando SW:', error);
+
+  }
+
+});
 
 }
 // ── CONNECTIVITY STATUS ──────────────────────────────────────────────────
@@ -123,6 +125,26 @@ function deleteFromIDB(id) {
     tx.objectStore(STORE).delete(id).onsuccess = () => resolve();
     tx.onerror = e => reject(e.target.error);
   });
+}
+async function updatePendingBadge() {
+
+  const badge = document.getElementById('pendingBadge');
+
+  if (!badge) return;
+
+  const reports = await getAllFromIDB();
+
+  if (!reports.length) {
+
+    badge.style.display = 'none';
+
+    return;
+  }
+
+  badge.style.display = 'inline-block';
+
+  badge.textContent =
+    `${reports.length} reporte${reports.length > 1 ? 's' : ''}`;
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────
@@ -537,9 +559,9 @@ async function saveReport() {
 
     try {
 
-      const pdfBlob = await generateCertificatePDFBlob();
-
-      data.pdfBase64 = await blobToBase64(pdfBlob);
+    // PDF temporalmente desactivado
+    // const pdfBlob = await generateCertificatePDFBlob();
+    // data.pdfBase64 = await blobToBase64(pdfBlob);
 
     } catch(pdfErr) {
 
