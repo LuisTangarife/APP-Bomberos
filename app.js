@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwBN6YZgbZ_NGLiidV9F2dpLNW_Bq0Cr0xyUCtPnvZXJDsyBp6EyTgV0vZCEOSEB6rFvA/exec"
+const API_URL = 'https://script.google.com/macros/s/AKfycbwBN6YZgbZ_NGLiidV9F2dpLNW_Bq0Cr0xyUCtPnvZXJDsyBp6EyTgV0vZCEOSEB6rFvA/exec'
 let currentPrintHTML = '';
 window.uploadedPhotos = [];
 // ── SERVICE WORKER REGISTRATION ──────────────────────────────────────────
@@ -89,7 +89,7 @@ function saveToIDB(data) {
 async function syncToCloud(data) {
 
   try {
-
+    console.log('Enviando a cloud:', data);
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
