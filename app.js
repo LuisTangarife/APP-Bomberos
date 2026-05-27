@@ -1131,3 +1131,63 @@ async function syncPendingReports() {
 }
 
 window.addEventListener('online', syncPendingReports);
+
+async function generatePDFBase64() {
+
+  const element = document.querySelector('.page');
+
+  const canvas = await html2canvas(element, {
+    scale: 2,
+    useCORS: true
+  });
+
+  const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+  const pdf = new jspdf.jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: 'a4'
+  });
+
+  const pdfWidth = 210;
+  const pageHeight = 297;
+
+  const imgWidth = pdfWidth;
+
+  const imgHeight =
+    canvas.height * imgWidth / canvas.width;
+
+  let heightLeft = imgHeight;
+  let position = 0;
+
+  pdf.addImage(
+    imgData,
+    'JPEG',
+    0,
+    position,
+    imgWidth,
+    imgHeight
+  );
+
+  heightLeft -= pageHeight;
+
+  while (heightLeft > 0) {
+
+    position = heightLeft - imgHeight;
+
+    pdf.addPage();
+
+    pdf.addImage(
+      imgData,
+      'JPEG',
+      0,
+      position,
+      imgWidth,
+      imgHeight
+    );
+
+    heightLeft -= pageHeight;
+  }
+
+  return pdf.output('datauristring');
+}
