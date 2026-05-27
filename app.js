@@ -577,8 +577,14 @@ async function saveReport() {
 
     if (navigator.onLine) {
 
-      const syncResult = await syncToCloud(data);
+      const pdfBase64 = await generatePDFBase64();
 
+      data.certHTML = certHTML;
+      data.certStyles = styles;
+      data.pdfBase64 = pdfBase64;
+      
+      const syncResult = await syncToCloud(data);
+      
       console.log('Resultado sincronización:', syncResult);
 
       if (!syncResult.success) {
