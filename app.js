@@ -3,7 +3,10 @@ let currentPrintHTML = '';
 window.uploadedPhotos = [];
 // ── SERVICE WORKER REGISTRATION ──────────────────────────────────────────
 if ('serviceWorker' in navigator) {
-
+  
+document.addEventListener('DOMContentLoaded', () => {
+  updateConnectivity();
+});
 window.addEventListener('load', async () => {
 
   try {
@@ -27,15 +30,24 @@ window.addEventListener('load', async () => {
 }
 // ── CONNECTIVITY STATUS ──────────────────────────────────────────────────
 function updateConnectivity() {
+
   const offline = document.getElementById('offlineBadge');
   const online  = document.getElementById('onlineBadge');
+
+  if (!offline || !online) return;
+
   if (navigator.onLine) {
+
     offline.style.display = 'none';
     online.style.display  = 'inline-block';
+
   } else {
+
     offline.style.display = 'inline-block';
     online.style.display  = 'none';
+
   }
+
 }
 window.addEventListener('online',  updateConnectivity);
 window.addEventListener('offline', updateConnectivity);
