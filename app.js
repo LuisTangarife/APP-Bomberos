@@ -1160,9 +1160,19 @@ function printCertificate() {
 
 }
 // Close modal on overlay click
-document.getElementById('certModal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
+const certModal = document.getElementById('certModal');
+
+if (certModal) {
+
+  certModal.addEventListener('click', function(e) {
+
+    if (e.target === this) {
+      closeModal();
+    }
+
+  });
+
+}
 
 // Keyboard shortcut: Escape to close
 document.addEventListener('keydown', e => {
