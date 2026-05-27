@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'bomberos-static-v3';
-const DYNAMIC_CACHE = 'bomberos-dynamic-v3';
+const STATIC_CACHE = 'bomberos-static-v10';
+const DYNAMIC_CACHE = 'bomberos-dynamic-v10';
 
 const STATIC_FILES = [
   './',
