@@ -501,11 +501,23 @@ function validateForm(data) {
 }
 
 async function saveReport() {
+
+  const data = getFormData();
+
+  data.photos = window.uploadedPhotos || [];
+
+  const err = validateForm(data);
+
   const fb = document.getElementById('saveFeedback');
+
+  // =====================
+  // VALIDACIÓN
+  // =====================
 
   if (err) {
 
     fb.textContent = err;
+
     fb.className = 'save-feedback err';
 
     return;
@@ -520,7 +532,7 @@ async function saveReport() {
     const id = await saveToIDB(data);
 
     // =====================
-    // GENERAR PDF BASE64
+    // GENERAR PDF
     // =====================
 
     try {
@@ -542,34 +554,48 @@ async function saveReport() {
 
       const syncResult = await syncToCloud(data);
 
-      console.log('Sync cloud:', syncResult);
+      console.log('Resultado sincronización:', syncResult);
+
+      if (!syncResult.success) {
+
+        console.error(syncResult.error);
+
+        fb.textContent =
+          '⚠️ Guardado localmente, pero falló sincronización cloud.';
+
+        fb.className = 'save-feedback err';
+
+      }
+
     }
 
     // =====================
-    // UI
+    // ACTUALIZAR UI
     // =====================
 
-    fb.textContent = `✔ Reporte #${id} guardado correctamente.`;
+    await updatePendingBadge();
+
+    await loadSavedReports();
+
+    fb.textContent =
+      `✔ Reporte #${id} guardado correctamente.`;
 
     fb.className = 'save-feedback ok';
 
-    try {
-      await updatePendingBadge();
-      await loadSavedReports();
-    } catch(secErr) {
-      console.warn(secErr);
-    }
-
     setTimeout(() => {
+
       fb.textContent = '';
+
       fb.className = 'save-feedback';
+
     }, 4000);
 
   } catch (e) {
 
     console.error(e);
 
-    fb.textContent = '⚠️ Error al guardar. Intente nuevamente';
+    fb.textContent =
+      '⚠️ Error al guardar reporte.';
 
     fb.className = 'save-feedback err';
   }
