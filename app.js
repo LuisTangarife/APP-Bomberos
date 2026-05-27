@@ -562,9 +562,9 @@ async function saveReport() {
 
     try {
 
-    // PDF temporalmente desactivado
-    // const pdfBlob = await generateCertificatePDFBlob();
-    // data.pdfBase64 = await blobToBase64(pdfBlob);
+  
+     const pdfBlob = await generateCertificatePDFBlob();
+     data.pdfBase64 = await blobToBase64(pdfBlob);
 
     } catch(pdfErr) {
 
