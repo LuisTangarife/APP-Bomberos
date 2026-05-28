@@ -1260,8 +1260,30 @@ function renderCertificate(data, id = null) {
   })
   .join('');
   
+  
   document.getElementById('certModal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  currentPrintHTML = `
+  <!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  
+  <title>Certificado</title>
+  
+  <style>
+  ${styles}
+  </style>
+  
+  </head>
+  
+  <body>
+  
+  ${certHTML}
+  
+  </body>
+  </html>
+  `;
 
 }
 function closeModal() {
