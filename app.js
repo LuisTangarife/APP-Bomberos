@@ -629,7 +629,7 @@ function blobToBase64(blob) {
     reader.readAsDataURL(blob);
 
   });
-
+  }
 
 function clearForm() {
   if (!confirm('¿Desea limpiar todos los campos del formulario?')) return;
