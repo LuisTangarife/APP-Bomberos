@@ -864,6 +864,56 @@ textarea { resize: vertical; min-height: 100px; }
   margin-top:-4px;
 }
 /* ============================================================
+   MODO CLARO — FOTO / EVIDENCIA
+============================================================ */
+
+body.light-theme .photo-upload-box{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.95),
+      rgba(245,245,245,.95)
+    );
+
+  border:1px solid rgba(0,0,0,.08);
+}
+
+body.light-theme .upload-label{
+  color:#111;
+}
+
+body.light-theme .upload-subtitle{
+  color:#444;
+}
+
+body.light-theme .photo-counter{
+  color:#555;
+}
+
+body.light-theme .upload-label-icon{
+  background:rgba(204,34,0,.08);
+
+  border:1px solid rgba(204,34,0,.15);
+}
+
+body.light-theme .preview-card{
+  background:#fff;
+
+  border:1px solid rgba(0,0,0,.08);
+}
+
+body.light-theme .preview-number{
+  background:rgba(255,255,255,.85);
+
+  color:#111;
+}
+
+body.light-theme .preview-remove{
+  background:rgba(255,255,255,.9);
+
+  color:#111;
+}
+/* ============================================================
    ESTILOS GENERALES (pantalla)
    Idéntica estructura al certificado ANBC Chile
    Paleta: amarillo/negro institucional Villamaría, Caldas
