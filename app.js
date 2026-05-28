@@ -562,19 +562,19 @@ async function saveReport() {
 
   try {
 
-    fb.textContent = 'Generando PDF...';
+    fb.textContent = 'Preparando certificado...';
 
     // RENDERIZAR CERTIFICADO
-    renderCertificate(data);
+    //renderCertificate(data);
     
     // ESPERAR A QUE EL DOM TERMINE
-    await new Promise(r => setTimeout(r, 800));
+    //await new Promise(r => setTimeout(r, 800));
     
     // GENERAR PDF EN BASE64
-    const pdfBase64 = await generatePDFBase64();
+    //const pdfBase64 = await generatePDFBase64();
     
     // AGREGAR AL OBJETO
-    data.pdfBase64 = pdfBase64;
+    //data.pdfBase64 = pdfBase64;
     fb.textContent = 'Subiendo reporte...';
 
     data.certHTML = buildCertificateHTML(data);
