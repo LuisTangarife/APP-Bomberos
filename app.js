@@ -615,96 +615,6 @@ async function saveReport() {
 
 }
 
-  // =====================
-  // VALIDACIÓN
-  // =====================
-
-  if (err) {
-
-    fb.textContent = err;
-
-    fb.className = 'save-feedback err';
-
-    return;
-  }
-
-  try {
-
-    // =====================
-    // GUARDADO LOCAL
-    // =====================
-
-    const id = await saveToIDB(data);
-
-    // =====================
-    // GENERAR PDF
-    // =====================
-
-    try {
-
-     await new Promise(r => setTimeout(r, 1200));
-     const pdfBlob = await generateCertificatePDFBlob(data);
-     data.pdfBase64 = await blobToBase64(pdfBlob);
-
-    } catch(pdfErr) {
-
-      console.warn('No se pudo generar PDF:', pdfErr);
-    }
-
-    // =====================
-    // GOOGLE DRIVE / SHEETS
-    // =====================
-    
-    if (navigator.onLine) {
-    
-      const syncResult = await syncToCloud(data);
-    
-      console.log('Resultado sincronización:', syncResult);
-    
-      if (!syncResult.success) {
-    
-        console.error(syncResult.error);
-    
-        fb.textContent =
-          '⚠️ Guardado localmente, pero falló sincronización cloud.';
-    
-        fb.className = 'save-feedback err';
-    
-      }
-    
-    }
-
-    // =====================
-    // ACTUALIZAR UI
-    // =====================
-
-    await updatePendingBadge();
-
-    await loadSavedReports();
-
-    fb.textContent =
-      `✔ Reporte #${id} guardado correctamente.`;
-
-    fb.className = 'save-feedback ok';
-
-    setTimeout(() => {
-
-      fb.textContent = '';
-
-      fb.className = 'save-feedback';
-
-    }, 4000);
-
-  } catch (e) {
-
-    console.error(e);
-
-    fb.textContent =
-      '⚠️ Error al guardar reporte.';
-
-    fb.className = 'save-feedback err';
-  }
-}
 
 function blobToBase64(blob) {
 
@@ -717,76 +627,10 @@ function blobToBase64(blob) {
     reader.onerror = reject;
 
     reader.readAsDataURL(blob);
-  });
-}
-
-async function generateCertificatePDFBlob(data) {
-
-  const tempContainer = await buildHiddenCertificate(data);
-
-  const certElement = tempContainer.querySelector('.page');
-
-  const images = certElement.querySelectorAll('img');
-
-  await Promise.all(
-    Array.from(images).map(img => {
-
-      return new Promise(resolve => {
-
-        if (img.complete) {
-          resolve();
-        } else {
-
-          img.onload = resolve;
-          img.onerror = resolve;
-
-        }
-
-      });
-
-    })
-  );
-function blobToBase64(blob) {
-
-  return new Promise((resolve, reject) => {
-
-    const reader = new FileReader();
-
-    reader.onloadend = () => resolve(reader.result);
-
-    reader.onerror = reject;
-
-    reader.readAsDataURL(blob);
 
   });
 
-}
-  const canvas = await html2canvas(certElement, {
-    scale: 2,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: '#ffffff'
-  });
 
-  const imgData = canvas.toDataURL('image/jpeg', 1.0);
-
-  const { jsPDF } = window.jspdf;
-
-  const pdf = new jsPDF('p', 'mm', 'a4');
-
-  pdf.addImage(
-    imgData,
-    'JPEG',
-    0,
-    0,
-    210,
-    297
-  );
-
-  document.body.removeChild(tempContainer);
-
-  return pdf.output('blob');
-}
 function clearForm() {
   if (!confirm('¿Desea limpiar todos los campos del formulario?')) return;
   document.getElementById('lugar').value       = '';
