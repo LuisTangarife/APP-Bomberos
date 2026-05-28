@@ -149,14 +149,6 @@ body {
   flex-wrap: wrap;
   justify-content: flex-end;
   
-  <button
-  id="themeToggle"
-  class="theme-toggle"
-  type="button"
-  onclick="toggleTheme()"
->
-  🌙
-</button>
 }
 .offline-badge, .online-badge, .pending-badge {
   font-size: 0.65rem;
