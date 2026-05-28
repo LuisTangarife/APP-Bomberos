@@ -562,27 +562,30 @@ async function saveReport() {
 
   try {
 
-    fb.textContent = 'Generando certificado PDF...';
-    fb.className = 'save-feedback';
+    fb.textContent = 'Generando PDF...';
 
-    // GENERAR PDF REAL DESDE .page
+    // GENERAR PDF
     const pdfBlob = await generateCertificatePDFBlob(data);
 
-    // FORM DATA
-    const formData = new FormData();
+    // CONVERTIR A BASE64
+    const pdfBase64 = await blobToBase64(pdfBlob);
 
-    formData.append(
-      'file',
-      pdfBlob,
-      `Reporte_${Date.now()}.pdf`
-    );
+    // AGREGAR AL OBJETO
+    data.pdfBase64 = pdfBase64;
 
-    // ENVIAR A GOOGLE DRIVE
-    fb.textContent = 'Subiendo reporte a Google Drive...';
+    fb.textContent = 'Subiendo reporte...';
 
+    // ENVIAR A APPS SCRIPT
     const response = await fetch(API_URL, {
+
       method: 'POST',
-      body: formData
+
+      headers: {
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify(data)
+
     });
 
     const result = await response.json();
@@ -607,7 +610,9 @@ async function saveReport() {
 
     fb.textContent = '❌ Error guardando reporte';
     fb.className = 'save-feedback err';
+
   }
+
 }
 
   // =====================
@@ -741,7 +746,21 @@ async function generateCertificatePDFBlob(data) {
 
     })
   );
+function blobToBase64(blob) {
 
+  return new Promise((resolve, reject) => {
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => resolve(reader.result);
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(blob);
+
+  });
+
+}
   const canvas = await html2canvas(certElement, {
     scale: 2,
     useCORS: true,
