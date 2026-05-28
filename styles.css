@@ -13,6 +13,77 @@
   --font-display: 'Oswald', sans-serif;
   --font-body: 'Source Sans 3', sans-serif;
 }
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+body.light-theme {
+
+  --red: #CC2200;
+  --red-dark: #991800;
+  --red-light: #FF5C33;
+
+  --gold: #C28A00;
+
+  --dark: #F3F5F8;
+
+  --panel: #FFFFFF;
+  --panel2: #F7F8FA;
+
+  --border: #D8DEE8;
+
+  --text: #1B2430;
+  --muted: #667085;
+
+  --success: #1E9E52;
+}
+
+/* =========================================================
+   THEME TOGGLE BUTTON
+========================================================= */
+
+.theme-toggle {
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(255,255,255,.12);
+
+  background: rgba(255,255,255,.06);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  font-size: 1rem;
+
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    border-color .2s ease;
+}
+
+.theme-toggle:hover {
+
+  transform: translateY(-1px);
+
+  border-color: rgba(255,255,255,.25);
+
+  background: rgba(255,255,255,.12);
+}
+
+/* LIGHT MODE BUTTON */
+
+body.light-theme .theme-toggle {
+
+  background: #fff;
+
+  color: #222;
+
+  border: 1px solid #D0D5DD;
+}
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -77,6 +148,15 @@ body {
   align-items: center;
   flex-wrap: wrap;
   justify-content: flex-end;
+  
+  <button
+  id="themeToggle"
+  class="theme-toggle"
+  type="button"
+  onclick="toggleTheme()"
+>
+  🌙
+</button>
 }
 .offline-badge, .online-badge, .pending-badge {
   font-size: 0.65rem;
