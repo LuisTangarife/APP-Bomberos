@@ -564,15 +564,17 @@ async function saveReport() {
 
     fb.textContent = 'Generando PDF...';
 
-    // GENERAR PDF
-    const pdfBlob = await generateCertificatePDFBlob(data);
-
-    // CONVERTIR A BASE64
-    const pdfBase64 = await blobToBase64(pdfBlob);
-
+    // RENDERIZAR CERTIFICADO
+    renderCertificate(data);
+    
+    // ESPERAR A QUE EL DOM TERMINE
+    await new Promise(r => setTimeout(r, 800));
+    
+    // GENERAR PDF EN BASE64
+    const pdfBase64 = await generatePDFBase64();
+    
     // AGREGAR AL OBJETO
     data.pdfBase64 = pdfBase64;
-
     fb.textContent = 'Subiendo reporte...';
 
     // ENVIAR A APPS SCRIPT
@@ -614,22 +616,6 @@ async function saveReport() {
   }
 
 }
-
-
-function blobToBase64(blob) {
-
-  return new Promise((resolve, reject) => {
-
-    const reader = new FileReader();
-
-    reader.onloadend = () => resolve(reader.result);
-
-    reader.onerror = reject;
-
-    reader.readAsDataURL(blob);
-
-  });
-  }
 
 function clearForm() {
   if (!confirm('¿Desea limpiar todos los campos del formulario?')) return;
