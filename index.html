@@ -344,36 +344,78 @@
       </div>
     </div>
     <!-- ───────────────────────────── -->
-  <!-- EVIDENCIA FOTOGRÁFICA -->
-  <!-- ───────────────────────────── -->
-  <div class="photo-section">
-    <div class="section-title">
-      Evidencia Fotográfica
-    </div>
-  
-    <label class="photo-upload-box">
-      <input
-        type="file"
-        id="photoInput"
-        accept="image/*"
-        capture="environment"
-        multiple
-      >
-  
-      <div class="upload-content">
-        <div class="upload-icon">📸</div>
-        <div class="upload-title">
-          Tomar o cargar fotografías
-        </div>
-        <div class="upload-subtitle">
-          Selecciona múltiples imágenes para anexar al certificado
-        </div>
+    <!-- EVIDENCIA FOTOGRÁFICA -->
+    <!-- ───────────────────────────── -->
+    
+    <div class="photo-section">
+    
+      <div class="section-title">
+        <span class="section-num">07</span>
+        Evidencia Fotográfica
       </div>
-    </label>
-  
-    <div id="photoPreview" class="photo-preview-grid"></div>
-  </div>
-
+    
+      <div class="photo-upload-wrapper">
+    
+        <label class="photo-upload-box">
+    
+          <input
+            type="file"
+            id="photoInput"
+            accept="image/*"
+            capture="environment"
+            multiple
+          >
+    
+          <div class="upload-content">
+    
+            <!-- TEXTO -->
+            <div class="upload-text">
+    
+              <div class="upload-label">
+    
+                <div class="upload-label-icon">
+                  📸
+                </div>
+    
+                <span>
+                  Adjuntar evidencia fotográfica
+                </span>
+    
+              </div>
+    
+              <div class="upload-subtitle">
+                Tome fotografías en campo o cargue imágenes desde el dispositivo.
+                Las evidencias serán anexadas automáticamente al certificado oficial.
+              </div>
+    
+            </div>
+    
+            <!-- BOTÓN -->
+            <div class="upload-btn">
+              Seleccionar imágenes
+            </div>
+    
+          </div>
+    
+        </label>
+    
+        <!-- CONTADOR -->
+        <div
+          id="photoCounter"
+          class="photo-counter"
+        >
+          No hay fotografías cargadas
+        </div>
+    
+        <!-- PREVIEW -->
+        <div
+          id="photoPreview"
+          class="photo-preview-grid"
+        ></div>
+    
+      </div>
+    
+    </div>
     <!-- ACTIONS -->
     <div class="actions-bar">
       <button type="button" class="btn-save" onclick="saveReport()">
