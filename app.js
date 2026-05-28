@@ -577,22 +577,31 @@ async function saveReport() {
     data.pdfBase64 = pdfBase64;
     fb.textContent = 'Subiendo reporte...';
 
+    data.certHTML = buildCertificateHTML(data);
+
+    data.certStyles = Array.from(document.styleSheets)
+      .map(sheet => {
+        try {
+          return Array.from(sheet.cssRules)
+            .map(rule => rule.cssText)
+            .join('');
+        } catch (e) {
+          return '';
+        }
+      })
+      .join('');
+    
     // ENVIAR A APPS SCRIPT
-    const response = await fetch(API_URL, {
-
+    await fetch(API_URL, {
       method: 'POST',
-
+      mode: 'no-cors',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'text/plain'
       },
-
       body: JSON.stringify(data)
-
     });
-
-    const result = await response.json();
-
-    console.log(result);
+    
+    console.log('Reporte enviado correctamente');
 
     // GUARDAR LOCAL
     await saveToIDB(data);
