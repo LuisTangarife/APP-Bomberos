@@ -169,6 +169,7 @@ async function updatePendingBadge() {
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
+  loadTheme();
   await openDB();
   setDefaults();
   setupSpellCheck();
@@ -280,6 +281,48 @@ function setDefaults() {
   const time = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
   document.getElementById('fecha').value       = date;
   document.getElementById('horaReporte').value = time;
+}
+
+/* =========================================================
+   THEME SYSTEM
+========================================================= */
+
+function loadTheme() {
+
+  const savedTheme =
+    localStorage.getItem('appTheme');
+
+  if (savedTheme === 'light') {
+
+    document.body.classList.add('light-theme');
+
+    const btn =
+      document.getElementById('themeToggle');
+
+    if (btn) btn.textContent = '☀️';
+  }
+}
+
+function toggleTheme() {
+
+  document.body.classList.toggle('light-theme');
+
+  const isLight =
+    document.body.classList.contains('light-theme');
+
+  localStorage.setItem(
+    'appTheme',
+    isLight ? 'light' : 'dark'
+  );
+
+  const btn =
+    document.getElementById('themeToggle');
+
+  if (btn) {
+
+    btn.textContent =
+      isLight ? '☀️' : '🌙';
+  }
 }
 
 // ── SPELL CHECK ───────────────────────────────────────────────────────────
