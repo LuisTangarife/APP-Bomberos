@@ -174,8 +174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupSpellCheck();
   loadSavedReports();
   window.uploadedPhotos = [];
-
-  const photoInput = document.getElementById('photoInput');
+  
   const photoInput = document.getElementById('photoInput');
 
   if (!photoInput) {
