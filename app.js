@@ -176,70 +176,103 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.uploadedPhotos = [];
 
   const photoInput = document.getElementById('photoInput');
-  const photoPreview = document.getElementById('photoPreview');
+  const photoInput = document.getElementById('photoInput');
 
-  if (!photoInput || !photoPreview) {
-    console.error('No se encontró photoInput o photoPreview');
+  if (!photoInput) {
+    console.error('No se encontró photoInput');
     return;
   }
 
   photoInput.addEventListener('change', function(event) {
-
+  
     const files = Array.from(event.target.files);
-
+  
     window.uploadedPhotos = [];
-    photoPreview.innerHTML = '';
-
-    files.forEach((file, index) => {
-
-      // Validar imagen
+  
+    files.forEach(file => {
+  
       if (!file.type.startsWith('image/')) return;
-
+  
       const reader = new FileReader();
-
+  
       reader.onload = function(e) {
-
+  
         const base64 = e.target.result;
-
-        console.log('Imagen cargada:', base64);
-
-        // Guardar en memoria
+  
         window.uploadedPhotos.push(base64);
-
-        // Crear preview
-        const card = document.createElement('div');
-        card.className = 'preview-card';
-
-        const img = document.createElement('img');
-        img.src = base64;
-
-        img.style.width = '100%';
-        img.style.height = '160px';
-        img.style.objectFit = 'cover';
-        img.style.borderRadius = '10px';
-
-        const number = document.createElement('div');
-        number.className = 'preview-number';
-        number.textContent = index + 1;
-
-        card.appendChild(img);
-        card.appendChild(number);
-
-        photoPreview.appendChild(card);
-
+  
+        renderPhotoPreview();
+  
       };
-
+  
       reader.onerror = function(err) {
+  
         console.error('Error leyendo imagen:', err);
+  
       };
-
+  
       reader.readAsDataURL(file);
-
+  
     });
-
+  
   });
 
 });
+function renderPhotoPreview() {
+
+  const preview = document.getElementById('photoPreview');
+  const counter = document.getElementById('photoCounter');
+
+  preview.innerHTML = '';
+
+  const photos = window.uploadedPhotos || [];
+
+  if (!photos.length) {
+
+    counter.textContent =
+      'No hay fotografías cargadas';
+
+    return;
+  }
+
+  counter.textContent =
+    `${photos.length} fotografía${photos.length > 1 ? 's' : ''} cargada${photos.length > 1 ? 's' : ''}`;
+
+  photos.forEach((photo, index) => {
+
+    const card = document.createElement('div');
+
+    card.className = 'preview-card';
+
+    card.innerHTML = `
+      <img src="${photo}" alt="Foto ${index + 1}">
+
+      <div class="preview-number">
+        ${index + 1}
+      </div>
+
+      <button
+        type="button"
+        class="preview-remove"
+        onclick="removePhoto(${index})"
+      >
+        ✕
+      </button>
+    `;
+
+    preview.appendChild(card);
+
+  });
+
+}
+
+function removePhoto(index) {
+
+  window.uploadedPhotos.splice(index, 1);
+
+  renderPhotoPreview();
+
+}
 
 function setDefaults() {
   const now = new Date();
