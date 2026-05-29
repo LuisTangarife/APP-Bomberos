@@ -337,62 +337,52 @@
       <option value="GOMEZ CARTAGENA JUAN JOSE">GOMEZ CARTAGENA JUAN JOSE</option>
       <option value="GAVIRIA CAMARGO CATHERINE">GAVIRIA CAMARGO CATHERINE</option>
     </select>
+    <script>
+    const inputBombero = document.getElementById("personal");
+    const listaBomberos = document.getElementById("listaBomberos");
   
-    const selectPersonal = document.getElementById("personal");
-  
-    // Cargar nombres guardados
+    // Cargar nuevos nombres guardados
     window.addEventListener("DOMContentLoaded", () => {
-      const guardados = JSON.parse(localStorage.getItem("bomberosExtra")) || [];
+      const extras = JSON.parse(localStorage.getItem("bomberosExtra")) || [];
   
-      guardados.forEach(nombre => {
-        agregarOpcion(nombre);
-      });
+      extras.forEach(nombre => agregarOpcion(nombre));
     });
   
-    function agregarBombero() {
-      const input = document.getElementById("nuevoBombero");
-      const nombre = input.value.trim().toUpperCase();
+    // Guardar automáticamente cuando salga del input
+    inputBombero.addEventListener("change", () => {
+      const nombre = inputBombero.value.trim().toUpperCase();
   
-      if (!nombre) {
-        alert("Ingrese un nombre");
-        return;
-      }
+      if (!nombre) return;
   
-      // Validar duplicados
-      const existe = [...selectPersonal.options].some(
-        opt => opt.value === nombre
+      const existe = [...listaBomberos.options].some(
+        option => option.value === nombre
       );
   
-      if (existe) {
-        alert("El bombero ya existe");
-        return;
+      if (!existe) {
+        agregarOpcion(nombre);
+  
+        const extras =
+          JSON.parse(localStorage.getItem("bomberosExtra")) || [];
+  
+        extras.push(nombre);
+  
+        localStorage.setItem(
+          "bomberosExtra",
+          JSON.stringify(extras)
+        );
       }
   
-      // Agregar al select
-      agregarOpcion(nombre);
-  
-      // Guardar en localStorage
-      const guardados = JSON.parse(localStorage.getItem("bomberosExtra")) || [];
-      guardados.push(nombre);
-  
-      localStorage.setItem(
-        "bomberosExtra",
-        JSON.stringify(guardados)
-      );
-  
-      // Limpiar input
-      input.value = "";
-    }
+      inputBombero.value = nombre;
+    });
   
     function agregarOpcion(nombre) {
       const option = document.createElement("option");
-  
       option.value = nombre;
-      option.textContent = nombre;
   
-      selectPersonal.appendChild(option);
+      listaBomberos.appendChild(option);
     }
   </script>
+
     
     <!-- Tom Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
