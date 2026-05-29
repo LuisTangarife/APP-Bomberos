@@ -1148,24 +1148,22 @@ body.light-theme .preview-remove{
 
   background: transparent;
 
-  font-size: 11pt;
-
-  line-height: 1.45;
-
+  font-size: 11.5pt;
+  line-height: 1.9;
   color: #222;
 
   text-align: justify;
 
-  white-space: pre-line;
+  white-space: pre-wrap;
 
   word-break: break-word;
-
   overflow-wrap: break-word;
 
   max-width: 100%;
 
   page-break-inside: avoid;
 }
+
 
 /* ---- Víctimas / Lesionados ---- */
 .cert-victims-bar {
