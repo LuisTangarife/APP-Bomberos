@@ -1516,4 +1516,31 @@ body.light-theme .preview-remove{
     margin-top:35px;
   }
 
+}/* ===== FIX TOM SELECT ===== */
+
+.ts-wrapper {
+  width: 100% !important;
+}
+
+.ts-control {
+  min-height: 48px !important;
+  border-radius: 12px !important;
+  padding: 8px !important;
+  font-size: 14px;
+}
+
+.ts-wrapper.multi .ts-control {
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.ts-dropdown {
+  z-index: 9999 !important;
+}
+
+/* evita que el campo expanda todo el layout */
+.field-group,
+.fields-grid,
+.full-width {
+  min-width: 0;
 }
