@@ -429,6 +429,24 @@
     
         alert("Bombero eliminado: " + nombre);
       }
+      <div class="delete-bombero-box">
+
+        <input
+          type="text"
+          id="nombreEliminar"
+          placeholder="Nombre del bombero a eliminar"
+        >
+      
+        <button
+          type="button"
+          onclick="eliminarBombero(
+            document.getElementById('nombreEliminar').value
+          )"
+        >
+          Eliminar
+        </button>
+      
+      </div>
     
     </script>
     </div>
