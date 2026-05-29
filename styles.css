@@ -1544,3 +1544,13 @@ body.light-theme .preview-remove{
 .full-width {
   min-width: 0;
 }
+
+.delete-bombero-box{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+}
+
+.delete-bombero-box input{
+  flex:1;
+}
