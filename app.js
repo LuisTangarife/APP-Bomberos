@@ -646,10 +646,7 @@ async function saveReport() {
     await new Promise(r => setTimeout(r, 800));
     
     // GENERAR PDF EN BASE64
-    const pdfBase64 = await generatePDFBase64(data);
-    
-    // AGREGAR AL OBJETO
-    data.pdfBase64 = pdfBase64;
+    data.pdfBase64 = await generatePDFBase64();
     fb.textContent = 'Subiendo reporte...';
     
     // ENVIAR A APPS SCRIPT
@@ -1203,52 +1200,8 @@ async function syncPendingReports() {
 
 window.addEventListener('online', syncPendingReports);
 
-async function generatePDFBase64(data) {
+async function generatePDFBase64() {
 
-  const temp = document.createElement('div');
+  return btoa(unescape(encodeURIComponent(currentPrintHTML)));
 
-  temp.style.position = 'fixed';
-  temp.style.left = '-99999px';
-  temp.style.top = '0';
-
-  temp.innerHTML = buildCertificateHTML(data);
-
-  document.body.appendChild(temp);
-
-  const element = temp.querySelector('.page');
-
-  await new Promise(r => setTimeout(r, 800));
-
-  const canvas = await html2canvas(element, {
-    scale: 3,
-    useCORS: true,
-    backgroundColor: '#ffffff'
-  });
-
-  document.body.removeChild(temp);
-
-  const imgData =
-    canvas.toDataURL('image/jpeg', 1.0);
-
-  const pdf = new jspdf.jsPDF({
-    orientation: 'portrait',
-    unit: 'mm',
-    format: 'a4'
-  });
-
-  const pdfWidth = 210;
-
-  const pdfHeight =
-    canvas.height * pdfWidth / canvas.width;
-
-  pdf.addImage(
-    imgData,
-    'JPEG',
-    0,
-    0,
-    pdfWidth,
-    pdfHeight
-  );
-
-  return pdf.output('datauristring');
 }
