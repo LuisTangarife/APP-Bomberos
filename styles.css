@@ -1138,29 +1138,37 @@ body.light-theme .preview-remove{
 
 /* Descripción con borde lateral — idéntico a Chile */
 /* Descripción / novedades */
-.cert-desc-box {
+.cert-desc-box{
 
-  margin-top: 8px;
-  padding-left: 16px;
+  margin-top:10px;
 
-  border-left: 2px solid #c5a100;
+  padding-left:18px;
 
-  font-size: 11.2pt;
-  line-height: 1.45;
+  border-left:2px solid #c5a100;
 
-  color: #222;
+  font-size:11.4pt;
 
-  text-align: justify;
+  line-height:1.75;
 
-  white-space: normal;
+  color:#222;
 
-  word-break: break-word;
-  overflow-wrap: break-word;
+  text-align:justify;
 
-  max-width: 100%;
+  word-break:normal;
 
+  overflow-wrap:break-word;
+
+  hyphens:auto;
+
+  max-width:100%;
 }
 
+.cert-desc-box p{
+
+  margin:0 0 14px 0;
+
+  text-indent:20px;
+}
 
 /* ---- Víctimas / Lesionados ---- */
 .cert-victims-bar {
