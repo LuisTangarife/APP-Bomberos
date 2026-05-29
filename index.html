@@ -336,54 +336,7 @@
       <option value="GIRALDO SALAZAR DANIELA">GIRALDO SALAZAR DANIELA</option>
       <option value="GOMEZ CARTAGENA JUAN JOSE">GOMEZ CARTAGENA JUAN JOSE</option>
       <option value="GAVIRIA CAMARGO CATHERINE">GAVIRIA CAMARGO CATHERINE</option>
-    </select>
-    <script>
-    const inputBombero = document.getElementById("personal");
-    const listaBomberos = document.getElementById("listaBomberos");
-  
-    // Cargar nuevos nombres guardados
-    window.addEventListener("DOMContentLoaded", () => {
-      const extras = JSON.parse(localStorage.getItem("bomberosExtra")) || [];
-  
-      extras.forEach(nombre => agregarOpcion(nombre));
-    });
-  
-    // Guardar automáticamente cuando salga del input
-    inputBombero.addEventListener("change", () => {
-      const nombre = inputBombero.value.trim().toUpperCase();
-  
-      if (!nombre) return;
-  
-      const existe = [...listaBomberos.options].some(
-        option => option.value === nombre
-      );
-  
-      if (!existe) {
-        agregarOpcion(nombre);
-  
-        const extras =
-          JSON.parse(localStorage.getItem("bomberosExtra")) || [];
-  
-        extras.push(nombre);
-  
-        localStorage.setItem(
-          "bomberosExtra",
-          JSON.stringify(extras)
-        );
-      }
-  
-      inputBombero.value = nombre;
-    });
-  
-    function agregarOpcion(nombre) {
-      const option = document.createElement("option");
-      option.value = nombre;
-  
-      listaBomberos.appendChild(option);
-    }
-  </script>
-
-    
+    </select>    
     <!-- Tom Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     
