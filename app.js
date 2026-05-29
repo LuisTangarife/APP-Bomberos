@@ -651,16 +651,6 @@ async function saveReport() {
     // AGREGAR AL OBJETO
     data.pdfBase64 = pdfBase64;
     fb.textContent = 'Subiendo reporte...';
-
-        try {
-          return Array.from(sheet.cssRules)
-            .map(rule => rule.cssText)
-            .join('');
-        } catch (e) {
-          return '';
-        }
-      })
-      .join('');
     
     // ENVIAR A APPS SCRIPT
     await fetch(API_URL, {
