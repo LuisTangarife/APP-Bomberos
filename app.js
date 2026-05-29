@@ -930,12 +930,19 @@ function buildCertificateHTML(data) {
       
         <!-- DESCRIPCIÓN -->
         <div class="cert-field full">
-          <div class="cert-label">Descripción del Incidente</div>
-          <div class="cert-desc-box">${(data.descripcion).replace(/\n/g,'<br>')}</div>
-    
+        
+          <div class="cert-label">
+            Descripción del Incidente
+          </div>
+        
+          <div class="cert-desc-box">
+            ${data.descripcion
+              .split('\n\n')
+              .map(p => `<p>${p}</p>`)
+              .join('')}
+          </div>
+        
         </div>
-    
-      </div>
     
       <!-- ───────────────────────────── -->
       <!-- VÍCTIMAS -->
@@ -952,7 +959,6 @@ function buildCertificateHTML(data) {
           <div class="cert-victim-label">Víctimas Fatales</div>
         </div>
       </div>
-    
       <!-- ───────────────────────────── -->
       <!-- NOVEDADES -->
       <!-- ───────────────────────────── -->
@@ -963,8 +969,13 @@ function buildCertificateHTML(data) {
           <div class="cert-field full">
             <div class="cert-label">Novedades</div>
     
-            <div class="cert-desc-box">${data.novedades.replace(/\n/g,'<br>')}</div>
-          </div>
+            <<div class="cert-desc-box">
+                ${data.novedades
+                  .split('\n\n')
+                  .map(p => `<p>${p}</p>`)
+                  .join('')}
+              </div>          
+            </div>
         </div>
         ` : ''}
       <!-- ───────────────────────────── -->
