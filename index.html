@@ -279,13 +279,13 @@
     <!-- Tom Select CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
     
-    <div class="field-group">
+    <div class="field-group full-width">
 <div>
     <label>Bomberos <span class="req">*</span></label>
   
     <!-- Select principal -->
     <select id="personal" multiple required>
-      </option>
+      
         <option value="TREJOS GIL DANIEL">TREJOS GIL DANIEL</option>
         <option value="CARVAJAL SIERRA GABRIEL">CARVAJAL SIERRA GABRIEL</option>
         <option value="PEREZ SALAZAR OSCAR EDUARDO">PEREZ SALAZAR OSCAR EDUARDO</option>
@@ -342,6 +342,62 @@
     <!-- Tom Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     
+    <script>
+      const tom = new TomSelect("#personal", {
+    
+        plugins: ['remove_button'],
+    
+        placeholder: "Buscar, seleccionar o escribir bomberos",
+    
+        maxItems: null,
+    
+        persist: false,
+    
+        create: function(input) {
+    
+          const nombre = input.trim().toUpperCase();
+    
+          // guardar en localStorage
+          let extras = JSON.parse(localStorage.getItem("bomberosExtra")) || [];
+    
+          if (!extras.includes(nombre)) {
+            extras.push(nombre);
+    
+            localStorage.setItem(
+              "bomberosExtra",
+              JSON.stringify(extras)
+            );
+          }
+    
+          return {
+            value: nombre,
+            text: nombre
+          };
+        }
+      });
+    
+      // cargar guardados
+      window.addEventListener("DOMContentLoaded", () => {
+    
+        const extras =
+          JSON.parse(localStorage.getItem("bomberosExtra")) || [];
+    
+        extras.forEach(nombre => {
+    
+          if (!tom.options[nombre]) {
+    
+            tom.addOption({
+              value: nombre,
+              text: nombre
+            });
+    
+          }
+    
+        });
+    
+      });
+    </script>
+        
     <script>
       new TomSelect("#personal", {
         plugins: ['remove_button'],
