@@ -1148,15 +1148,18 @@ body.light-theme .preview-remove{
 
   background: transparent;
 
-  font-size: 11.5pt;
-  line-height: 1.9;
+  font-size: 11pt;
+
+  line-height: 1.45;
+
   color: #222;
 
   text-align: justify;
 
-  white-space: pre-wrap;
+  white-space: pre-line;
 
   word-break: break-word;
+
   overflow-wrap: break-word;
 
   max-width: 100%;
