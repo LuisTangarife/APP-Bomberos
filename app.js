@@ -640,22 +640,18 @@ async function saveReport() {
     fb.textContent = 'Preparando certificado...';
 
     // RENDERIZAR CERTIFICADO
-    //renderCertificate(data);
+    renderCertificate(data);
     
     // ESPERAR A QUE EL DOM TERMINE
-    //await new Promise(r => setTimeout(r, 800));
+    await new Promise(r => setTimeout(r, 800));
     
     // GENERAR PDF EN BASE64
-    //const pdfBase64 = await generatePDFBase64();
+    const pdfBase64 = await generatePDFBase64(data);
     
     // AGREGAR AL OBJETO
-    //data.pdfBase64 = pdfBase64;
+    data.pdfBase64 = pdfBase64;
     fb.textContent = 'Subiendo reporte...';
 
-    data.certHTML = buildCertificateHTML(data);
-
-    data.certStyles = Array.from(document.styleSheets)
-      .map(sheet => {
         try {
           return Array.from(sheet.cssRules)
             .map(rule => rule.cssText)
@@ -1058,277 +1054,51 @@ function buildCertificateHTML(data) {
     `;
 }
 function renderCertificate(data, id = null) {
-  const docNum = id ? String(id).padStart(5, '0') : Math.floor(Math.random()*99999).toString().padStart(5,'0');
-  const coords = (data.latitud && data.longitud)
-    ? `${data.latitud}, ${data.longitud}`
-    : 'No registradas';
-  const now = new Date();
-  const emitted = now.toLocaleString('es-CO', { dateStyle: 'full', timeStyle: 'short' });
 
-  const certHTML = `
-  <div class="cert-preview-wrapper">
-  <div class="page">
+  const certHTML = buildCertificateHTML(data);
 
-  <!-- Marca de agua -->
-  <img class="watermark"
-       src="${logoMunicipio}"
-       alt="">
+  document.getElementById('certContent').innerHTML =
+    certHTML;
 
-  <!-- BARRA SUPERIOR — igual que "ACADEMIA NACIONAL DE BOMBEROS DE CHILE" -->
-  <div class="top-bar">
-    <span class="top-bar-text">
-      Benemérito Cuerpo de Bomberos Voluntarios — Villamaría, Caldas
-    </span>
-  </div>
-
-  <!-- CABECERA -->
-  <div class="cert-header">
-    <div class="cert-top">
-
-      <!-- Logo centrado igual que el escudo chileno -->
-      <img class="cert-logo-center"
-           src="${logoMunicipio}"
-           alt="Bomberos Colombia">
-
-      <!-- Nombre institucional -->
-      <div class="cert-inst-name">
-        <h1>Benemérito Cuerpo de Bomberos Voluntarios<br>Villamaría, Caldas</h1>
-        <p>NIT. 890.804.607-0</p>
-      </div>
-
-      <!-- Número y fecha del documento -->
-      <div class="cert-doc-info">
-        <p class="cert-doc-num">DOC: CB-${docNum}</p>
-        <p class="cert-doc-date">Emitido: ${emitted}</p>
-      </div>
-
-  </div>
-  </div>
-  <div class="cert-body">
-  <!-- ───────────────────────────── -->
-  <!-- TÍTULO -->
-  <!-- ───────────────────────────── -->
-
-<div class="cert-body-title">
-  <h2>
-    Reporte de Intervención ${data.evento || 'Evento no especificado'}
-  </h2>
-</div>
-
-  <!-- ───────────────────────────── -->
-  <!-- INFORMACIÓN -->
-  <!-- ───────────────────────────── -->
-
-    <!-- Campos en dos columnas -->
-    <div class="cert-grid">
-      <div class="cert-field">
-        <div class="cert-label">Fecha</div>
-        <div class="cert-value">${formatDate(data.fecha)}</div>
-      </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Hora de Reporte</div>
-      <div class="cert-value">${data.horaReporte}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Hora de Llegada al Sitio</div>
-      <div class="cert-value">${data.horaLlegada}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Hora Final</div>
-      <div class="cert-value">${data.horaFinal}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Lugar</div>
-      <div class="cert-value">${data.lugar}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Dirección</div>
-      <div class="cert-value">${data.direccion}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Coordenadas GPS</div>
-      <div class="cert-value">${coords}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Tipo de Evento</div>
-      <div class="cert-value">${data.evento}</div>
-    </div>
-
-    <div class="cert-field">
-      <div class="cert-label">Vehículo Desplegado</div>
-      <div class="cert-value">${data.vehiculo}</div>
-    </div>
-
-  <div class="cert-field">
-    <div class="cert-label">Personal Comisionado</div>
-    <div class="cert-value">
-      ${Array.isArray(data.personal) 
-        ? data.personal.join(', ') 
-        : data.personal}
-    </div>
-  </div>
-  
-    <!-- DESCRIPCIÓN -->
-    <div class="cert-field full">
-      <div class="cert-label">Descripción del Incidente</div>
-      <div class="cert-desc-box">${(data.descripcion).replace(/\n/g,'<br>')}</div>
-
-    </div>
-
-  </div>
-
-  <!-- ───────────────────────────── -->
-  <!-- VÍCTIMAS -->
-  <!-- ───────────────────────────── -->
-
-  <div class="cert-victims-bar">
-    <div class="cert-victim-box">
-      <div class="cert-victim-num">${data.lesionados || '0'}</div>
-      <div class="cert-victim-label">Lesionados</div>
-    </div>
-
-    <div class="cert-victim-box">
-      <div class="cert-victim-num">${data.victimas || '0'}</div>
-      <div class="cert-victim-label">Víctimas Fatales</div>
-    </div>
-  </div>
-
-  <!-- ───────────────────────────── -->
-  <!-- NOVEDADES -->
-  <!-- ───────────────────────────── -->
-
-  ${data.novedades ? `
-
-    <div class="cert-grid">
-      <div class="cert-field full">
-        <div class="cert-label">Novedades</div>
-
-        <div class="cert-desc-box">${data.novedades.replace(/\n/g,'<br>')}</div>
-      </div>
-    </div>
-    ` : ''}
-  <!-- ───────────────────────────── -->
-  <!-- EVIDENCIA FOTOGRÁFICA -->
-  <!-- ───────────────────────────── -->
-
-  ${data.photos && data.photos.length ? `
-    <div class="cert-photo-section">
-      <div class="cert-photo-title">Evidencia Fotográfica</div>
-      <div class="cert-photo-grid">${data.photos.map(photo => `
-          <div class="cert-photo-card">
-            <img src="${photo}"
-              loading="lazy">
-          </div>
-          `).join('')}
-      </div>
-    </div>
-    ` : ''}
-</div>
-<!-- ───────────────────────────── -->
-<!-- FOOTER -->
-<!-- ───────────────────────────── -->
-
-<div class="cert-footer">
-  <!-- FIRMAS -->
-  <div class="cert-footer-left">
-
-    <!-- COMANDANTE -->
-    <div class="cert-signature">
-      <div class="cert-signature-img-wrap">
-        <img class="cert-firma-img"
-          src="${IMG_FIRMA}" 
-          alt="Firma Comandante">
-          
-      </div>
-      <div class="cert-signature-line"></div>
-      <div class="cert-signature-role">Comandante de Unidad</div>
-    </div>
-    
-    <!-- OFICIAL -->
-    <div class="cert-signature">
-
-      <!-- ESPACIO VACÍO PARA ALINEAR -->
-      <div class="cert-signature-img-wrap"></div>
-      <div class="cert-signature-line"></div>
-      <div class="cert-signature-role">Oficial de Turno</div>
-    </div>
-
-    <!-- Afectado -->
-
-    <div class="cert-signature">
-
-      <!-- ESPACIO VACÍO PARA ALINEAR -->
-      <div class="cert-signature-img-wrap"></div>
-      <div class="cert-signature-line"></div>
-      <div class="cert-signature-role">Afectado</div>
-    </div>
-
-  </div>
-
-  <!-- QR -->
-  <div class="cert-footer-right">
-    <img 
-      src="${qrCodeImg}" 
-      class="cert-qr"
-    >
-    <div class="cert-qr-text">Verificación Digital<br>
-      DOC: CB-${docNum}</div>
-  </div>
-</div>
-<!-- PIE DE CONTACTO — igual que Chile -->
-  <div class="cert-contact-footer">
-    Calle 19 N.° 9-52 • Villamaría, Caldas • Tel: (606) 874 00 00 • bomberosvvm@gmail.com • NIT. 890.804.607-0
-  </div>
-
-</div><!-- /page -->
-`;
-
-  document.getElementById('certContent').innerHTML = certHTML;
   const styles = Array.from(document.styleSheets)
-  .map(sheet => {
-    try {
-      return Array.from(sheet.cssRules)
-        .map(rule => rule.cssText)
-        .join('');
-    } catch (e) {
-      return '';
-    }
-  })
-  .join('');
-  
-  
-  document.getElementById('certModal').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+    .map(sheet => {
+      try {
+        return Array.from(sheet.cssRules)
+          .map(rule => rule.cssText)
+          .join('');
+      } catch (e) {
+        return '';
+      }
+    })
+    .join('');
+
   currentPrintHTML = `
-  <!DOCTYPE html>
-  <html>
-  <head>
-  <meta charset="UTF-8">
-  
-  <title>Certificado</title>
-  
-  <style>
-  ${styles}
-  </style>
-  
-  </head>
-  
-  <body>
-  
-  ${certHTML}
-  
-  </body>
-  </html>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <title>Reporte Bomberos</title>
+
+      <style>
+        ${styles}
+      </style>
+    </head>
+
+    <body class="print-mode">
+
+      ${certHTML}
+
+    </body>
+    </html>
   `;
 
+  document.getElementById('certModal').style.display =
+    'flex';
+
+  document.body.style.overflow = 'hidden';
+
 }
+
 function closeModal() {
   document.getElementById('certModal').style.display = 'none';
   document.body.style.overflow = '';
@@ -1425,16 +1195,32 @@ async function syncPendingReports() {
 
 window.addEventListener('online', syncPendingReports);
 
-async function generatePDFBase64() {
+async function generatePDFBase64(data) {
 
-  const element = document.querySelector('.page');
+  const temp = document.createElement('div');
+
+  temp.style.position = 'fixed';
+  temp.style.left = '-99999px';
+  temp.style.top = '0';
+
+  temp.innerHTML = buildCertificateHTML(data);
+
+  document.body.appendChild(temp);
+
+  const element = temp.querySelector('.page');
+
+  await new Promise(r => setTimeout(r, 800));
 
   const canvas = await html2canvas(element, {
-    scale: 2,
-    useCORS: true
+    scale: 3,
+    useCORS: true,
+    backgroundColor: '#ffffff'
   });
 
-  const imgData = canvas.toDataURL('image/jpeg', 1.0);
+  document.body.removeChild(temp);
+
+  const imgData =
+    canvas.toDataURL('image/jpeg', 1.0);
 
   const pdf = new jspdf.jsPDF({
     orientation: 'portrait',
@@ -1443,44 +1229,18 @@ async function generatePDFBase64() {
   });
 
   const pdfWidth = 210;
-  const pageHeight = 297;
 
-  const imgWidth = pdfWidth;
-
-  const imgHeight =
-    canvas.height * imgWidth / canvas.width;
-
-  let heightLeft = imgHeight;
-  let position = 0;
+  const pdfHeight =
+    canvas.height * pdfWidth / canvas.width;
 
   pdf.addImage(
     imgData,
     'JPEG',
     0,
-    position,
-    imgWidth,
-    imgHeight
+    0,
+    pdfWidth,
+    pdfHeight
   );
-
-  heightLeft -= pageHeight;
-
-  while (heightLeft > 0) {
-
-    position = heightLeft - imgHeight;
-
-    pdf.addPage();
-
-    pdf.addImage(
-      imgData,
-      'JPEG',
-      0,
-      position,
-      imgWidth,
-      imgHeight
-    );
-
-    heightLeft -= pageHeight;
-  }
 
   return pdf.output('datauristring');
 }
