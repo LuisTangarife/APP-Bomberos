@@ -1332,20 +1332,50 @@ body.light-theme .preview-remove{
 }
 
 /* ============================================================
-   MARCA DE AGUA — igual opacidad que Chile (4%)
-   ============================================================ */
+   MARCA DE AGUA
+============================================================ */
 
-.watermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 420px;
-  height: 420px;
-  object-fit: contain;
-  opacity: 0.04;
-  z-index: 0;
-  pointer-events: none;
+.watermark{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:420px;
+  height:420px;
+  object-fit:contain;
+  opacity:.04;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* ============================================================
+   WATERMARK EN TODAS LAS PÁGINAS PDF / PRINT
+============================================================ */
+
+@media print{
+
+  .watermark{
+
+    position:fixed !important;
+
+    top:50% !important;
+    left:50% !important;
+
+    transform:translate(-50%, -50%) !important;
+
+    width:420px !important;
+    height:420px !important;
+
+    opacity:.04 !important;
+
+    z-index:0 !important;
+
+    pointer-events:none !important;
+
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
 }
 
 /* ============================================================
