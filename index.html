@@ -280,19 +280,134 @@
     <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
     
     <div class="field-group">
-      <label>Bomberos <span class="req">*</span></label>
-    
-      <select id="personal" multiple required>
-        <option value="Juan Pérez">Juan Pérez</option>
-        <option value="Carlos Gómez">Carlos Gómez</option>
-        <option value="Andrés Martínez">Andrés Martínez</option>
-        <option value="Luis Rodríguez">Luis Rodríguez</option>
-        <option value="Miguel Herrera">Miguel Herrera</option>
-        <option value="Pedro Ramírez">Pedro Ramírez</option>
-        <option value="Jhon Arias">Jhon Arias</option>
-        <option value="Daniel Torres">Daniel Torres</option>
-      </select>
+<div>
+    <label>Bomberos <span class="req">*</span></label>
+  
+    <!-- Select principal -->
+    <select id="personal" multiple required>
+      <option value="TREJOS GIL DANIEL">TREJOS GIL DANIEL</option>
+      <option value="CARVAJAL SIERRA GABRIEL">CARVAJAL SIERRA GABRIEL</option>
+      <option value="PEREZ SALAZAR OSCAR EDUARDO">PEREZ SALAZAR OSCAR EDUARDO</option>
+      <option value="GIRALDO GRISALES JONY ALEXANDER">GIRALDO GRISALES JONY ALEXANDER</option>
+      <option value="MARIN MONTOYA SERGIO">MARIN MONTOYA SERGIO</option>
+      <option value="GIRALDO HERRERA OLIMPO">GIRALDO HERRERA OLIMPO</option>
+      <option value="GÓMEZ VANEGAS WILMAR HENRY">GÓMEZ VANEGAS WILMAR HENRY</option>
+      <option value="FRANCO RODRIGUEZ ANDRÉS FELIPE">FRANCO RODRIGUEZ ANDRÉS FELIPE</option>
+      <option value="RAMIREZ BUITRAGO MATEO">RAMIREZ BUITRAGO MATEO</option>
+      <option value="OSPINA MUÑOZ BORIS DE JESUS">OSPINA MUÑOZ BORIS DE JESUS</option>
+      <option value="PINEDA MURILLO RODRIGO">PINEDA MURILLO RODRIGO</option>
+      <option value="MARTINEZ VALENCIA CESAR URIEL">MARTINEZ VALENCIA CESAR URIEL</option>
+      <option value="SOTO ORTIZ ALBEIRO">SOTO ORTIZ ALBEIRO</option>
+      <option value="MORALES TABARES ESMEN RODRIGO">MORALES TABARES ESMEN RODRIGO</option>
+      <option value="NIETO LOPEZ PAOLA ALEXANDRA">NIETO LOPEZ PAOLA ALEXANDRA</option>
+      <option value="GONZALEZ ZAPATA KEVIN FELIPE">GONZALEZ ZAPATA KEVIN FELIPE</option>
+      <option value="MARTINEZ CARDENAS JULIO CESAR">MARTINEZ CARDENAS JULIO CESAR</option>
+      <option value="LOPEZ CAÑON JOSE EFRAIN">LOPEZ CAÑON JOSE EFRAIN</option>
+      <option value="GOMEZ GONZALEZ JUAN DAVID">GOMEZ GONZALEZ JUAN DAVID</option>
+      <option value="CASTAÑEDA RESTREPO NATALIA">CASTAÑEDA RESTREPO NATALIA</option>
+      <option value="GONZALEZ GONZALEZ YESICA BANESSA">GONZALEZ GONZALEZ YESICA BANESSA</option>
+      <option value="MARIN MARTINEZ JAIME ANDRES">MARIN MARTINEZ JAIME ANDRES</option>
+      <option value="MUNEVAR VARGAS OSCAR NELSON">MUNEVAR VARGAS OSCAR NELSON</option>
+      <option value="ESPITIA TORRES YEIMS STEFF">ESPITIA TORRES YEIMS STEFF</option>
+      <option value="ARCINIEGAS GONZALEZ JUAN PABLO">ARCINIEGAS GONZALEZ JUAN PABLO</option>
+      <option value="OCAMPO CARDONA JUAN CAMILO">OCAMPO CARDONA JUAN CAMILO</option>
+      <option value="QUINTERO BOHORQUEZ RUBELIO">QUINTERO BOHORQUEZ RUBELIO</option>
+      <option value="NIETO LOPEZ MILTON RENE">NIETO LOPEZ MILTON RENE</option>
+      <option value="RAVE ALARCON DIANA XIMENA">RAVE ALARCON DIANA XIMENA</option>
+      <option value="PATIÑO ARBOLEDA JOSE VIANEY">PATIÑO ARBOLEDA JOSE VIANEY</option>
+      <option value="MARQUEZ RIVERA SEBASTIAN">MARQUEZ RIVERA SEBASTIAN</option>
+      <option value="VALENCIA VICTOR ANDRES">VALENCIA VICTOR ANDRES</option>
+      <option value="GONZALEZ LOPEZ LORENA HILDA">GONZALEZ LOPEZ LORENA HILDA</option>
+      <option value="QUINTERO OSPINA JULIANA">QUINTERO OSPINA JULIANA</option>
+      <option value="CASTAÑEDA OSORIO SANTIAGO">CASTAÑEDA OSORIO SANTIAGO</option>
+      <option value="GIRALDO RINCON JULIO CESAR">GIRALDO RINCON JULIO CESAR</option>
+      <option value="ALZATE SALAZAR JUAN CAMILO">ALZATE SALAZAR JUAN CAMILO</option>
+      <option value="LEAL CHILATRA JONATHAN SMITH">LEAL CHILATRA JONATHAN SMITH</option>
+      <option value="JIMENEZ GARCIA JHONNY ALEJANDRO">JIMENEZ GARCIA JHONNY ALEJANDRO</option>
+      <option value="CUERVO PINEDA MIGUEL ANTONIO">CUERVO PINEDA MIGUEL ANTONIO</option>
+      <option value="ARIZA LUISA FERNANDA">ARIZA LUISA FERNANDA</option>
+      <option value="MORENO CEBALLOS MANUELA">MORENO CEBALLOS MANUELA</option>
+      <option value="SILVA RAMIREZ CAROLINA">SILVA RAMIREZ CAROLINA</option>
+      <option value="DIAZ ARIAS DANIELA">DIAZ ARIAS DANIELA</option>
+      <option value="QUINTERO PINEDA ANA MARIA">QUINTERO PINEDA ANA MARIA</option>
+      <option value="ÁLVAREZ BLANDÓN MÓNICA ALEJANDRA">ÁLVAREZ BLANDÓN MÓNICA ALEJANDRA</option>
+      <option value="VALENCIA ARENAS MANUELA">VALENCIA ARENAS MANUELA</option>
+      <option value="LÓPEZ CORTÉS MILDREY JULIANA">LÓPEZ CORTÉS MILDREY JULIANA</option>
+      <option value="GIRALDO SALAZAR DANIELA">GIRALDO SALAZAR DANIELA</option>
+      <option value="GOMEZ CARTAGENA JUAN JOSE">GOMEZ CARTAGENA JUAN JOSE</option>
+      <option value="GAVIRIA CAMARGO CATHERINE">GAVIRIA CAMARGO CATHERINE</option>
+    </select>
+  
+    <!-- Campo para agregar nuevos -->
+    <div style="margin-top:10px;">
+      <input 
+        type="text" 
+        id="nuevoBombero" 
+        placeholder="Agregar nuevo bombero"
+      />
+  
+      <button type="button" onclick="agregarBombero()">
+        Agregar
+      </button>
     </div>
+  </div>
+  
+  <script>
+    const selectPersonal = document.getElementById("personal");
+  
+    // Cargar nombres guardados
+    window.addEventListener("DOMContentLoaded", () => {
+      const guardados = JSON.parse(localStorage.getItem("bomberosExtra")) || [];
+  
+      guardados.forEach(nombre => {
+        agregarOpcion(nombre);
+      });
+    });
+  
+    function agregarBombero() {
+      const input = document.getElementById("nuevoBombero");
+      const nombre = input.value.trim().toUpperCase();
+  
+      if (!nombre) {
+        alert("Ingrese un nombre");
+        return;
+      }
+  
+      // Validar duplicados
+      const existe = [...selectPersonal.options].some(
+        opt => opt.value === nombre
+      );
+  
+      if (existe) {
+        alert("El bombero ya existe");
+        return;
+      }
+  
+      // Agregar al select
+      agregarOpcion(nombre);
+  
+      // Guardar en localStorage
+      const guardados = JSON.parse(localStorage.getItem("bomberosExtra")) || [];
+      guardados.push(nombre);
+  
+      localStorage.setItem(
+        "bomberosExtra",
+        JSON.stringify(guardados)
+      );
+  
+      // Limpiar input
+      input.value = "";
+    }
+  
+    function agregarOpcion(nombre) {
+      const option = document.createElement("option");
+  
+      option.value = nombre;
+      option.textContent = nombre;
+  
+      selectPersonal.appendChild(option);
+    }
+  </script>
     
     <!-- Tom Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
