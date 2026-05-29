@@ -1228,13 +1228,19 @@ body.light-theme .preview-remove{
 }
 
 .cert-photo-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border: 1px solid #d8d8d8;
-  display: block;
-}
 
+  width:100%;
+
+  max-height:260px;
+
+  height:auto;
+
+  object-fit:cover;
+
+  border:1px solid #d8d8d8;
+
+  display:block;
+}
 /* ============================================================
    PIE — FIRMAS + QR
    Idéntico al certificado chileno
@@ -1346,23 +1352,6 @@ body.light-theme .preview-remove{
    @MEDIA PRINT — página real A4
    ============================================================ */
 
-@media print {
-
-  @page { size: A4; margin: 0; }
-
-  body {
-    background: #fff;
-    padding: 0;
-    display: block;
-  }
-
-  .page {
-    width: 100%;
-    min-height: 100vh;
-    box-shadow: none;
-  }
-
-}
 .cert-qr {
   width: 90px;
   height: 90px;
@@ -1373,4 +1362,128 @@ body.light-theme .preview-remove{
   padding:40px 20px;
   display:flex;
   justify-content:center;
+}
+/* =========================================================
+   IMPRESIÓN PROFESIONAL A4
+========================================================= */
+
+@media print {
+
+  @page{
+    size:A4;
+    margin:18mm 14mm 18mm 14mm;
+  }
+
+  html,
+  body{
+    background:#fff !important;
+    margin:0;
+    padding:0;
+  }
+
+  body *{
+    visibility:hidden;
+  }
+
+  .page,
+  .page *{
+    visibility:visible;
+  }
+
+  .page{
+
+    width:100% !important;
+    min-height:auto !important;
+
+    margin:0 auto !important;
+
+    box-shadow:none !important;
+
+    overflow:visible !important;
+
+    page-break-after:auto;
+
+    break-after:auto;
+  }
+
+  /* cuerpo */
+
+  .cert-body{
+    padding:0 20px 20px 20px !important;
+  }
+
+  /* evitar cortes feos */
+
+  .cert-field,
+  .cert-desc-box,
+  .cert-victims-bar,
+  .cert-photo-section,
+  .cert-photo-card,
+  .cert-footer,
+  .cert-signature{
+
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+
+  /* títulos nunca al final */
+
+  .cert-label,
+  .cert-photo-title,
+  .cert-body-title{
+
+    break-after:avoid;
+    page-break-after:avoid;
+  }
+
+  /* párrafos */
+
+  .cert-desc-box p{
+
+    orphans:3;
+    widows:3;
+
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+
+  /* GRID FOTOS */
+
+  .cert-photo-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  /* TARJETA FOTO */
+
+  .cert-photo-card{
+
+    break-inside:avoid;
+    page-break-inside:avoid;
+
+    overflow:hidden;
+  }
+
+  .cert-photo-card img{
+
+    width:100%;
+    height:auto;
+
+    max-height:320px;
+
+    object-fit:cover;
+
+    display:block;
+
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+
+  /* footer */
+
+  .cert-footer{
+    margin-top:35px;
+  }
+
 }
