@@ -342,6 +342,7 @@
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     
     <script>
+    
       const tom = new TomSelect("#personal", {
     
         plugins: ['remove_button'],
@@ -356,10 +357,13 @@
     
           const nombre = input.trim().toUpperCase();
     
-          // guardar en localStorage
-          let extras = JSON.parse(localStorage.getItem("bomberosExtra")) || [];
+          // obtener guardados
+          let extras =
+            JSON.parse(localStorage.getItem("bomberosExtra")) || [];
     
+          // guardar solo si no existe
           if (!extras.includes(nombre)) {
+    
             extras.push(nombre);
     
             localStorage.setItem(
@@ -395,6 +399,37 @@
         });
     
       });
+    
+      // eliminar bombero
+      function eliminarBombero(nombre){
+    
+        nombre = nombre.trim().toUpperCase();
+    
+        // eliminar del TomSelect
+        if(tom.options[nombre]){
+    
+          tom.removeOption(nombre);
+    
+          // quitar selección si estaba seleccionado
+          tom.removeItem(nombre);
+    
+          tom.refreshOptions(false);
+        }
+    
+        // eliminar del localStorage
+        let extras =
+          JSON.parse(localStorage.getItem("bomberosExtra")) || [];
+    
+        extras = extras.filter(n => n !== nombre);
+    
+        localStorage.setItem(
+          "bomberosExtra",
+          JSON.stringify(extras)
+        );
+    
+        alert("Bombero eliminado: " + nombre);
+      }
+    
     </script>
     </div>
 
