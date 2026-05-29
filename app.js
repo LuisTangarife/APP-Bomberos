@@ -964,20 +964,27 @@ function buildCertificateHTML(data) {
       <!-- ───────────────────────────── -->
     
       ${data.novedades ? `
-    
+
         <div class="cert-grid">
+      
           <div class="cert-field full">
-            <div class="cert-label">Novedades</div>
-    
-            <<div class="cert-desc-box">
-                ${data.novedades
-                  .split('\n\n')
-                  .map(p => `<p>${p}</p>`)
-                  .join('')}
-              </div>          
+      
+            <div class="cert-label">
+              Novedades
             </div>
+      
+            <div class="cert-desc-box">
+              ${data.novedades
+                .split('\n\n')
+                .map(p => `<p>${p}</p>`)
+                .join('')}
+            </div>
+      
+          </div>
+      
         </div>
-        ` : ''}
+      
+      ` : ''}
       <!-- ───────────────────────────── -->
       <!-- EVIDENCIA FOTOGRÁFICA -->
       <!-- ───────────────────────────── -->
