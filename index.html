@@ -264,21 +264,24 @@
     </div>
     <div class="fields-grid">
       <div class="field-group">
-        <label>Vehículo <span class="req">*</span></label>
-        <select id="vehiculo" required>
-          <option value="">— Seleccione —</option>
-          <option>Móvil 1</option>
-          <option>Móvil 2</option>
-          <option>Móvil 3</option>
-          <option>Móvil 4</option>
-          <option>Móvil 5</option>
-          <option>Móvil 6</option>
-          <option>Móvil 7</option>
+        <label>Vehículos desplegados <span class="req">*</span></label>
+        <select id="vehiculos" multiple required>
+        <option value="Móvil 1">Móvil 1</option>
+        <option value="Móvil 2">Móvil 2</option>
+        <option value="Móvil 3">Móvil 3</option>
+        <option value="Móvil 4">Móvil 4</option>
+        <option value="Móvil 5">Móvil 5</option>
+        <option value="Móvil 6">Móvil 6</option>
+        <option value="Móvil 7">Móvil 7</option>
+        <option value="Vehículo Externo">Vehículo Externo</option>
         </select>
       </div>
+      <div id="vehicleAssignments"></div>
+      
     <!-- Tom Select CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
-    
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+      
     <div class="field-group full-width">
     <label>Bomberos <span class="req">*</span></label>
   
