@@ -305,8 +305,12 @@ rel="stylesheet">
 
 </div>
   
-    <!-- Select principal -->
-    <select id="personal" multiple required>
+    <!-- Base de datos interna de personal -->
+    <select
+    id="personal"
+    multiple
+    style="display:none"
+    >
       
         <option value="TREJOS GIL DANIEL">TREJOS GIL DANIEL</option>
         <option value="CARVAJAL SIERRA GABRIEL">CARVAJAL SIERRA GABRIEL</option>
@@ -365,65 +369,6 @@ rel="stylesheet">
     <!-- Tom Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     
-    <script>
-    
-      const tom = new TomSelect("#personal", {
-    
-        plugins: ['remove_button'],
-    
-        placeholder: "Buscar, seleccionar o escribir bomberos",
-    
-        maxItems: null,
-    
-        persist: false,
-    
-        create: function(input) {
-    
-          const nombre = input.trim().toUpperCase();
-    
-          // obtener guardados
-          let extras =
-            JSON.parse(localStorage.getItem("bomberosExtra")) || [];
-    
-          // guardar solo si no existe
-          if (!extras.includes(nombre)) {
-    
-            extras.push(nombre);
-    
-            localStorage.setItem(
-              "bomberosExtra",
-              JSON.stringify(extras)
-            );
-          }
-    
-          return {
-            value: nombre,
-            text: nombre
-          };
-        }
-      });
-    
-      // cargar guardados
-      window.addEventListener("DOMContentLoaded", () => {
-
-        const extras =
-          JSON.parse(localStorage.getItem("bomberosExtra")) || [];
-      
-        extras.forEach(nombre => {
-      
-          if (!tom.options[nombre]) {
-      
-            tom.addOption({
-              value: nombre,
-              text: nombre
-            });
-      
-          }
-      
-        });
-      
-      });
-    </script>
     <div class="section-title">
       <span class="section-num">05</span> DESCRIPCIÓN DEL INCIDENTE
     </div>
