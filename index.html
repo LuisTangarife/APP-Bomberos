@@ -400,54 +400,6 @@
     
       });
     
-      // eliminar bombero
-      function eliminarBombero(nombre){
-    
-        nombre = nombre.trim().toUpperCase();
-    
-        // eliminar del TomSelect
-        if(tom.options[nombre]){
-    
-          tom.removeOption(nombre);
-    
-          // quitar selección si estaba seleccionado
-          tom.removeItem(nombre);
-    
-          tom.refreshOptions(false);
-        }
-    
-        // eliminar del localStorage
-        let extras =
-          JSON.parse(localStorage.getItem("bomberosExtra")) || [];
-    
-        extras = extras.filter(n => n !== nombre);
-    
-        localStorage.setItem(
-          "bomberosExtra",
-          JSON.stringify(extras)
-        );
-    
-        alert("Bombero eliminado: " + nombre);
-      }    
-    </script>
-
-      <div class="delete-bombero-box">
-
-        <input
-          type="text"
-          id="nombreEliminar"
-          placeholder="Nombre del bombero a eliminar"
-        >
-      
-        <button
-          type="button"
-          onclick="eliminarBombero(
-            document.getElementById('nombreEliminar').value
-          )"
-        >
-          Eliminar
-        </button>
-      
       </div>
     </div>
 
@@ -481,6 +433,13 @@
       <div class="field-group">
         <label>Víctimas Fatales</label>
         <input type="number" id="victimas" min="0" value="0" placeholder="0">
+      </div>
+        <div class="field-group full-width">
+          <div id="affectedContainer"></div>
+      </div>
+      
+      <div class="field-group full-width">
+          <div id="firefighterSignatures"></div>
       </div>
       <div class="field-group full-width">
         <label>Novedades
