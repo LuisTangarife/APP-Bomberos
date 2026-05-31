@@ -789,55 +789,27 @@ function getFormData() {
 
   }
 
+/* =====================================================
+   FIRMAS BOMBEROS
+===================================================== */
 
-  /* =====================================================
-     FIRMAS BOMBEROS
-  ===================================================== */
+// Obtener vehículos
+const vehiculos = vehiculosTS.items;
 
-  data.personal.forEach((nombre,index)=>{
+// Limpiar arreglos
+data.vehiculos = [];
+data.personal = [];
+data.firmasBomberos = [];
 
-    const canvas =
-      document.getElementById(
-        `firma_bombero_${index}`
-      );
-
-    let firma = '';
-
-    if (canvas) {
-
-      try {
-
-        firma = canvas.toDataURL();
-
-      } catch {
-
-        firma = '';
-
-      }
-
-    }
-
-    data.firmasBomberos.push({
-
-      nombre,
-      firma: firma || 'Sin firma'
-
-    });
-
-  });
-
-const vehiculos =
-vehiculosTS.items;
-
+// Recorrer vehículos y personal
 vehiculos.forEach((v,index)=>{
 
     const personal =
-
-    document
-    .getElementById(
-    `bomberos_${index}`
-    )
-    .tomselect.items;
+        document
+        .getElementById(
+            `bomberos_${index}`
+        )
+        ?.tomselect?.items || [];
 
     data.vehiculos.push({
 
@@ -846,25 +818,50 @@ vehiculos.forEach((v,index)=>{
 
     });
 
-    // Agregar todos los bomberos al listado general
     data.personal.push(
         ...personal
     );
 
 });
 
-
 // Eliminar duplicados
 data.personal = [
-
-    ...new Set(
-        data.personal
-    )
-
+    ...new Set(data.personal)
 ];
 
-return data;
-  
+// Guardar firmas
+data.personal.forEach(
+(nombre,index)=>{
+
+    const canvas =
+        document.getElementById(
+            `firma_bombero_${index}`
+        );
+
+    let firma='';
+
+    if(canvas){
+
+        try{
+
+            firma =
+                canvas.toDataURL();
+
+        }catch{}
+
+    }
+
+    data.firmasBomberos.push({
+
+        nombre,
+        firma:
+            firma || 'Sin firma'
+
+    });
+
+});
+
+return data;  
 }
 function validateForm(data){
 
@@ -1791,15 +1788,14 @@ setupSignature(
 
 function generateFirefighterSignatures(){
 
-const container=
+const container =
 document.getElementById(
 'firefighterSignatures'
 );
 
-container.innerHTML='';
-
 let personal=[];
 
+// Obtener bomberos de todos los vehículos
 vehiculosTS.items.forEach(
 (v,index)=>{
 
@@ -1821,14 +1817,41 @@ personal.push(
 
 });
 
+// eliminar duplicados
 personal=[
 ...new Set(personal)
 ];
 
+// Guardar firmas existentes
+const firmasActuales={};
+
+document
+.querySelectorAll(
+'.signature-pad'
+)
+.forEach(canvas=>{
+
+try{
+
+firmasActuales[
+canvas.id
+]=canvas.toDataURL();
+
+}catch{}
+
+});
+
+// NO borrar y recrear todo
+container.innerHTML='';
+
+// Crear nuevamente manteniendo firmas
 personal.forEach(
 (nombre,index)=>{
 
-container.innerHTML+=`
+const id=
+`firma_bombero_${index}`;
+
+container.innerHTML += `
 
 <div class="affected-card">
 
@@ -1836,7 +1859,7 @@ container.innerHTML+=`
 
 <canvas
 class="signature-pad"
-id="firma_bombero_${index}"
+id="${id}"
 width="350"
 height="120"
 ></canvas>
@@ -1845,7 +1868,7 @@ height="120"
 type="button"
 onclick="
 clearSignature(
-'firma_bombero_${index}'
+'${id}'
 )"
 >
 
@@ -1856,9 +1879,45 @@ Limpiar firma
 </div>
 `;
 
-setupSignature(
-`firma_bombero_${index}`
+});
+
+// Inicializar canvas
+personal.forEach(
+(nombre,index)=>{
+
+const id=
+`firma_bombero_${index}`;
+
+setupSignature(id);
+
+// Restaurar firma anterior
+if(firmasActuales[id]){
+
+const canvas=
+document.getElementById(id);
+
+const ctx=
+canvas.getContext('2d');
+
+const img=
+new Image();
+
+img.onload=()=>{
+
+ctx.drawImage(
+img,
+0,
+0,
+canvas.width,
+canvas.height
 );
+
+};
+
+img.src=
+firmasActuales[id];
+
+}
 
 });
 
