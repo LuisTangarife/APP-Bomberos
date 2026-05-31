@@ -1587,78 +1587,142 @@ function setupSignature(id){
   const canvas =
     document.getElementById(id);
 
-  if(!canvas) return;
+function setupSignature(id){
 
-  const ctx =
+    const canvas =
+    document.getElementById(id);
+
+    if(!canvas) return;
+
+    const ctx =
     canvas.getContext('2d');
 
-  let drawing = false;
+    // Ajuste HD
+    const ratio =
+    window.devicePixelRatio || 1;
 
-  canvas.addEventListener(
-    'pointerdown',
-    e=>{
+    const rect =
+    canvas.getBoundingClientRect();
 
-      drawing=true;
+    canvas.width =
+    rect.width * ratio;
 
-      const rect=
+    canvas.height =
+    rect.height * ratio;
+
+    ctx.scale(
+      ratio,
+      ratio
+    );
+
+    canvas.style.width =
+    rect.width + "px";
+
+    canvas.style.height =
+    rect.height + "px";
+
+    // Estilo firma
+    ctx.strokeStyle="#111";
+
+    ctx.lineWidth=2.2;
+
+    ctx.lineCap='round';
+
+    ctx.lineJoin='round';
+
+    let drawing=false;
+
+    function getPos(e){
+
+        const rect=
         canvas.getBoundingClientRect();
 
-      ctx.beginPath();
+        return{
 
-      ctx.moveTo(
-        e.clientX-rect.left,
-        e.clientY-rect.top
-      );
-
-    }
-  );
-
-  canvas.addEventListener(
-    'pointerup',
-    ()=>{
-
-      drawing=false;
-
-      ctx.beginPath();
+            x:e.clientX-rect.left,
+            y:e.clientY-rect.top
+        };
 
     }
-  );
 
-  canvas.addEventListener(
-    'pointermove',
-    e=>{
+    canvas.addEventListener(
+      'pointerdown',
+      e=>{
 
-      if(!drawing) return;
+        drawing=true;
 
-      const rect=
-        canvas.getBoundingClientRect();
+        const pos=
+        getPos(e);
 
-      ctx.lineWidth=2;
-      ctx.lineCap='round';
+        ctx.beginPath();
 
-      ctx.lineTo(
-        e.clientX-rect.left,
-        e.clientY-rect.top
-      );
+        ctx.moveTo(
+          pos.x,
+          pos.y
+        );
 
-      ctx.stroke();
+      }
+    );
+
+    canvas.addEventListener(
+      'pointermove',
+      e=>{
+
+        if(!drawing)
+        return;
+
+        const pos=
+        getPos(e);
+
+        ctx.lineTo(
+          pos.x,
+          pos.y
+        );
+
+        ctx.stroke();
+
+      }
+    );
+
+    function stopDrawing(){
+
+        drawing=false;
+
+        ctx.beginPath();
 
     }
-  );
+
+    canvas.addEventListener(
+      'pointerup',
+      stopDrawing
+    );
+
+    canvas.addEventListener(
+      'pointerleave',
+      stopDrawing
+    );
+
+    canvas.addEventListener(
+      'pointercancel',
+      stopDrawing
+    );
 
 }
 function clearSignature(id){
 
-const canvas=
-document.getElementById(id);
+    const canvas =
+    document.getElementById(id);
 
-canvas
-.getContext('2d')
-.clearRect(
-0,
-0,
-canvas.width,
-canvas.height
-);
+    if(!canvas) return;
+
+    const ctx =
+    canvas.getContext('2d');
+
+    ctx.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
 
 }
