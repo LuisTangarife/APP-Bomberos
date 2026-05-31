@@ -629,7 +629,7 @@ function getFormData() {
       document.getElementById('personal').selectedOptions
     ).map(x => x.value),
 
-    vehiculo: document.getElementById('vehiculo').value,
+    vehiculos:[],
 
     descripcion: document.getElementById('descripcion').value.trim(),
 
@@ -744,6 +744,33 @@ function getFormData() {
 
     });
 
+  });
+
+  const vehiculos=
+
+  document
+  .getElementById(
+  "vehiculos"
+  )
+  .tomselect.items;
+  
+  vehiculos.forEach((v,index)=>{
+  
+  const personal=
+  
+  document
+  .getElementById(
+  `bomberos_${index}`
+  )
+  .tomselect.items;
+  
+  data.vehiculos.push({
+  
+  vehiculo:v,
+  personal
+  
+  });
+  
   });
 
   return data;
