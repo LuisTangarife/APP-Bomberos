@@ -1574,65 +1574,67 @@ setupSignature(
 
 function setupSignature(id){
 
-const canvas=
-document.getElementById(id);
+  const canvas =
+    document.getElementById(id);
 
-if(!canvas) return;
+  if(!canvas) return;
 
-const ctx=
-canvas.getContext('2d');
+  const ctx =
+    canvas.getContext('2d');
 
-let drawing=false;
+  let drawing = false;
 
-canvas.addEventListener(
-'pointerdown',
-e=>{
+  canvas.addEventListener(
+    'pointerdown',
+    e=>{
 
-drawing=true;
+      drawing=true;
 
-const rect=
-canvas.getBoundingClientRect();
+      const rect=
+        canvas.getBoundingClientRect();
 
-ctx.beginPath();
+      ctx.beginPath();
 
-ctx.moveTo(
-e.clientX-rect.left,
-e.clientY-rect.top
-);
+      ctx.moveTo(
+        e.clientX-rect.left,
+        e.clientY-rect.top
+      );
 
-});
+    }
+  );
 
-canvas.addEventListener(
-'pointerup',
-()=>{
+  canvas.addEventListener(
+    'pointerup',
+    ()=>{
 
-drawing=false;
+      drawing=false;
 
-ctx.beginPath();
+      ctx.beginPath();
 
-});
+    }
+  );
 
-canvas.addEventListener(
-'pointermove',
-e=>{
+  canvas.addEventListener(
+    'pointermove',
+    e=>{
 
-if(!drawing) return;
+      if(!drawing) return;
 
-const rect=
-canvas.getBoundingClientRect();
+      const rect=
+        canvas.getBoundingClientRect();
 
-ctx.lineWidth=2;
+      ctx.lineWidth=2;
+      ctx.lineCap='round';
 
-ctx.lineCap='round';
+      ctx.lineTo(
+        e.clientX-rect.left,
+        e.clientY-rect.top
+      );
 
-ctx.lineTo(
-e.clientX-rect.left,
-e.clientY-rect.top
-);
+      ctx.stroke();
 
-ctx.stroke();
-
-});
+    }
+  );
 
 }
 function clearSignature(id){
