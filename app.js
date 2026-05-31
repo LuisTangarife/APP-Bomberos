@@ -169,54 +169,171 @@ async function updatePendingBadge() {
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  loadTheme();
-  await openDB();
-  setDefaults();
-  setupSpellCheck();
-  loadSavedReports();
-  window.uploadedPhotos = [];
-  
-const photoInput =
-document.getElementById('photoInput');
 
-if(photoInput){
+    loadTheme();
 
-  photoInput.addEventListener(
-    'change',
-    function(event){
+    await openDB();
 
-      const files=
-      Array.from(event.target.files);
+    setDefaults();
 
-      window.uploadedPhotos=[];
+    setupSpellCheck();
 
-      files.forEach(file=>{
+    loadSavedReports();
 
-        if(!file.type.startsWith('image/'))
-        return;
+    window.uploadedPhotos=[];
 
-        const reader=
-        new FileReader();
+    /* ======================
+       FOTOS
+    ====================== */
 
-        reader.onload=e=>{
+    const photoInput=
+    document.getElementById(
+    'photoInput'
+    );
 
-          window.uploadedPhotos.push(
-            e.target.result
-          );
+    if(photoInput){
 
-          renderPhotoPreview();
+        photoInput.addEventListener(
+        'change',
+        function(event){
 
-        };
+            const files=
+            Array.from(
+            event.target.files
+            );
 
-        reader.readAsDataURL(file);
+            window.uploadedPhotos=[];
 
-      });
+            files.forEach(file=>{
+
+                if(
+                !file.type.startsWith(
+                'image/'
+                )
+                ) return;
+
+                const reader=
+                new FileReader();
+
+                reader.onload=e=>{
+
+                    window.uploadedPhotos.push(
+                    e.target.result
+                    );
+
+                    renderPhotoPreview();
+
+                };
+
+                reader.readAsDataURL(
+                file
+                );
+
+            });
+
+        });
 
     }
-  );
+
+    /* ======================
+       TOMSELECT VEHÍCULOS
+    ====================== */
+
+    vehiculosTS=
+    new TomSelect(
+    "#vehiculos",
+    {
+        plugins:[
+        'remove_button'
+        ],
+
+        create:false,
+
+        placeholder:
+        "Seleccione vehículos..."
+    });
+
+    personalDB=
+    Array.from(
+    document.querySelectorAll(
+    "#personal option"
+    )
+    )
+    .map(op=>({
+
+        value:op.value,
+        text:op.value
+
+    }));
+
+
+    vehiculosTS.on(
+        "change",
+        generateVehicleAssignments
+    );
+
+});
+
+function generateVehicleAssignments(){
+
+    const container=
+    document.getElementById(
+        "vehicleAssignments"
+    );
+
+    container.innerHTML='';
+
+    const vehiculos=
+    vehiculosTS.items;
+
+    vehiculos.forEach(
+    (vehiculo,index)=>{
+
+        const card=
+        document.createElement("div");
+
+        card.className=
+        "vehicle-card";
+
+        card.innerHTML=`
+
+        <h3>
+        🚒 ${vehiculo}
+        </h3>
+
+        <label>
+        Bomberos asignados
+        </label>
+
+        <select
+        id="bomberos_${index}"
+        multiple
+        ></select>
+
+        `;
+
+        container.appendChild(card);
+
+        // Crear TomSelect para cada vehículo
+        const ts=
+        new TomSelect(
+        `#bomberos_${index}`,
+        {
+            plugins:['remove_button'],
+            options:personalDB,
+            valueField:'value',
+            labelField:'text',
+            searchField:'text',
+            placeholder:'Seleccione personal...'
+        });
+        
+        ts.on(
+        "change",
+        generateFirefighterSignatures
+        );
+    });
 
 }
-}); 
 function renderPhotoPreview() {
 
   const preview = document.getElementById('photoPreview');
@@ -590,7 +707,7 @@ function getFormData() {
 
     evento: document.getElementById('evento').value,
 
-    personal: Array.from(
+     Array.from(
       document.getElementById('personal').selectedOptions
     ).map(x => x.value),
 
@@ -711,13 +828,8 @@ function getFormData() {
 
   });
 
-  const vehiculos=
-
-  document
-  .getElementById(
-  "vehiculos"
-  )
-  .tomselect.items;
+const vehiculos=
+vehiculosTS.items;
   
   vehiculos.forEach((v,index)=>{
   
@@ -1674,15 +1786,35 @@ document.getElementById(
 
 container.innerHTML='';
 
-const personal=
-Array.from(
-document.getElementById(
-'personal'
-).selectedOptions
-)
-.map(x=>x.value);
+let personal=[];
 
-personal.forEach((nombre,index)=>{
+vehiculosTS.items.forEach(
+(v,index)=>{
+
+const select=
+document.getElementById(
+`bomberos_${index}`
+);
+
+if(
+select &&
+select.tomselect
+){
+
+personal.push(
+...select.tomselect.items
+);
+
+}
+
+});
+
+personal=[
+...new Set(personal)
+];
+
+personal.forEach(
+(nombre,index)=>{
 
 container.innerHTML+=`
 
@@ -1704,11 +1836,12 @@ clearSignature(
 'firma_bombero_${index}'
 )"
 >
+
 Limpiar firma
+
 </button>
 
 </div>
-
 `;
 
 setupSignature(
@@ -1718,7 +1851,6 @@ setupSignature(
 });
 
 }
-
 function setupSignature(id){
 
     const canvas = document.getElementById(id);
