@@ -1924,82 +1924,115 @@ firmasActuales[id];
 }
 function setupSignature(id){
 
-    const canvas = document.getElementById(id);
+    const canvas =
+        document.getElementById(id);
 
     if(!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx =
+        canvas.getContext("2d");
 
-    let drawing = false;
+    let drawing=false;
 
-    // Mejor calidad visual
-    const ratio = window.devicePixelRatio || 1;
+    // Tamaño visual fijo
+    const displayWidth = 350;
+    const displayHeight = 120;
 
-    const rect = canvas.getBoundingClientRect();
+    // DPI para pantallas HD
+    const ratio =
+        window.devicePixelRatio || 1;
 
-    canvas.width = rect.width * ratio;
-    canvas.height = rect.height * ratio;
+    // Mantener tamaño visual
+    canvas.style.width =
+        displayWidth + "px";
 
-    ctx.scale(ratio, ratio);
+    canvas.style.height =
+        displayHeight + "px";
+
+    // Tamaño interno real
+    canvas.width =
+        displayWidth * ratio;
+
+    canvas.height =
+        displayHeight * ratio;
+
+    // Reiniciar transformaciones
+    ctx.setTransform(
+        ratio,
+        0,
+        0,
+        ratio,
+        0,
+        0
+    );
 
     ctx.lineWidth = 2.5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.strokeStyle = "#111";
 
-    // Evita scroll y selección accidental
-    canvas.style.touchAction = "none";
-    canvas.style.cursor = "crosshair";
+    canvas.style.touchAction =
+        "none";
+
+    canvas.style.cursor =
+        "crosshair";
 
     function getPosition(e){
 
         const rect =
             canvas.getBoundingClientRect();
 
-        return {
+        return{
 
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top
+            x:e.clientX-rect.left,
+            y:e.clientY-rect.top
 
         };
 
     }
 
-    canvas.addEventListener("pointerdown",(e)=>{
+    canvas.addEventListener(
+        "pointerdown",
+        (e)=>{
 
-        drawing = true;
+            drawing=true;
 
-        canvas.setPointerCapture(e.pointerId);
+            const pos=
+                getPosition(e);
 
-        const pos = getPosition(e);
+            ctx.beginPath();
 
-        ctx.beginPath();
+            ctx.moveTo(
+                pos.x,
+                pos.y
+            );
 
-        ctx.moveTo(
-            pos.x,
-            pos.y
-        );
+        }
+    );
 
-    });
+    canvas.addEventListener(
+        "pointermove",
+        (e)=>{
 
-    canvas.addEventListener("pointermove",(e)=>{
+            if(!drawing)
+                return;
 
-        if(!drawing) return;
+            const pos=
+                getPosition(e);
 
-        const pos = getPosition(e);
+            ctx.lineTo(
+                pos.x,
+                pos.y
+            );
 
-        ctx.lineTo(
-            pos.x,
-            pos.y
-        );
+            ctx.stroke();
 
-        ctx.stroke();
-
-    });
+        }
+    );
 
     function stopDrawing(){
 
-        drawing = false;
+        drawing=false;
 
         ctx.beginPath();
 
@@ -2021,6 +2054,7 @@ function setupSignature(id){
     );
 
 }
+
 function clearSignature(id){
 
     const canvas =
