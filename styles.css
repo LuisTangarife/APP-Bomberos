@@ -1555,65 +1555,214 @@ body.light-theme .preview-remove{
   flex:1;
 }
 
-/* ==========================
-   AFECTADOS Y FIRMAS
-========================== */
+/* ==========================================
+   AFECTADOS Y FIRMAS — DISEÑO PROFESIONAL
+========================================== */
 
-/* contenedores principales */
+/* contenedores */
 #affectedContainer,
 #firefighterSignatures{
     width:100%;
     display:flex;
     flex-direction:column;
-    gap:20px;
+    gap:24px;
+    margin-top:10px;
 }
 
-/* tarjetas individuales */
+/* tarjetas */
 .affected-card,
 .signature-card{
-    background:#fff;
-    border:1px solid #e2e8f0;
-    border-radius:16px;
-    padding:18px;
-    box-shadow:0 4px 12px rgba(0,0,0,.06);
+    position:relative;
+    background:linear-gradient(
+        to bottom,
+        #ffffff,
+        #fafbfd
+    );
+
+    border:1px solid #e6eaf0;
+    border-left:5px solid var(--red);
+
+    border-radius:18px;
+    padding:24px;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,.05),
+        0 2px 8px rgba(0,0,0,.04);
+
+    transition:.3s;
+}
+
+/* efecto hover */
+.affected-card:hover,
+.signature-card:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.08),
+        0 4px 12px rgba(0,0,0,.05);
+}
+
+/* encabezado */
+.card-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    margin-bottom:22px;
+
+    font-size:16px;
+    font-weight:700;
+
+    color:#1e293b;
+
+    padding-bottom:12px;
+
+    border-bottom:1px solid #eef2f7;
+}
+
+/* icono automático */
+.affected-card .card-title::before{
+    content:"👤";
+    font-size:18px;
+}
+
+.signature-card .card-title::before{
+    content:"✍️";
+    font-size:18px;
 }
 
 /* grid interno */
 .affected-card .fields-grid,
 .signature-card .fields-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:18px;
 }
 
-/* canvas firma */
-.signature-card canvas{
+/* inputs internos */
+.affected-card input,
+.affected-card select,
+.signature-card input{
     width:100%;
-    max-width:420px;
-    height:160px;
-    border:2px dashed #d1d5db;
+
+    padding:12px 14px;
+
+    border:1px solid #dbe3ea;
     border-radius:12px;
+
     background:#fff;
+
+    transition:.3s;
 }
 
-/* título de cada afectado/firma */
-.card-title{
-    font-weight:700;
-    margin-bottom:15px;
-    color:var(--red);
-    font-size:15px;
+.affected-card input:focus,
+.affected-card select:focus,
+.signature-card input:focus{
+
+    outline:none;
+
+    border-color:var(--red);
+
+    box-shadow:
+    0 0 0 4px rgba(204,34,0,.10);
+
+}
+
+/* zona de firma */
+.signature-card canvas{
+
+    width:100%;
+    max-width:500px;
+
+    height:180px;
+
+    margin-top:10px;
+
+    border-radius:14px;
+
+    background:
+    linear-gradient(
+        to bottom,
+        #ffffff,
+        #f8fafc
+    );
+
+    border:2px dashed #cbd5e1;
+
+    box-shadow:
+    inset 0 2px 8px rgba(0,0,0,.03);
+
+}
+
+/* texto guía firma */
+.signature-card::after{
+
+    content:"Firme dentro del área";
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:12px;
+
+    color:#94a3b8;
+
+}
+
+/* botones internos */
+.signature-card button,
+.affected-card button{
+
+    border:none;
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+    background:var(--red);
+
+    color:white;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.signature-card button:hover,
+.affected-card button:hover{
+
+    transform:translateY(-1px);
+
+    opacity:.92;
+
 }
 
 /* móvil */
 @media(max-width:768px){
 
+    .affected-card,
+    .signature-card{
+        padding:18px;
+    }
+
     .affected-card .fields-grid,
     .signature-card .fields-grid{
+
         grid-template-columns:1fr;
     }
 
     .signature-card canvas{
-        height:130px;
+
+        height:140px;
+    }
+
+    .card-title{
+        font-size:15px;
     }
 
 }
