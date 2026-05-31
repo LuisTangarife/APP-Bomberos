@@ -582,52 +582,68 @@ function getFormData() {
     horaReporte: document.getElementById('horaReporte').value,
     horaLlegada: document.getElementById('horaLlegada').value,
     horaFinal: document.getElementById('horaFinal').value,
+
     lugar: document.getElementById('lugar').value.trim(),
     direccion: document.getElementById('direccion').value.trim(),
+
     latitud: document.getElementById('latitud').value,
     longitud: document.getElementById('longitud').value,
+
     evento: document.getElementById('evento').value,
 
     personal: Array.from(
       document.getElementById('personal').selectedOptions
-    ).map(x=>x.value),
+    ).map(x => x.value),
 
     vehiculo: document.getElementById('vehiculo').value,
+
     descripcion: document.getElementById('descripcion').value.trim(),
-    lesionados: document.getElementById('lesionados').value || '0',
-    victimas: document.getElementById('victimas').value || '0',
-    novedades: document.getElementById('novedades').value.trim(),
+
+    lesionados:
+      document.getElementById('lesionados').value || '0',
+
+    victimas:
+      document.getElementById('victimas').value || '0',
+
+    novedades:
+      document.getElementById('novedades').value.trim(),
 
     photos: window.uploadedPhotos || [],
 
-    timestamp:new Date().toISOString()
+    timestamp: new Date().toISOString(),
+
+    afectados: [],
+
+    firmasBomberos: []
+
   };
 
-  // AFECTADOS
-  data.afectados=[];
 
-  for(
-    let i=1;
-    i<=parseInt(data.lesionados||0);
-    i++
-  ){
+  /* =====================================================
+     AFECTADOS
+  ===================================================== */
+
+  const totalAfectados =
+    parseInt(data.lesionados) || 0;
+
+  for (let i = 1; i <= totalAfectados; i++) {
 
     const canvas =
       document.getElementById(
-      `firma_afectado_${i}`
-    );
+        `firma_afectado_${i}`
+      );
 
-    let firma='';
+    let firma = '';
 
-    if(canvas){
+    if (canvas) {
 
-      try{
+      try {
 
-        firma=canvas.toDataURL();
+        firma = canvas.toDataURL();
 
-      }catch{
+      } catch {
 
-        firma='';
+        firma = '';
 
       }
 
@@ -636,50 +652,65 @@ function getFormData() {
     data.afectados.push({
 
       nombre:
-      document.getElementById(`nombre_${i}`)?.value || '',
+        document.getElementById(`nombre_${i}`)?.value || '',
 
       dni:
-      document.getElementById(`dni_${i}`)?.value || '',
+        document.getElementById(`dni_${i}`)?.value || '',
 
       edad:
-      document.getElementById(`edad_${i}`)?.value || '',
+        document.getElementById(`edad_${i}`)?.value || '',
 
       genero:
-      document.getElementById(`genero_${i}`)?.value || '',
+        document.getElementById(`genero_${i}`)?.value || '',
 
       telefono:
-      document.getElementById(`telefono_${i}`)?.value || '',
+        document.getElementById(`telefono_${i}`)?.value || '',
 
       correo:
-      document.getElementById(`correo_${i}`)?.value || '',
+        document.getElementById(`correo_${i}`)?.value || '',
 
       firma
 
     });
-    data.firmasBomberos=[];
-
-    data.personal.forEach(
-    (nombre,index)=>{
-    
-    const canvas=
-    document.getElementById(
-    `firma_bombero_${index}`
-    );
-    
-    data.firmasBomberos.push({
-    
-    nombre,
-    
-    firma:
-    canvas
-    ? canvas.toDataURL()
-    : ''
-    
-    });
-    
-    });
 
   }
+
+
+  /* =====================================================
+     FIRMAS BOMBEROS
+  ===================================================== */
+
+  data.personal.forEach((nombre,index)=>{
+
+    const canvas =
+      document.getElementById(
+        `firma_bombero_${index}`
+      );
+
+    let firma = '';
+
+    if (canvas) {
+
+      try {
+
+        firma = canvas.toDataURL();
+
+      } catch {
+
+        firma = '';
+
+      }
+
+    }
+
+    data.firmasBomberos.push({
+
+      nombre,
+      firma: firma || 'Sin firma'
+
+    });
+
+  });
 
   return data;
 
