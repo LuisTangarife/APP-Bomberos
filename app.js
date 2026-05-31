@@ -216,42 +216,7 @@ if(photoInput){
   );
 
 }
-
-  photoInput.addEventListener('change', function(event) {
-  
-    const files = Array.from(event.target.files);
-  
-    window.uploadedPhotos = [];
-  
-    files.forEach(file => {
-  
-      if (!file.type.startsWith('image/')) return;
-  
-      const reader = new FileReader();
-  
-      reader.onload = function(e) {
-  
-        const base64 = e.target.result;
-  
-        window.uploadedPhotos.push(base64);
-  
-        renderPhotoPreview();
-  
-      };
-  
-      reader.onerror = function(err) {
-  
-        console.error('Error leyendo imagen:', err);
-  
-      };
-  
-      reader.readAsDataURL(file);
-  
-    });
-  
-  });
-
-});
+}); 
 function renderPhotoPreview() {
 
   const preview = document.getElementById('photoPreview');
@@ -777,25 +742,42 @@ function getFormData() {
 
 }
 
-function validateForm(data) {
-  const required = [
-    ['fecha', 'Fecha'],
-    ['horaReporte', 'Hora de Reporte'],
-    ['horaLlegada', 'Hora de Llegada'],
-    ['horaFinal', 'Hora Final'],
-    ['lugar', 'Lugar'],
-    ['direccion', 'Dirección'],
-    ['evento', 'Evento'],
-    ['personal', 'Personal'],
-    ['vehiculo', 'Vehículo'],
-    ['descripcion', 'Descripción'],
-  ];
-  for (const [key, label] of required) {
-    if (!data[key]) return `⚠️ El campo "${label}" es obligatorio.`;
-  }
-  return null;
-}
+function validateForm(data){
 
+  const required=[
+
+    ['fecha','Fecha'],
+    ['horaReporte','Hora de Reporte'],
+    ['horaLlegada','Hora de Llegada'],
+    ['horaFinal','Hora Final'],
+    ['lugar','Lugar'],
+    ['direccion','Dirección'],
+    ['evento','Evento'],
+    ['vehiculos','Vehículos'],
+    ['descripcion','Descripción']
+
+  ];
+
+  for(const [key,label] of required){
+
+    const value=data[key];
+
+    if(
+      value===undefined ||
+      value===null ||
+      value==='' ||
+      (Array.isArray(value) && !value.length)
+    ){
+
+      return `⚠️ El campo "${label}" es obligatorio.`;
+
+    }
+
+  }
+
+  return null;
+
+}
 async function saveReport() {
 
   const data = getFormData();
@@ -829,20 +811,31 @@ async function saveReport() {
     fb.textContent = 'Subiendo reporte...';
     
     // ENVIAR A APPS SCRIPT
-    await fetch(API_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain'
-      },
-      body: JSON.stringify(data)
-    });
-    
-    console.log('Reporte enviado correctamente');
+    if(navigator.onLine){
 
-    // GUARDAR LOCAL
-    await saveToIDB(data);
-
+      await fetch(API_URL,{
+  
+        method:'POST',
+  
+        mode:'no-cors',
+  
+        headers:{
+          'Content-Type':'text/plain'
+        },
+  
+        body:JSON.stringify(data)
+  
+      });
+  
+  }else{
+  
+      data.pending=true;
+  
+      data.synced=false;
+  
+      await saveToIDB(data);
+  
+  }
     await updatePendingBadge();
 
     await loadSavedReports();
@@ -871,7 +864,17 @@ function clearForm() {
   document.getElementById('longitud').value    = '';
   document.getElementById('evento').value      = '';
   document.getElementById('personal').value    = '';
-  document.getElementById('vehiculo').value    = '';
+  const vehiculos =
+  document.getElementById('vehiculos');
+  
+  if(
+  vehiculos &&
+  vehiculos.tomselect
+  ){
+  
+  vehiculos.tomselect.clear();
+  
+  }
   document.getElementById('descripcion').value = '';
   document.getElementById('lesionados').value  = '0';
   document.getElementById('victimas').value    = '0';
@@ -907,7 +910,12 @@ async function loadSavedReports() {
         <span class="report-tag">#${r.id}</span>
         <div class="report-info">
           <div class="report-title">${r.evento || '(Sin evento)'} — ${r.lugar || '(Sin lugar)'}</div>
-          <div class="report-meta">${formatDate(r.fecha)} · ${r.horaReporte} · ${r.vehiculo || ''} · ${Array.isArray(r.personal) ? r.personal.join(', ') : (r.personal || '')}</div>
+          <div class="report-meta">${formatDate(r.fecha)} · ${r.horaReporte} · ${
+          r.vehiculos
+          ?.map(v=>v.vehiculo)
+          .join(', ')
+          || ''
+          } · ${Array.isArray(r.personal) ? r.personal.join(', ') : (r.personal || '')}</div>
         </div>
         <div class="report-actions">
           <button class="btn-mini" onclick="showCert(${r.id})">📄 Cert.</button>
@@ -934,15 +942,68 @@ async function deleteReport(id) {
   loadSavedReports();
 }
 
-async function loadReport(id) {
-  const all = await getAllFromIDB();
-  const r = all.find(x => x.id === id);
-  if (!r) return;
-  Object.entries(r).forEach(([k, v]) => {
-    const el = document.getElementById(k);
-    if (el) el.value = v;
+async function loadReport(id){
+
+  const all =
+    await getAllFromIDB();
+
+  const r =
+    all.find(x=>x.id===id);
+
+  if(!r) return;
+
+  document.getElementById('fecha').value =
+    r.fecha || '';
+
+  document.getElementById('horaReporte').value =
+    r.horaReporte || '';
+
+  document.getElementById('horaLlegada').value =
+    r.horaLlegada || '';
+
+  document.getElementById('horaFinal').value =
+    r.horaFinal || '';
+
+  document.getElementById('lugar').value =
+    r.lugar || '';
+
+  document.getElementById('direccion').value =
+    r.direccion || '';
+
+  document.getElementById('latitud').value =
+    r.latitud || '';
+
+  document.getElementById('longitud').value =
+    r.longitud || '';
+
+  document.getElementById('evento').value =
+    r.evento || '';
+
+  document.getElementById('descripcion').value =
+    r.descripcion || '';
+
+  document.getElementById('lesionados').value =
+    r.lesionados || '0';
+
+  document.getElementById('victimas').value =
+    r.victimas || '0';
+
+  document.getElementById('novedades').value =
+    r.novedades || '';
+
+  window.uploadedPhotos =
+    r.photos || [];
+
+  renderPhotoPreview();
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:'smooth'
+
   });
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+
 }
 
 // ── CERTIFICATE ───────────────────────────────────────────────────────────
@@ -1092,7 +1153,23 @@ function buildCertificateHTML(data) {
     
         <div class="cert-field">
           <div class="cert-label">Vehículo Desplegado</div>
-          <div class="cert-value">${data.vehiculo}</div>
+          <div class="cert-value">
+
+          ${
+          data.vehiculos
+          ?.map(v=>`
+          
+          <b>${v.vehiculo}</b><br>
+          ${v.personal.join(', ')}
+          
+          `)
+          .join('<hr>')
+          
+          || 'Sin vehículos'
+          
+          }
+          
+          </div>
         </div>
     
       <div class="cert-field">
@@ -1418,36 +1495,69 @@ async function syncPendingReports() {
 
   console.log('Sincronizando:', pending.length);
 
-  for (const report of pending) {
+  for(const report of pending){
 
-    try {
+  try{
 
-      // AQUÍ irá tu API futura
-      // await fetch(...)
+    await fetch(API_URL,{
 
-      report.pending = false;
-      report.synced = true;
+      method:'POST',
 
-      const tx = db.transaction(STORE, 'readwrite');
+      mode:'no-cors',
 
-      tx.objectStore(STORE).put(report);
+      headers:{
+        'Content-Type':'text/plain'
+      },
 
-      console.log('Reporte sincronizado');
+      body:JSON.stringify(report)
 
-    } catch (error) {
+    });
 
-      console.error('Error sincronizando:', error);
+    report.pending=false;
 
-    }
+    report.synced=true;
+
+    const tx=
+      db.transaction(
+        STORE,
+        'readwrite'
+      );
+
+    tx.objectStore(STORE)
+      .put(report);
+
   }
+
+  catch(error){
+
+    console.error(
+      'Error sincronizando:',
+      error
+    );
+
+  }
+
+}
   await updatePendingBadge();
 }
 
 window.addEventListener('online', syncPendingReports);
 
-async function generatePDFBase64() {
+async function generatePDFBase64(){
 
-  return btoa(unescape(encodeURIComponent(currentPrintHTML)));
+  const element =
+    document.getElementById(
+      'certContent'
+    );
+
+  const pdfData = await html2pdf()
+    .from(element)
+    .outputPdf(
+      'datauristring'
+    );
+
+  return pdfData
+    .split(',')[1];
 
 }
 document.addEventListener('DOMContentLoaded',()=>{
