@@ -582,13 +582,10 @@ function getFormData() {
     horaReporte: document.getElementById('horaReporte').value,
     horaLlegada: document.getElementById('horaLlegada').value,
     horaFinal: document.getElementById('horaFinal').value,
-
     lugar: document.getElementById('lugar').value.trim(),
     direccion: document.getElementById('direccion').value.trim(),
-
     latitud: document.getElementById('latitud').value,
     longitud: document.getElementById('longitud').value,
-
     evento: document.getElementById('evento').value,
 
     personal: Array.from(
@@ -596,93 +593,97 @@ function getFormData() {
     ).map(x=>x.value),
 
     vehiculo: document.getElementById('vehiculo').value,
+    descripcion: document.getElementById('descripcion').value.trim(),
+    lesionados: document.getElementById('lesionados').value || '0',
+    victimas: document.getElementById('victimas').value || '0',
+    novedades: document.getElementById('novedades').value.trim(),
 
-    descripcion:
-      document.getElementById(
-      'descripcion'
-      ).value.trim(),
+    photos: window.uploadedPhotos || [],
 
-    lesionados:
-      document.getElementById(
-      'lesionados'
-      ).value || '0',
-
-    victimas:
-      document.getElementById(
-      'victimas'
-      ).value || '0',
-
-    novedades:
-      document.getElementById(
-      'novedades'
-      ).value.trim(),
-
-    timestamp:
-      new Date().toISOString(),
-
-    photos:
-      window.uploadedPhotos || []
-
+    timestamp:new Date().toISOString()
   };
 
-
-  // ===== AFECTADOS =====
-
+  // AFECTADOS
   data.afectados=[];
 
-  const totalAfectados=
-  parseInt(data.lesionados||0);
+  for(
+    let i=1;
+    i<=parseInt(data.lesionados||0);
+    i++
+  ){
 
-  for(let i=1;i<=totalAfectados;i++){
-
-    const canvas=
-    document.getElementById(
-    `firma_afectado_${i}`
+    const canvas =
+      document.getElementById(
+      `firma_afectado_${i}`
     );
+
+    let firma='';
+
+    if(canvas){
+
+      try{
+
+        firma=canvas.toDataURL();
+
+      }catch{
+
+        firma='';
+
+      }
+
+    }
 
     data.afectados.push({
 
       nombre:
-      document.getElementById(
-      `nombre_${i}`
-      )?.value||'',
+      document.getElementById(`nombre_${i}`)?.value || '',
 
       dni:
-      document.getElementById(
-      `dni_${i}`
-      )?.value||'',
+      document.getElementById(`dni_${i}`)?.value || '',
 
       edad:
-      document.getElementById(
-      `edad_${i}`
-      )?.value||'',
+      document.getElementById(`edad_${i}`)?.value || '',
 
       genero:
-      document.getElementById(
-      `genero_${i}`
-      )?.value||'',
+      document.getElementById(`genero_${i}`)?.value || '',
 
       telefono:
-      document.getElementById(
-      `telefono_${i}`
-      )?.value||'',
+      document.getElementById(`telefono_${i}`)?.value || '',
 
       correo:
-      document.getElementById(
-      `correo_${i}`
-      )?.value||'',
+      document.getElementById(`correo_${i}`)?.value || '',
 
-      firma:
-      canvas ?
-      canvas.toDataURL()
-      :
-      'Sin firma'
+      firma
 
+    });
+    data.firmasBomberos=[];
+
+    data.personal.forEach(
+    (nombre,index)=>{
+    
+    const canvas=
+    document.getElementById(
+    `firma_bombero_${index}`
+    );
+    
+    data.firmasBomberos.push({
+    
+    nombre,
+    
+    firma:
+    canvas
+    ? canvas.toDataURL()
+    : ''
+    
+    });
+    
     });
 
   }
 
+  return data;
 
+}
   // ===== FIRMAS BOMBEROS =====
 
   data.firmasBomberos=[];
@@ -1113,51 +1114,38 @@ function buildCertificateHTML(data) {
         </div>
         ` : ''}
     </div>
-    ${data.afectados?.length ? `
+   ${data.afectados?.length ? `
 
-    <div class="cert-section">
-    
-    <h2>Datos de afectados</h2>
-    
-    ${data.afectados.map(a=>`
-    
-    <div class="cert-field">
-    
-    <b>Nombre:</b> ${a.nombre}<br>
-    <b>DNI:</b> ${a.dni}<br>
-    <b>Edad:</b> ${a.edad}<br>
-    <b>Género:</b> ${a.genero}<br>
-    <b>Teléfono:</b> ${a.telefono}<br>
-    <b>Correo:</b> ${a.correo}<br><br>
-    
-    <b>Firma:</b><br>
-    
-    ${
-    a.firma &&
-    a.firma!=="Sin firma"
-    
-    ?
-    
-    `<img
-    src="${a.firma}"
-    style="
-    height:80px;
-    border-bottom:1px solid #000;
-    ">`
-    
-    :
-    
-    'Sin firma'
-    
-    }
-    
-    </div>
-    
-    `).join('')}
-    
-    </div>
-    
-    `:''}
+  <div class="cert-section">
+  
+  <h2>Datos de afectados</h2>
+  
+  ${data.afectados.map(a=>`
+  
+  <div class="cert-field">
+  
+  <b>Nombre:</b> ${a.nombre}<br>
+  <b>DNI:</b> ${a.dni}<br>
+  <b>Edad:</b> ${a.edad}<br>
+  <b>Género:</b> ${a.genero}<br>
+  <b>Teléfono:</b> ${a.telefono}<br>
+  <b>Correo:</b> ${a.correo}<br><br>
+  
+  <b>Firma:</b><br>
+  
+  ${
+  a.firma
+  ? `<img src="${a.firma}" width="140">`
+  : 'Sin firma'
+  }
+  
+  </div>
+  
+  `).join('')}
+  
+  </div>
+  
+  ` : ''}
     <!-- ───────────────────────────── -->
     <!-- FOOTER -->
     <!-- ───────────────────────────── -->
@@ -1558,12 +1546,12 @@ function setupSignature(id){
 const canvas=
 document.getElementById(id);
 
+if(!canvas) return;
+
 const ctx=
 canvas.getContext('2d');
 
 let drawing=false;
-
-ctx.lineWidth=2;
 
 canvas.addEventListener(
 'pointerdown',
@@ -1601,6 +1589,10 @@ if(!drawing) return;
 
 const rect=
 canvas.getBoundingClientRect();
+
+ctx.lineWidth=2;
+
+ctx.lineCap='round';
 
 ctx.lineTo(
 e.clientX-rect.left,
