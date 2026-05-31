@@ -1726,3 +1726,4 @@ function clearSignature(id){
     );
 
 }
+}
