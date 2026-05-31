@@ -1584,11 +1584,6 @@ setupSignature(
 
 function setupSignature(id){
 
-  const canvas =
-    document.getElementById(id);
-
-function setupSignature(id){
-
     const canvas =
     document.getElementById(id);
 
