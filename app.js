@@ -176,12 +176,46 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadSavedReports();
   window.uploadedPhotos = [];
   
-  const photoInput = document.getElementById('photoInput');
+const photoInput =
+document.getElementById('photoInput');
 
-  if (!photoInput) {
-    console.error('No se encontró photoInput');
-    return;
-  }
+if(photoInput){
+
+  photoInput.addEventListener(
+    'change',
+    function(event){
+
+      const files=
+      Array.from(event.target.files);
+
+      window.uploadedPhotos=[];
+
+      files.forEach(file=>{
+
+        if(!file.type.startsWith('image/'))
+        return;
+
+        const reader=
+        new FileReader();
+
+        reader.onload=e=>{
+
+          window.uploadedPhotos.push(
+            e.target.result
+          );
+
+          renderPhotoPreview();
+
+        };
+
+        reader.readAsDataURL(file);
+
+      });
+
+    }
+  );
+
+}
 
   photoInput.addEventListener('change', function(event) {
   
@@ -1389,19 +1423,23 @@ async function generatePDFBase64() {
   return btoa(unescape(encodeURIComponent(currentPrintHTML)));
 
 }
-document
-.getElementById('lesionados')
-.addEventListener(
-'input',
-generateAffectedFields
-);
+document.addEventListener('DOMContentLoaded',()=>{
 
-document
-.getElementById('personal')
-.addEventListener(
-'change',
-generateFirefighterSignatures
-);
+  document
+  .getElementById('lesionados')
+  ?.addEventListener(
+    'input',
+    generateAffectedFields
+  );
+
+  document
+  .getElementById('personal')
+  ?.addEventListener(
+    'change',
+    generateFirefighterSignatures
+  );
+
+});
 
 
 function generateAffectedFields(){
