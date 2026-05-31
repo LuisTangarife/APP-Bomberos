@@ -575,29 +575,143 @@ function applyAutoCorrections(text) {
 
 // ── FORM OPERATIONS ───────────────────────────────────────────────────────
 function getFormData() {
-  return {
-    fecha:       document.getElementById('fecha').value,
+
+  const data = {
+
+    fecha: document.getElementById('fecha').value,
     horaReporte: document.getElementById('horaReporte').value,
     horaLlegada: document.getElementById('horaLlegada').value,
-    horaFinal:   document.getElementById('horaFinal').value,
-    lugar:       document.getElementById('lugar').value.trim(),
-    direccion:   document.getElementById('direccion').value.trim(),
-    latitud:     document.getElementById('latitud').value,
-    longitud:    document.getElementById('longitud').value,
-    evento:      document.getElementById('evento').value,
+    horaFinal: document.getElementById('horaFinal').value,
+
+    lugar: document.getElementById('lugar').value.trim(),
+    direccion: document.getElementById('direccion').value.trim(),
+
+    latitud: document.getElementById('latitud').value,
+    longitud: document.getElementById('longitud').value,
+
+    evento: document.getElementById('evento').value,
+
     personal: Array.from(
       document.getElementById('personal').selectedOptions
-    ).map(option => option.value),
-    vehiculo:    document.getElementById('vehiculo').value,
-    descripcion: document.getElementById('descripcion').value.trim(),
-    lesionados:  document.getElementById('lesionados').value || '0',
-    victimas:    document.getElementById('victimas').value || '0',
-    novedades:   document.getElementById('novedades').value.trim(),
-    timestamp: new Date().toISOString(),
-    photos: window.uploadedPhotos || []
-  };
-}
+    ).map(x=>x.value),
 
+    vehiculo: document.getElementById('vehiculo').value,
+
+    descripcion:
+      document.getElementById(
+      'descripcion'
+      ).value.trim(),
+
+    lesionados:
+      document.getElementById(
+      'lesionados'
+      ).value || '0',
+
+    victimas:
+      document.getElementById(
+      'victimas'
+      ).value || '0',
+
+    novedades:
+      document.getElementById(
+      'novedades'
+      ).value.trim(),
+
+    timestamp:
+      new Date().toISOString(),
+
+    photos:
+      window.uploadedPhotos || []
+
+  };
+
+
+  // ===== AFECTADOS =====
+
+  data.afectados=[];
+
+  const totalAfectados=
+  parseInt(data.lesionados||0);
+
+  for(let i=1;i<=totalAfectados;i++){
+
+    const canvas=
+    document.getElementById(
+    `firma_afectado_${i}`
+    );
+
+    data.afectados.push({
+
+      nombre:
+      document.getElementById(
+      `nombre_${i}`
+      )?.value||'',
+
+      dni:
+      document.getElementById(
+      `dni_${i}`
+      )?.value||'',
+
+      edad:
+      document.getElementById(
+      `edad_${i}`
+      )?.value||'',
+
+      genero:
+      document.getElementById(
+      `genero_${i}`
+      )?.value||'',
+
+      telefono:
+      document.getElementById(
+      `telefono_${i}`
+      )?.value||'',
+
+      correo:
+      document.getElementById(
+      `correo_${i}`
+      )?.value||'',
+
+      firma:
+      canvas ?
+      canvas.toDataURL()
+      :
+      'Sin firma'
+
+    });
+
+  }
+
+
+  // ===== FIRMAS BOMBEROS =====
+
+  data.firmasBomberos=[];
+
+  data.personal.forEach(
+  (nombre,index)=>{
+
+    const canvas=
+    document.getElementById(
+    `firma_bombero_${index}`
+    );
+
+    data.firmasBomberos.push({
+
+      nombre,
+
+      firma:
+      canvas ?
+      canvas.toDataURL()
+      :
+      'Sin firma'
+
+    });
+
+  });
+
+  return data;
+
+}
 function validateForm(data) {
   const required = [
     ['fecha', 'Fecha'],
@@ -999,6 +1113,51 @@ function buildCertificateHTML(data) {
         </div>
         ` : ''}
     </div>
+    ${data.afectados?.length ? `
+
+    <div class="cert-section">
+    
+    <h2>Datos de afectados</h2>
+    
+    ${data.afectados.map(a=>`
+    
+    <div class="cert-field">
+    
+    <b>Nombre:</b> ${a.nombre}<br>
+    <b>DNI:</b> ${a.dni}<br>
+    <b>Edad:</b> ${a.edad}<br>
+    <b>Género:</b> ${a.genero}<br>
+    <b>Teléfono:</b> ${a.telefono}<br>
+    <b>Correo:</b> ${a.correo}<br><br>
+    
+    <b>Firma:</b><br>
+    
+    ${
+    a.firma &&
+    a.firma!=="Sin firma"
+    
+    ?
+    
+    `<img
+    src="${a.firma}"
+    style="
+    height:80px;
+    border-bottom:1px solid #000;
+    ">`
+    
+    :
+    
+    'Sin firma'
+    
+    }
+    
+    </div>
+    
+    `).join('')}
+    
+    </div>
+    
+    `:''}
     <!-- ───────────────────────────── -->
     <!-- FOOTER -->
     <!-- ───────────────────────────── -->
@@ -1018,6 +1177,40 @@ function buildCertificateHTML(data) {
           <div class="cert-signature-line"></div>
           <div class="cert-signature-role">Comandante de Unidad</div>
         </div>
+        ${data.firmasBomberos?.map(f=>`
+
+        <div class="cert-signature">
+        
+        <div class="cert-signature-img-wrap">
+        
+        ${
+        f.firma &&
+        f.firma!=="Sin firma"
+        
+        ?
+        
+        `<img
+        src="${f.firma}"
+        class="cert-firma-img">`
+        
+        :
+        
+        'Sin firma'
+        }
+        
+        </div>
+        
+        <div class="cert-signature-line"></div>
+        
+        <div class="cert-signature-role">
+        
+        ${f.nombre}
+        
+        </div>
+        
+        </div>
+        
+        `).join('')}
         
         <!-- OFICIAL -->
         <div class="cert-signature">
@@ -1203,5 +1396,234 @@ window.addEventListener('online', syncPendingReports);
 async function generatePDFBase64() {
 
   return btoa(unescape(encodeURIComponent(currentPrintHTML)));
+
+}
+document
+.getElementById('lesionados')
+.addEventListener(
+'input',
+generateAffectedFields
+);
+
+document
+.getElementById('personal')
+.addEventListener(
+'change',
+generateFirefighterSignatures
+);
+
+
+function generateAffectedFields(){
+
+const count=parseInt(
+document.getElementById(
+'lesionados'
+).value||0
+);
+
+const container=
+document.getElementById(
+'affectedContainer'
+);
+
+container.innerHTML='';
+
+for(let i=1;i<=count;i++){
+
+container.innerHTML+=`
+
+<div class="affected-card">
+
+<h3>Afectado ${i}</h3>
+
+<input
+type="text"
+placeholder="Nombre"
+id="nombre_${i}"
+>
+
+<input
+type="text"
+placeholder="DNI"
+id="dni_${i}"
+>
+
+<input
+type="number"
+placeholder="Edad"
+id="edad_${i}"
+>
+
+<select id="genero_${i}">
+<option>Masculino</option>
+<option>Femenino</option>
+<option>Otro</option>
+</select>
+
+<input
+type="text"
+placeholder="Teléfono"
+id="telefono_${i}"
+>
+
+<input
+type="email"
+placeholder="Correo"
+id="correo_${i}"
+>
+
+<canvas
+class="signature-pad"
+id="firma_afectado_${i}"
+width="350"
+height="120"
+></canvas>
+
+<button
+type="button"
+onclick="clearSignature(
+'firma_afectado_${i}'
+)"
+>
+Limpiar firma
+</button>
+
+</div>
+`;
+
+setupSignature(
+`firma_afectado_${i}`
+);
+
+}
+
+}
+
+function generateFirefighterSignatures(){
+
+const container=
+document.getElementById(
+'firefighterSignatures'
+);
+
+container.innerHTML='';
+
+const personal=
+Array.from(
+document.getElementById(
+'personal'
+).selectedOptions
+)
+.map(x=>x.value);
+
+personal.forEach((nombre,index)=>{
+
+container.innerHTML+=`
+
+<div class="affected-card">
+
+<h3>${nombre}</h3>
+
+<canvas
+class="signature-pad"
+id="firma_bombero_${index}"
+width="350"
+height="120"
+></canvas>
+
+<button
+type="button"
+onclick="
+clearSignature(
+'firma_bombero_${index}'
+)"
+>
+Limpiar firma
+</button>
+
+</div>
+
+`;
+
+setupSignature(
+`firma_bombero_${index}`
+);
+
+});
+
+}
+
+function setupSignature(id){
+
+const canvas=
+document.getElementById(id);
+
+const ctx=
+canvas.getContext('2d');
+
+let drawing=false;
+
+ctx.lineWidth=2;
+
+canvas.addEventListener(
+'pointerdown',
+e=>{
+
+drawing=true;
+
+const rect=
+canvas.getBoundingClientRect();
+
+ctx.beginPath();
+
+ctx.moveTo(
+e.clientX-rect.left,
+e.clientY-rect.top
+);
+
+});
+
+canvas.addEventListener(
+'pointerup',
+()=>{
+
+drawing=false;
+
+ctx.beginPath();
+
+});
+
+canvas.addEventListener(
+'pointermove',
+e=>{
+
+if(!drawing) return;
+
+const rect=
+canvas.getBoundingClientRect();
+
+ctx.lineTo(
+e.clientX-rect.left,
+e.clientY-rect.top
+);
+
+ctx.stroke();
+
+});
+
+}
+function clearSignature(id){
+
+const canvas=
+document.getElementById(id);
+
+canvas
+.getContext('2d')
+.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
 }
