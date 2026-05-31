@@ -706,11 +706,9 @@ function getFormData() {
     longitud: document.getElementById('longitud').value,
 
     evento: document.getElementById('evento').value,
-
-     Array.from(
-      document.getElementById('personal').selectedOptions
-    ).map(x => x.value),
-
+    
+    personal:[],
+    
     vehiculos:[],
 
     descripcion: document.getElementById('descripcion').value.trim(),
@@ -828,32 +826,44 @@ function getFormData() {
 
   });
 
-const vehiculos=
+const vehiculos =
 vehiculosTS.items;
-  
-  vehiculos.forEach((v,index)=>{
-  
-  const personal=
-  
-  document
-  .getElementById(
-  `bomberos_${index}`
-  )
-  .tomselect.items;
-  
-  data.vehiculos.push({
-  
-  vehiculo:v,
-  personal
-  
-  });
-  
-  });
 
-  return data;
+vehiculos.forEach((v,index)=>{
 
-}
+    const personal =
 
+    document
+    .getElementById(
+    `bomberos_${index}`
+    )
+    .tomselect.items;
+
+    data.vehiculos.push({
+
+        vehiculo:v,
+        personal
+
+    });
+
+    // Agregar todos los bomberos al listado general
+    data.personal.push(
+        ...personal
+    );
+
+});
+
+
+// Eliminar duplicados
+data.personal = [
+
+    ...new Set(
+        data.personal
+    )
+
+];
+
+return data;
 function validateForm(data){
 
   const required=[
