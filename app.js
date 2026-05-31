@@ -864,6 +864,8 @@ data.personal = [
 ];
 
 return data;
+  
+}
 function validateForm(data){
 
   const required=[
