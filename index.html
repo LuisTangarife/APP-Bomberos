@@ -381,25 +381,24 @@
     
       // cargar guardados
       window.addEventListener("DOMContentLoaded", () => {
-    
+
         const extras =
           JSON.parse(localStorage.getItem("bomberosExtra")) || [];
-    
+      
         extras.forEach(nombre => {
-    
+      
           if (!tom.options[nombre]) {
-    
+      
             tom.addOption({
               value: nombre,
               text: nombre
             });
-    
+      
           }
-    
+      
         });
-    
+      
       });
-
     <div class="section-title">
       <span class="section-num">05</span> DESCRIPCIÓN DEL INCIDENTE
     </div>
