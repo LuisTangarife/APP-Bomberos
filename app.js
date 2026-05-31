@@ -715,35 +715,7 @@ function getFormData() {
   return data;
 
 }
-  // ===== FIRMAS BOMBEROS =====
 
-  data.firmasBomberos=[];
-
-  data.personal.forEach(
-  (nombre,index)=>{
-
-    const canvas=
-    document.getElementById(
-    `firma_bombero_${index}`
-    );
-
-    data.firmasBomberos.push({
-
-      nombre,
-
-      firma:
-      canvas ?
-      canvas.toDataURL()
-      :
-      'Sin firma'
-
-    });
-
-  });
-
-  return data;
-
-}
 function validateForm(data) {
   const required = [
     ['fecha', 'Fecha'],
