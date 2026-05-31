@@ -1766,3 +1766,16 @@ body.light-theme .preview-remove{
     }
 
 }
+.signature-pad{
+
+    width:100%;
+    max-width:500px;
+    height:180px;
+
+    cursor:crosshair;
+
+    touch-action:none;
+
+    user-select:none;
+
+}
