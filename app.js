@@ -1699,4 +1699,3 @@ function clearSignature(id){
     );
 
 }
-}
