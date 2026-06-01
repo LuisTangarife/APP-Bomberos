@@ -2532,3 +2532,197 @@ transform:translateY(0);
     position: relative;
     overflow: visible !important;
 }
+
+/* ======================================
+   INTEGRACIÓN NUEVA ESTRUCTURA HEADER
+====================================== */
+
+.header-inner{
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:16px;
+}
+
+/* CENTRO */
+
+.header-center{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    flex-shrink:0;
+}
+
+.status-bar{
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+
+/* BADGES */
+
+.offline-badge,
+.online-badge,
+.pending-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+    gap:6px;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    font-size:.68rem;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+}
+
+.offline-badge{
+
+    background:rgba(0,0,0,.35);
+
+    color:#ff9980;
+
+    border:
+    1px solid rgba(255,80,50,.35);
+}
+
+.online-badge{
+
+    background:
+    rgba(46,204,113,.15);
+
+    color:#6effc0;
+
+    border:
+    1px solid rgba(46,204,113,.35);
+}
+
+.pending-badge{
+
+    background:
+    rgba(245,166,35,.15);
+
+    color:#ffd54a;
+
+    border:
+    1px solid rgba(245,166,35,.35);
+}
+
+
+/* PUNTO */
+
+.status-dot{
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+}
+
+.offline-badge .status-dot{
+
+    background:#ff6644;
+}
+
+.online-badge .status-dot{
+
+    background:#2ECC71;
+
+    animation:blink 2s infinite;
+}
+
+.pending-badge .status-dot{
+
+    background:#F5A623;
+}
+
+
+@keyframes blink{
+
+0%,100%{
+
+opacity:1;
+}
+
+50%{
+
+opacity:.3;
+}
+
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.header-inner{
+
+    flex-wrap:wrap;
+}
+
+.logo-block{
+
+    flex:1 1 auto;
+}
+
+.header-center{
+
+    order:3;
+
+    width:100%;
+
+    border-top:
+    1px solid rgba(255,255,255,.1);
+
+    padding-top:10px;
+}
+
+}
+
+
+@media(max-width:600px){
+
+.header-title{
+
+    font-size:1.1rem;
+}
+
+.header-card{
+
+    width:55px;
+    height:55px;
+}
+
+.escudo-colombia{
+
+    height:42px;
+}
+
+.qr-header{
+
+    width:42px;
+    height:42px;
+}
+
+.offline-badge .txt,
+.online-badge .txt{
+
+    display:none;
+}
+
+}
