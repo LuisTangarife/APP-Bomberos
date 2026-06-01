@@ -106,11 +106,10 @@ body {
 
   background:
   linear-gradient(
-      135deg,
-      rgba(32,36,44,.96) 0%,
-      rgba(36,40,48,.96) 55%,
-      rgba(95,25,15,.22) 85%,
-      rgba(204,34,0,.10) 100%
+    135deg,
+    #6d0d00 0%,
+    #CC2200 55%,
+    #ff5c33 100%
   );
 
   border-bottom:4px solid var(--gold);
@@ -478,129 +477,24 @@ label {
   text-transform: none;
 }
 
-/* ==========================================
-   CAMPOS PREMIUM CON DEGRADADO BOMBEROS
-========================================== */
-
 input[type="text"],
 input[type="number"],
 input[type="date"],
 input[type="time"],
 select,
-textarea{
-
-    width:100%;
-    outline:none;
-    -webkit-appearance:none;
-
-    padding:13px 15px;
-
-    border-radius:14px;
-
-    color:var(--text);
-
-    font-family:var(--font-body);
-    font-size:.95rem;
-
-    border:1px solid rgba(255,92,51,.18);
-
-    background:
-    linear-gradient(
-        135deg,
-        rgba(35,40,48,.95) 0%,
-        rgba(55,30,28,.95) 50%,
-        rgba(204,34,0,.25) 100%
-    );
-
-    backdrop-filter:blur(14px);
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.03),
-        0 6px 18px rgba(0,0,0,.18);
-
-    transition:
-        .3s ease;
+textarea {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  outline: none;
+  -webkit-appearance: none;
 }
-
-/* MODO CLARO */
-
-body.light-theme input[type="text"],
-body.light-theme input[type="number"],
-body.light-theme input[type="date"],
-body.light-theme input[type="time"],
-body.light-theme select,
-body.light-theme textarea{
-
-    background:
-    linear-gradient(
-        135deg,
-        #ffffff 0%,
-        #fff4ef 55%,
-        rgba(255,92,51,.12) 100%
-    );
-
-    border:1px solid rgba(204,34,0,.12);
-
-    color:#222;
-}
-
-
-/* HOVER */
-
-input:hover,
-select:hover,
-textarea:hover{
-
-    transform:translateY(-1px);
-
-    border-color:
-    rgba(255,92,51,.45);
-
-    box-shadow:
-
-    0 10px 22px rgba(0,0,0,.22),
-    0 0 0 1px rgba(255,92,51,.12);
-}
-
-
-/* FOCUS */
-
-input:focus,
-select:focus,
-textarea:focus{
-
-    border-color:rgba(255,92,51,.55);
-
-    box-shadow:
-    0 0 0 3px rgba(255,92,51,.10),
-    0 10px 22px rgba(204,34,0,.15);
-
-}
-
-
-/* PLACEHOLDER */
-
-input::placeholder,
-textarea::placeholder{
-
-    color:var(--muted);
-}
-
-
-/* OPCIONES DEL SELECT */
-
-select option{
-
-    background:#232830;
-    color:#fff;
-}
-
-body.light-theme select option{
-
-    background:#fff;
-    color:#222;
-}
-
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator {
   filter: invert(0.7);
@@ -1905,9 +1799,11 @@ body.light-theme .preview-remove{
     --card-bg:
     linear-gradient(
     145deg,
-    #20242c 0%,
-    #2a2f38 60%,
-    #35231f 100%
+
+    #ffffff 0%,
+    #f7f9fc 55%,
+    #fff1ec 100%
+
     );
 
     --card-border:#e2e8f0;
