@@ -2010,3 +2010,105 @@ font-size:15px;
 }
 
 }
+
+/* ==========================================
+   CORREGIR OPCIONES OCULTAS DE BOMBEROS
+========================================== */
+
+/* Permitir que los dropdown salgan del card */
+.vehicle-card,
+.affected-card,
+.signature-card{
+
+    overflow:visible !important;
+
+}
+
+/* Contenedor TomSelect */
+.ts-wrapper{
+
+    position:relative;
+    z-index:100;
+
+}
+
+/* Menú desplegable */
+.ts-dropdown{
+
+    position:absolute !important;
+
+    z-index:99999 !important;
+
+    overflow-y:auto;
+
+    max-height:250px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(0,0,0,.08);
+
+    backdrop-filter:blur(14px);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.18);
+
+}
+
+/* Modo claro */
+:root .ts-dropdown{
+
+    background:rgba(255,255,255,.98);
+
+}
+
+/* Modo oscuro automático */
+@media (prefers-color-scheme: dark){
+
+    .ts-dropdown{
+
+        background:rgba(25,25,25,.97);
+
+        border-color:rgba(255,255,255,.08);
+
+        color:#fff;
+
+    }
+
+    .ts-dropdown .option{
+
+        color:#fff;
+
+    }
+
+    .ts-dropdown .active{
+
+        background:rgba(255,255,255,.08);
+
+    }
+
+}
+
+/* Animación */
+.ts-dropdown{
+
+    animation:dropdownFade .2s ease;
+
+}
+
+@keyframes dropdownFade{
+
+    from{
+
+        opacity:0;
+        transform:translateY(-8px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
