@@ -830,13 +830,17 @@ data.personal = [
 ];
 
 // Guardar firmas
-data.personal.forEach(
-(nombre,index)=>{
+data.personal.forEach(nombre=>{
 
-    const canvas =
-        document.getElementById(
-            `firma_bombero_${index}`
-        );
+const safeId=
+nombre
+.replace(/\s+/g,'_')
+.replace(/[^\w]/g,'');
+
+const canvas=
+document.getElementById(
+`firma_${safeId}`
+);
 
     let firma='';
 
@@ -1799,9 +1803,8 @@ document.getElementById(
 
 let personal=[];
 
-// Obtener bomberos de todos los vehículos
-vehiculosTS.items.forEach(
-(v,index)=>{
+// Obtener todos los bomberos seleccionados
+vehiculosTS.items.forEach((v,index)=>{
 
 const select=
 document.getElementById(
@@ -1831,29 +1834,31 @@ const firmasActuales={};
 
 document
 .querySelectorAll(
-'.signature-pad'
+'#firefighterSignatures canvas'
 )
 .forEach(canvas=>{
 
 try{
 
 firmasActuales[
-canvas.id
+canvas.dataset.nombre
 ]=canvas.toDataURL();
 
 }catch{}
 
 });
 
-// NO borrar y recrear todo
 container.innerHTML='';
 
-// Crear nuevamente manteniendo firmas
-personal.forEach(
-(nombre,index)=>{
+personal.forEach(nombre=>{
+
+const safeId=
+nombre
+.replace(/\s+/g,'_')
+.replace(/[^\w]/g,'');
 
 const id=
-`firma_bombero_${index}`;
+`firma_${safeId}`;
 
 container.innerHTML += `
 
@@ -1864,16 +1869,14 @@ container.innerHTML += `
 <canvas
 class="signature-pad"
 id="${id}"
+data-nombre="${nombre}"
 width="350"
 height="120"
 ></canvas>
 
 <button
 type="button"
-onclick="
-clearSignature(
-'${id}'
-)"
+onclick="clearSignature('${id}')"
 >
 
 Limpiar firma
@@ -1881,21 +1884,26 @@ Limpiar firma
 </button>
 
 </div>
+
 `;
 
 });
 
-// Inicializar canvas
-personal.forEach(
-(nombre,index)=>{
+// Inicializar y restaurar
+personal.forEach(nombre=>{
+
+const safeId=
+nombre
+.replace(/\s+/g,'_')
+.replace(/[^\w]/g,'');
 
 const id=
-`firma_bombero_${index}`;
+`firma_${safeId}`;
 
 setupSignature(id);
 
-// Restaurar firma anterior
-if(firmasActuales[id]){
+// restaurar firma previa
+if(firmasActuales[nombre]){
 
 const canvas=
 document.getElementById(id);
@@ -1912,20 +1920,21 @@ ctx.drawImage(
 img,
 0,
 0,
-canvas.width,
-canvas.height
+350,
+120
 );
 
 };
 
 img.src=
-firmasActuales[id];
+firmasActuales[nombre];
 
 }
 
 });
 
 }
+
 function setupSignature(id){
 
     const canvas =
@@ -2061,19 +2070,32 @@ function setupSignature(id){
 
 function clearSignature(id){
 
-    const canvas =
-        document.getElementById(id);
+const canvas =
+document.getElementById(id);
 
-    if(!canvas) return;
+if(!canvas) return;
 
-    const ctx =
-        canvas.getContext("2d");
+const ctx =
+canvas.getContext("2d");
 
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+ctx.save();
+
+ctx.setTransform(
+1,
+0,
+0,
+1,
+0,
+0
+);
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+ctx.restore();
 
 }
