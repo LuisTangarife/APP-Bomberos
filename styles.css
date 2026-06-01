@@ -215,19 +215,46 @@ body {
 
 /* DERECHA */
 
+/* DERECHA */
+
 .header-right{
 
   display:flex;
   align-items:center;
+  gap:14px;
+}
+
+/* LOGO DERECHO GRANDE */
+
+.header-right img{
+
+  width:140px;
+  height:140px;
+
+  object-fit:contain;
+
+  margin-right:10px;
+
+  filter:
+  drop-shadow(
+    0 0 20px rgba(255,200,0,.35)
+  );
+
+  transition:.35s;
+}
+
+.header-right img:hover{
+
+  transform:scale(1.05);
 }
 
 .status-bar{
 
   display:flex;
   gap:8px;
+  align-items:center;
   flex-wrap:wrap;
 }
-
 /* RESPONSIVE */
 
 @media(max-width:768px){
