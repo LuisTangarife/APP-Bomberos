@@ -2494,3 +2494,42 @@ transform:translateY(0);
     overflow-wrap:break-word;
 
 }
+
+/* ==========================================
+   FIX DROPDOWN BOMBEROS ENTRE VEHÍCULOS
+========================================== */
+
+/* Permitir que el contenido salga de cada tarjeta */
+.vehicle-card{
+    position: relative;
+    overflow: visible !important;
+}
+
+/* Cuando una tarjeta tiene el selector activo,
+   la subimos sobre las demás */
+.vehicle-card:focus-within{
+    z-index: 1000;
+}
+
+/* Contenedor TomSelect */
+.ts-wrapper{
+    position: relative !important;
+    z-index: 1;
+}
+
+/* Al abrir/usar el selector */
+.ts-wrapper.focus{
+    z-index: 9999 !important;
+}
+
+/* Lista desplegable */
+.ts-dropdown{
+    position: absolute !important;
+    z-index: 99999 !important;
+}
+
+/* Contenedor general de vehículos */
+#vehicleAssignments{
+    position: relative;
+    overflow: visible !important;
+}
