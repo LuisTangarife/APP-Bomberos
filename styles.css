@@ -137,7 +137,7 @@ body {
    LOGOS HEADER
 ========================================================= */
 
-/* CONTENEDOR IZQUIERDO */
+/* CONTENEDOR */
 
 .logo-block{
   display:flex;
@@ -145,10 +145,15 @@ body {
   flex:1;
 }
 
-/* LOGO PRINCIPAL (MUCHO MÁS GRANDE) */
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+/* LOGO PRINCIPAL (Bomberos Villamaría) */
 
 .logo-principal{
-
   width:160px !important;
   height:160px !important;
 
@@ -163,7 +168,6 @@ body {
 }
 
 .logo-principal:hover{
-
   transform:scale(1.06);
 }
 
@@ -172,8 +176,8 @@ body {
 .logo-block img:not(.logo-principal),
 .header-right img{
 
-  width:70px;
-  height:70px;
+  width:65px !important;
+  height:65px !important;
 
   object-fit:contain;
 
@@ -185,7 +189,6 @@ body {
 
 .logo-block img:not(.logo-principal):hover,
 .header-right img:hover{
-
   transform:scale(1.05);
 }
 
@@ -194,47 +197,22 @@ body {
 @media(max-width:768px){
 
   .logo-principal{
-
     width:110px !important;
     height:110px !important;
   }
 
   .logo-block img:not(.logo-principal),
   .header-right img{
-
-    width:50px;
-    height:50px;
-  }
-}
-/* LOGO DERECHO AMPLIADO */
-
-.header-right-logo{
-
-  width:135px;
-  height:135px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(0 0 25px rgba(255,200,0,.45));
-
-  transition:.35s;
-}
-
-.header-right-logo:hover{
-
-  transform:scale(1.05);
-}
-
-@media(max-width:768px){
-
-  .header-right-logo{
-
-    width:95px;
-    height:95px;
+    width:45px !important;
+    height:45px !important;
   }
 
+  .nit-only{
+    font-size:.68rem;
+    letter-spacing:1px;
+  }
 }
+
 /* TEXTO */
 
 .header-texts{
