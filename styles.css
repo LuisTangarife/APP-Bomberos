@@ -1564,11 +1564,16 @@ body.light-theme .preview-remove{
 
 :root{
 
+    /* TARJETAS CLARO */
+
     --card-bg:
     linear-gradient(
     145deg,
-    #ffffff,
-    #f7f9fc
+
+    #ffffff 0%,
+    #f7f9fc 55%,
+    #fff1ec 100%
+
     );
 
     --card-border:#e2e8f0;
@@ -1578,17 +1583,30 @@ body.light-theme .preview-remove{
 
 }
 
+
 /* MODO OSCURO APP */
 
 body:not(.light-theme){
 
+    /* TARJETAS OSCURO */
+
     --card-bg:
     linear-gradient(
     145deg,
+
     #20242c 0%,
     #2c313c 45%,
     #441d16 100%
+
     );
+
+    --card-border:
+    rgba(255,255,255,.06);
+
+    --card-highlight:
+    rgba(255,92,51,.12);
+
+}
 
     --card-border:
     rgba(255,255,255,.06);
