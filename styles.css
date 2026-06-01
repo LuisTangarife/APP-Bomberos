@@ -106,10 +106,11 @@ body {
 
   background:
   linear-gradient(
-    135deg,
-    #6d0d00 0%,
-    #CC2200 55%,
-    #ff5c33 100%
+      135deg,
+      rgba(32,36,44,.96) 0%,
+      rgba(36,40,48,.96) 55%,
+      rgba(95,25,15,.22) 85%,
+      rgba(204,34,0,.10) 100%
   );
 
   border-bottom:4px solid var(--gold);
@@ -568,12 +569,11 @@ input:focus,
 select:focus,
 textarea:focus{
 
-    border-color:var(--red);
+    border-color:rgba(255,92,51,.55);
 
     box-shadow:
-
-    0 0 0 4px rgba(255,92,51,.15),
-    0 12px 30px rgba(204,34,0,.25);
+    0 0 0 3px rgba(255,92,51,.10),
+    0 10px 22px rgba(204,34,0,.15);
 
 }
 
@@ -1905,11 +1905,9 @@ body.light-theme .preview-remove{
     --card-bg:
     linear-gradient(
     145deg,
-
-    #ffffff 0%,
-    #f7f9fc 55%,
-    #fff1ec 100%
-
+    #20242c 0%,
+    #2a2f38 60%,
+    #35231f 100%
     );
 
     --card-border:#e2e8f0;
