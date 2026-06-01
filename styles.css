@@ -145,26 +145,39 @@ body {
 
 /* LOGO IZQUIERDO (principal) */
 
-.logo-block img{
+/* LOGO PRINCIPAL BOMBEROS */
 
-  width:72px;
-  height:72px;
+.logo-principal{
+
+  width:145px !important;
+  height:145px !important;
 
   object-fit:contain;
 
-  margin-right:16px;
+  margin-right:18px;
 
   filter:
-    drop-shadow(0 0 12px rgba(255,200,0,.35));
+    drop-shadow(0 0 20px rgba(255,200,0,.45));
 
   transition:.35s;
 }
 
-.logo-block img:hover{
+.logo-principal:hover{
 
   transform:scale(1.05);
 }
 
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+  .logo-principal{
+
+    width:95px !important;
+    height:95px !important;
+  }
+
+}
 /* LOGO DERECHO AMPLIADO */
 
 .header-right-logo{
