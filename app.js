@@ -931,32 +931,36 @@ async function saveReport() {
     data.pdfBase64 = await generatePDFBase64();
     fb.textContent = 'Subiendo reporte...';
     
-    // ENVIAR A APPS SCRIPT
+  
+    // GUARDAR SIEMPRE LOCALMENTE
+    data.pending = !navigator.onLine;
+    data.synced = navigator.onLine;
+    
+    await saveToIDB(data);
+    
+    // SI HAY INTERNET → sincronizar Drive
     if(navigator.onLine){
-
-      await fetch(API_URL,{
-  
-        method:'POST',
-  
-        mode:'no-cors',
-  
-        headers:{
-          'Content-Type':'text/plain'
-        },
-  
-        body:JSON.stringify(data)
-  
-      });
-  
-  }else{
-  
-      data.pending=true;
-  
-      data.synced=false;
-  
-      await saveToIDB(data);
-  
-  }
+    
+        try{
+    
+            await fetch(API_URL,{
+                method:'POST',
+                headers:{
+                    'Content-Type':'text/plain'
+                },
+                body:JSON.stringify(data)
+            });
+    
+        }catch(err){
+    
+            console.error(err);
+    
+            data.pending=true;
+            data.synced=false;
+    
+        }
+    
+    }
     await updatePendingBadge();
 
     await loadSavedReports();
