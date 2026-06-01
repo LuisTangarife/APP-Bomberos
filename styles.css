@@ -143,17 +143,19 @@ body {
 
 /* LOGO MÁS GRANDE */
 
+/* LOGO IZQUIERDO (principal) */
+
 .logo-block img{
 
-  width:115px;
-  height:115px;
+  width:72px;
+  height:72px;
 
   object-fit:contain;
 
-  margin-right:18px;
+  margin-right:16px;
 
   filter:
-    drop-shadow(0 0 20px rgba(255,200,0,.45));
+    drop-shadow(0 0 12px rgba(255,200,0,.35));
 
   transition:.35s;
 }
@@ -163,6 +165,35 @@ body {
   transform:scale(1.05);
 }
 
+/* LOGO DERECHO AMPLIADO */
+
+.header-right-logo{
+
+  width:135px;
+  height:135px;
+
+  object-fit:contain;
+
+  filter:
+    drop-shadow(0 0 25px rgba(255,200,0,.45));
+
+  transition:.35s;
+}
+
+.header-right-logo:hover{
+
+  transform:scale(1.05);
+}
+
+@media(max-width:768px){
+
+  .header-right-logo{
+
+    width:95px;
+    height:95px;
+  }
+
+}
 /* TEXTO */
 
 .header-texts{
@@ -215,7 +246,6 @@ body {
 
 /* DERECHA */
 
-/* DERECHA */
 
 .header-right{
 
