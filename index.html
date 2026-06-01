@@ -164,10 +164,36 @@
 .cert-escudo-img{ height: 70px; width: auto; }
 .cert-firma-img { height: 38px; width: auto; opacity: 0.75; margin-bottom: 4px; }
 .cert-qr-img    { height: 68px; width: 68px; background:#fff; padding:3px; border-radius:5px; }
-@media (max-width:600px) {
-  .logo-principal { height:44px; }
-  .escudo-colombia{ height:38px; }
-  .qr-header      { height:44px; width:44px; }
+@media (max-width:600px){
+
+  .header-inner{
+    padding:10px 14px;
+    gap:8px;
+  }
+
+  .logo-principal{
+    width:52px;
+    height:52px;
+  }
+
+  .header-title{
+    font-size:1.1rem;
+  }
+
+  .header-sub{
+    display:none;
+  }
+
+  .escudo-colombia,
+  .qr-header{
+    width:52px;
+    height:52px;
+    border-radius:12px;
+  }
+
+  .txt{
+    display:none;
+  }
 }
   /* ───────────────────────────── */
   /* FOTOS EN CERTIFICADO */
