@@ -95,240 +95,60 @@ body {
   font-size: 15px;
 }
 
-/* =========================================================
-   HEADER REFINADO
-========================================================= */
-
-.header{
-  background:
-  linear-gradient(
-    135deg,
-    var(--red-dark) 0%,
-    var(--red) 60%,
-    #E03000 100%
-  );
-
-  border-bottom:3px solid var(--gold);
-
-  position:sticky;
-  top:0;
-  z-index:100;
-
-  box-shadow:
-  0 6px 24px rgba(0,0,0,.35);
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 60%, #E03000 100%);
+  border-bottom: 3px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
-
-.header-inner{
-
-  max-width:960px;
-
-  margin:auto;
-
-  padding:10px 24px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
-
-/* IZQUIERDA */
-
-/* =========================================================
-   LOGOS HEADER
-========================================================= */
-
-/* CONTENEDOR */
-
-.logo-block{
-  display:flex;
-  align-items:center;
-  flex:1;
+.logo-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
-
-.header-right{
-  display:flex;
-  align-items:center;
-  gap:14px;
+.flame-icon {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 0 8px rgba(255,180,0,0.6));
+  animation: flicker 2s ease-in-out infinite;
 }
-
-/* LOGO PRINCIPAL (Bomberos Villamaría) */
-
-.logo-principal{
-  width:160px !important;
-  height:160px !important;
-
-  object-fit:contain;
-
-  margin-right:18px;
-
-  filter:
-    drop-shadow(0 0 25px rgba(255,200,0,.5));
-
-  transition:.35s;
+@keyframes flicker {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  50% { transform: scale(1.05) rotate(2deg); }
 }
-
-.logo-principal:hover{
-  transform:scale(1.06);
+.header-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
-
-/* TODOS LOS DEMÁS LOGOS MÁS PEQUEÑOS */
-
-.logo-block img:not(.logo-principal),
-.header-right img{
-
-  width:65px !important;
-  height:65px !important;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(0 0 12px rgba(255,200,0,.35));
-
-  transition:.35s;
+.header-sub {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 1px;
 }
-
-.logo-block img:not(.logo-principal):hover,
-.header-right img:hover{
-  transform:scale(1.05);
-}
-
-/* RESPONSIVE */
-
-@media(max-width:768px){
-
-  .logo-principal{
-    width:110px !important;
-    height:110px !important;
-  }
-
-  .logo-block img:not(.logo-principal),
-  .header-right img{
-    width:45px !important;
-    height:45px !important;
-  }
-
-  .nit-only{
-    font-size:.68rem;
-    letter-spacing:1px;
-  }
-}
-
-/* TEXTO */
-
-.header-texts{
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-
-.nit-only{
-
-  font-size:.78rem;
-
-  color:rgba(255,255,255,.88);
-
-  letter-spacing:2.2px;
-
-  font-weight:600;
-
-  text-transform:uppercase;
-
-  position:relative;
-
-  padding-left:16px;
-}
-
-/* línea decorativa */
-
-.nit-only::before{
-
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  top:50%;
-
-  width:8px;
-  height:8px;
-
-  border-radius:50%;
-
-  background:var(--gold);
-
-  transform:translateY(-50%);
-
-  box-shadow:
-  0 0 12px rgba(255,200,0,.8);
-}
-
-/* DERECHA */
-
-
-.header-right{
-
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-/* LOGO DERECHO GRANDE */
-
-.header-right img{
-
-  width:140px;
-  height:140px;
-
-  object-fit:contain;
-
-  margin-right:10px;
-
-  filter:
-  drop-shadow(
-    0 0 20px rgba(255,200,0,.35)
-  );
-
-  transition:.35s;
-}
-
-.header-right img:hover{
-
-  transform:scale(1.05);
-}
-
-.status-bar{
-
-  display:flex;
-  gap:8px;
-  align-items:center;
-  flex-wrap:wrap;
-}
-/* RESPONSIVE */
-
-@media(max-width:768px){
-
-.logo-block img{
-
-width:82px;
-height:82px;
-
-margin-right:10px;
-}
-
-.nit-only{
-
-font-size:.68rem;
-letter-spacing:1px;
-}
-
-}
-.status-bar{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  flex-wrap:wrap;
-  justify-content:flex-end;
+.status-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  
 }
 .offline-badge, .online-badge, .pending-badge {
   font-size: 0.65rem;
