@@ -95,84 +95,300 @@ body {
   font-size: 15px;
 }
 
-/* HEADER */
-.header {
-  background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 60%, #E03000 100%);
-  border-bottom: 3px solid var(--gold);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-.header-inner {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.logo-block {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.flame-icon {
-  font-size: 2.2rem;
-  filter: drop-shadow(0 0 8px rgba(255,180,0,0.6));
-  animation: flicker 2s ease-in-out infinite;
-}
-@keyframes flicker {
-  0%, 100% { transform: scale(1) rotate(-2deg); }
-  50% { transform: scale(1.05) rotate(2deg); }
-}
-.header-title {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-.header-sub {
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.75);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-top: 1px;
-}
-.status-bar {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  
-}
-.offline-badge, .online-badge, .pending-badge {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  padding: 4px 10px;
-  border-radius: 20px;
-}
-.offline-badge {
-  background: rgba(0,0,0,0.35);
-  color: #FF8080;
-  border: 1px solid rgba(255,100,100,0.3);
-}
-.online-badge {
-  background: rgba(0,0,0,0.35);
-  color: #80FF80;
-  border: 1px solid rgba(100,255,100,0.3);
-}
-.pending-badge {
-  background: rgba(245,166,35,0.2);
-  color: var(--gold);
-  border: 1px solid rgba(245,166,35,0.4);
+/* =========================================================
+   HEADER RESPONSIVE PROFESIONAL BOMBEROS
+========================================================= */
+
+.header{
+  background:
+    linear-gradient(
+      135deg,
+      var(--red-dark) 0%,
+      var(--red) 60%,
+      #E03000 100%
+    );
+
+  border-bottom:3px solid var(--gold);
+
+  position:sticky;
+  top:0;
+  z-index:100;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.35);
 }
 
+.header-inner{
+
+  max-width:1200px;
+
+  margin:auto;
+
+  padding:12px 24px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+
+  flex-wrap:wrap;
+}
+
+
+/* IZQUIERDA */
+
+.logo-block{
+
+  display:flex;
+  align-items:center;
+
+  gap:18px;
+
+  flex:1;
+
+  min-width:0;
+}
+
+
+/* Logo principal */
+
+.logo-principal{
+
+  width:auto;
+  height:82px;
+
+  flex-shrink:0;
+
+  object-fit:contain;
+
+  filter:
+    drop-shadow(
+      0 3px 8px rgba(0,0,0,.45)
+    );
+}
+
+
+/* CONTENEDOR TEXTO */
+
+.header-text{
+
+  min-width:0;
+
+  display:flex;
+  flex-direction:column;
+}
+
+
+.header-title{
+
+  font-family:var(--font-display);
+
+  font-size:2rem;
+
+  line-height:1;
+
+  color:#111;
+
+  font-weight:700;
+
+  letter-spacing:.4px;
+
+  text-shadow:
+    0 1px 2px rgba(255,255,255,.25);
+}
+
+
+.header-sub{
+
+  margin-top:6px;
+
+  color:
+  rgba(255,255,255,.85);
+
+  font-size:.78rem;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+}
+
+
+/* DERECHA */
+
+.status-bar{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+  flex-wrap:wrap;
+
+  justify-content:flex-end;
+}
+
+
+/* Logo Colombia */
+
+.logo-colombia{
+
+  height:76px;
+  width:auto;
+
+  object-fit:contain;
+
+  flex-shrink:0;
+
+  filter:
+    drop-shadow(
+      0 3px 8px rgba(0,0,0,.4)
+    );
+}
+
+
+/* QR */
+
+.qr-logo{
+
+  width:95px;
+  height:95px;
+
+  object-fit:contain;
+
+  background:#fff;
+
+  border-radius:12px;
+
+  padding:4px;
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.35);
+}
+
+
+/* BADGES */
+
+.offline-badge,
+.online-badge,
+.pending-badge{
+
+  font-size:.68rem;
+
+  font-weight:700;
+
+  padding:6px 12px;
+
+  border-radius:999px;
+
+  white-space:nowrap;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:992px){
+
+.header-inner{
+
+    justify-content:center;
+}
+
+.logo-block{
+
+    justify-content:center;
+}
+
+.status-bar{
+
+    justify-content:center;
+}
+
+.header-title{
+
+    font-size:1.6rem;
+}
+
+.logo-principal{
+
+    height:70px;
+}
+
+.logo-colombia{
+
+    height:65px;
+}
+
+.qr-logo{
+
+    width:80px;
+    height:80px;
+}
+
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media(max-width:768px){
+
+.header-inner{
+
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:14px;
+}
+
+.logo-block{
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.header-title{
+
+    font-size:1.25rem;
+
+    line-height:1.2;
+}
+
+.header-sub{
+
+    font-size:.65rem;
+}
+
+.status-bar{
+
+    justify-content:center;
+    gap:10px;
+}
+
+.logo-principal{
+
+    height:65px;
+}
+
+.logo-colombia{
+
+    height:55px;
+}
+
+.qr-logo{
+
+    width:70px;
+    height:70px;
+}
+
+}
 /* MAIN */
 .main {
   max-width: 960px;
