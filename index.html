@@ -38,7 +38,7 @@
   height:72px;
   object-fit:contain;
   flex-shrink:0;
-
+}
   filter:
     drop-shadow(0 6px 15px rgba(0,0,0,.45));
 
@@ -54,19 +54,27 @@
   gap:3px;
   min-width:0;
 }
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
+.header-center{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
 }
-  .header-right img{
 
-  transition:.3s;
-
+.status-bar{
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
 .header-title{
-  font-family:var(--font-display);
+  font-family:'Oswald',sans-serif;
   font-size:1.55rem;
   font-weight:700;
   color:#fff;
@@ -80,7 +88,6 @@
   letter-spacing:2px;
   text-transform:uppercase;
 }
-
 .nit-only{
   font-size:.68rem;
   color:#FFD54A;
