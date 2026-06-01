@@ -1958,134 +1958,302 @@ padding:18px;
 
 }
 
-/* Contenedor TomSelect */
-.ts-wrapper{
-
-    position:relative;
-    z-index:100;
-
-}
-
-/* Menú desplegable */
-.ts-dropdown{
-
-    position:absolute !important;
-
-    z-index:99999 !important;
-
-    overflow-y:auto;
-
-    max-height:250px;
-
-    border-radius:14px;
-
-    border:1px solid rgba(0,0,0,.08);
-
-    backdrop-filter:blur(14px);
-
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.18);
-
-}
-
-/* Modo claro */
-:root .ts-dropdown{
-
-    background:rgba(255,255,255,.98);
-
-}
-
-/* Modo oscuro automático */
-@media (prefers-color-scheme: dark){
-
-    .ts-dropdown{
-
-        background:rgba(25,25,25,.97);
-
-        border-color:rgba(255,255,255,.08);
-
-        color:#fff;
-
-    }
-
-    .ts-dropdown .option{
-
-        color:#fff;
-
-    }
-
-    .ts-dropdown .active{
-
-        background:rgba(255,255,255,.08);
-
-    }
-
-}
-
-/* Animación */
-.ts-dropdown{
-
-    animation:dropdownFade .2s ease;
-
-}
-
-@keyframes dropdownFade{
-
-    from{
-
-        opacity:0;
-        transform:translateY(-8px);
-
-    }
-
-    to{
-
-        opacity:1;
-        transform:translateY(0);
-
-    }
-
-}
 /* ==========================================
-   CORREGIR CAMPO VEHÍCULOS DESPLEGADOS
+   VEHÍCULOS + MÓVIL + BOMBEROS
+   ESTILO PROFESIONAL BOMBEROS
 ========================================== */
 
-/* Solo el selector de vehículos */
-#vehiculos + .ts-wrapper,
-#vehiculos.ts-hidden-accessible + .ts-wrapper{
+/* Contenedor TomSelect */
+.ts-wrapper{
+    width:100%;
+    position:relative;
+}
 
-    width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
+/* Campo principal */
+.ts-control{
 
-    box-sizing:border-box;
+    min-height:56px !important;
+
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+
+    padding:10px 14px !important;
+
+    border-radius:16px !important;
+
+    border:1px solid rgba(255,92,51,.15) !important;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.04),
+        rgba(255,255,255,.02)
+    ) !important;
+
+    backdrop-filter:blur(16px);
+
+    color:var(--text) !important;
+
+    box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.03),
+    0 6px 20px rgba(0,0,0,.18);
+
+    transition:
+    .3s ease;
+}
+
+
+/* MODO OSCURO */
+
+body:not(.light-theme) .ts-control{
+
+    background:
+    linear-gradient(
+        135deg,
+        #232830 0%,
+        #2d313b 50%,
+        rgba(204,34,0,.18) 100%
+    ) !important;
+
+    border:
+    1px solid rgba(255,92,51,.18) !important;
+}
+
+
+/* MODO CLARO */
+
+body.light-theme .ts-control{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f8f9fc 50%,
+        rgba(255,92,51,.08) 100%
+    ) !important;
+
+    border:
+    1px solid rgba(204,34,0,.15) !important;
+}
+
+
+/* HOVER */
+
+.ts-control:hover{
+
+    transform:translateY(-1px);
+
+    border-color:
+    rgba(255,92,51,.45) !important;
+
+    box-shadow:
+
+    0 10px 24px rgba(0,0,0,.22),
+    0 0 0 1px rgba(255,92,51,.1);
+}
+
+
+/* FOCUS */
+
+.ts-wrapper.focus .ts-control{
+
+    border-color:
+    var(--red) !important;
+
+    box-shadow:
+
+    0 0 0 4px rgba(255,92,51,.15),
+    0 10px 30px rgba(204,34,0,.25);
 
 }
 
-/* Control interno */
-#vehiculos + .ts-wrapper .ts-control,
-#vehiculos.ts-hidden-accessible + .ts-wrapper .ts-control{
 
-    width:100% !important;
+/* Etiquetas seleccionadas */
 
-    display:flex;
-    flex-wrap:wrap;
+.ts-control .item{
 
-    gap:6px;
+    background:
+    linear-gradient(
+        135deg,
+        var(--red-dark),
+        var(--red)
+    ) !important;
 
-    padding:10px;
+    color:#fff !important;
 
-    min-height:48px;
+    border:none !important;
+
+    border-radius:999px !important;
+
+    padding:6px 12px !important;
+
+    font-size:.84rem !important;
+
+    font-weight:600;
+
+    box-shadow:
+    0 4px 10px rgba(204,34,0,.25);
+
+}
+
+
+/* X eliminar */
+
+.ts-control .remove{
+
+    color:rgba(255,255,255,.7);
+
+    margin-left:6px;
+
+    transition:.2s;
+}
+
+.ts-control .remove:hover{
+
+    color:#fff;
+
+    transform:scale(1.2);
+}
+
+
+/* INPUT INTERNO */
+
+.ts-control input{
+
+    color:var(--text) !important;
+}
+
+
+/* PLACEHOLDER */
+
+.ts-control input::placeholder{
+
+    color:var(--muted);
+}
+
+
+/* DROPDOWN */
+
+.ts-dropdown{
+
+    border:none !important;
+
+    border-radius:18px !important;
 
     overflow:hidden;
 
-    box-sizing:border-box;
+    margin-top:8px;
+
+    backdrop-filter:blur(16px);
+
+    box-shadow:
+    0 18px 45px rgba(0,0,0,.35);
+
+    animation:dropdownFade .25s ease;
+}
+
+
+/* Dropdown oscuro */
+
+body:not(.light-theme) .ts-dropdown{
+
+    background:
+    linear-gradient(
+        145deg,
+        #1f232a,
+        #2b303a
+    ) !important;
+}
+
+
+/* Dropdown claro */
+
+body.light-theme .ts-dropdown{
+
+    background:#fff !important;
+}
+
+
+/* Opciones */
+
+.ts-dropdown .option{
+
+    padding:12px 15px;
+
+    color:var(--text);
+
+    transition:.25s;
+}
+
+
+/* Hover opciones */
+
+.ts-dropdown .option:hover,
+.ts-dropdown .active{
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(204,34,0,.15),
+        rgba(255,92,51,.12)
+    ) !important;
+
+    color:var(--red-light);
+}
+
+
+/* Animación */
+
+@keyframes dropdownFade{
+
+from{
+opacity:0;
+transform:translateY(-10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
 
 }
 
-/* Etiquetas seleccionadas */
-#vehiculos + .ts-wrapper .item,
-#vehiculos.ts-hidden-accessible + .ts-wrapper .item{
+
+/* Móvil */
+
+@media(max-width:768px){
+
+.ts-control{
+
+    min-height:52px !important;
+    padding:8px 12px !important;
+
+}
+
+.ts-control .item{
+
+    font-size:.78rem !important;
+    padding:5px 10px !important;
+
+}
+
+}
+/* Evita deformaciones cuando hay muchos elementos */
+
+.vehicle-card,
+.field-group,
+.ts-wrapper{
+
+    min-width:0;
+    overflow:visible !important;
+
+}
+
+/* Mantiene etiquetas largas ordenadas */
+
+.ts-control .item{
 
     max-width:100%;
 
@@ -2094,37 +2262,5 @@ padding:18px;
     word-break:break-word;
 
     overflow-wrap:break-word;
-
-}
-
-/* Input interno */
-#vehiculos + .ts-wrapper input,
-#vehiculos.ts-hidden-accessible + .ts-wrapper input{
-
-    flex:1;
-    min-width:70px;
-
-}
-
-/* Evita que el card crezca raro */
-.vehicle-card{
-
-    width:100%;
-    max-width:100%;
-
-    box-sizing:border-box;
-
-}
-
-/* En móviles */
-@media(max-width:768px){
-
-    #vehiculos + .ts-wrapper .ts-control,
-    #vehiculos.ts-hidden-accessible + .ts-wrapper .ts-control{
-
-        padding:8px;
-        gap:4px;
-
-    }
 
 }
