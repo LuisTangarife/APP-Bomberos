@@ -2112,3 +2112,85 @@ font-size:15px;
     }
 
 }
+/* ==========================================
+   CORREGIR CAMPO VEHÍCULOS DESPLEGADOS
+========================================== */
+
+/* Solo el selector de vehículos */
+#vehiculos + .ts-wrapper,
+#vehiculos.ts-hidden-accessible + .ts-wrapper{
+
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+
+    box-sizing:border-box;
+
+}
+
+/* Control interno */
+#vehiculos + .ts-wrapper .ts-control,
+#vehiculos.ts-hidden-accessible + .ts-wrapper .ts-control{
+
+    width:100% !important;
+
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    padding:10px;
+
+    min-height:48px;
+
+    overflow:hidden;
+
+    box-sizing:border-box;
+
+}
+
+/* Etiquetas seleccionadas */
+#vehiculos + .ts-wrapper .item,
+#vehiculos.ts-hidden-accessible + .ts-wrapper .item{
+
+    max-width:100%;
+
+    white-space:normal !important;
+
+    word-break:break-word;
+
+    overflow-wrap:break-word;
+
+}
+
+/* Input interno */
+#vehiculos + .ts-wrapper input,
+#vehiculos.ts-hidden-accessible + .ts-wrapper input{
+
+    flex:1;
+    min-width:70px;
+
+}
+
+/* Evita que el card crezca raro */
+.vehicle-card{
+
+    width:100%;
+    max-width:100%;
+
+    box-sizing:border-box;
+
+}
+
+/* En móviles */
+@media(max-width:768px){
+
+    #vehiculos + .ts-wrapper .ts-control,
+    #vehiculos.ts-hidden-accessible + .ts-wrapper .ts-control{
+
+        padding:8px;
+        gap:4px;
+
+    }
+
+}
