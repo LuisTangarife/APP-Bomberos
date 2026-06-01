@@ -1710,87 +1710,96 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 function generateAffectedFields(){
 
-const count=parseInt(
-document.getElementById(
-'lesionados'
-).value||0
-);
+    const count = parseInt(
+        document.getElementById(
+            'lesionados'
+        ).value || 0
+    );
 
-const container=
-document.getElementById(
-'affectedContainer'
-);
+    const container =
+        document.getElementById(
+            'affectedContainer'
+        );
 
-container.innerHTML='';
+    container.innerHTML = '';
 
-for(let i=1;i<=count;i++){
+    for(let i=1; i<=count; i++){
 
-container.innerHTML+=`
+        const card =
+            document.createElement('div');
 
-<div class="affected-card">
+        card.className =
+            'affected-card';
 
-<h3>Afectado ${i}</h3>
+        card.innerHTML = `
 
-<input
-type="text"
-placeholder="Nombre"
-id="nombre_${i}"
->
+        <h3>Afectado ${i}</h3>
 
-<input
-type="text"
-placeholder="DNI"
-id="dni_${i}"
->
+        <input
+        type="text"
+        placeholder="Nombre"
+        id="nombre_${i}"
+        >
 
-<input
-type="number"
-placeholder="Edad"
-id="edad_${i}"
->
+        <input
+        type="text"
+        placeholder="DNI"
+        id="dni_${i}"
+        >
 
-<select id="genero_${i}">
-<option>Masculino</option>
-<option>Femenino</option>
-<option>Otro</option>
-</select>
+        <input
+        type="number"
+        placeholder="Edad"
+        id="edad_${i}"
+        >
 
-<input
-type="text"
-placeholder="Teléfono"
-id="telefono_${i}"
->
+        <select id="genero_${i}">
+            <option>Masculino</option>
+            <option>Femenino</option>
+            <option>Otro</option>
+        </select>
 
-<input
-type="email"
-placeholder="Correo"
-id="correo_${i}"
->
+        <input
+        type="text"
+        placeholder="Teléfono"
+        id="telefono_${i}"
+        >
 
-<canvas
-class="signature-pad"
-id="firma_afectado_${i}"
-width="350"
-height="120"
-></canvas>
+        <input
+        type="email"
+        placeholder="Correo"
+        id="correo_${i}"
+        >
 
-<button
-type="button"
-onclick="clearSignature(
-'firma_afectado_${i}'
-)"
->
-Limpiar firma
-</button>
+        <canvas
+        class="signature-pad"
+        id="firma_afectado_${i}"
+        width="350"
+        height="120"
+        ></canvas>
 
-</div>
-`;
+        <button
+        type="button"
+        onclick="clearSignature(
+        'firma_afectado_${i}'
+        )"
+        >
+        Limpiar firma
+        </button>
+        `;
 
-setupSignature(
-`firma_afectado_${i}`
-);
+        container.appendChild(card);
 
-}
+    }
+
+    // Inicializar firmas DESPUÉS de crear todo
+    for(let i=1; i<=count; i++){
+
+        setupSignature(
+            `firma_afectado_${i}`
+        );
+
+    }
 
 }
 
