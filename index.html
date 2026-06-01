@@ -17,14 +17,14 @@
 <link rel="stylesheet" href="styles.css">
 <style>
 /* ── Ajustes de header para logos ── */
-.header-inner {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 8px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:12px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
 }
 .logo-block {
   display: flex;
@@ -33,22 +33,27 @@
   flex: 1;
   min-width: 0;
 }
-.logo-principal {
-  height: 120px; /* antes 60px */
-  width: auto;
-  flex-shrink: 0;
+.logo-principal{
+  width:72px;
+  height:72px;
+  object-fit:contain;
+  flex-shrink:0;
 
   filter:
-    drop-shadow(0 0 15px rgba(255,200,0,.4))
-    drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+    drop-shadow(0 6px 15px rgba(0,0,0,.45));
 
-  transition: .35s;
+  transition:.3s;
 }
 
 .logo-principal:hover{
-  transform: scale(1.05);
+  transform:scale(1.04);
 }
-.header-texts { display: flex; flex-direction: column; }
+.header-texts{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  min-width:0;
+}
 .header-right {
   display: flex;
   align-items: center;
@@ -60,7 +65,27 @@
   transition:.3s;
 
 }
+.header-title{
+  font-family:var(--font-display);
+  font-size:1.55rem;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:1px;
+  line-height:1.1;
+}
 
+.header-sub{
+  font-size:.75rem;
+  color:rgba(255,255,255,.85);
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.nit-only{
+  font-size:.68rem;
+  color:#FFD54A;
+  font-weight:700;
+}
 .header-right img:hover{
 
   transform:translateY(-3px) scale(1.04);
@@ -87,19 +112,46 @@
   font-weight:700;
 
 }
-.escudo-colombia {
-  height: 120px;
-  width: auto;
-  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.4));
+.escudo-colombia{
+  width:80px;
+  height:80px;
+  object-fit:contain;
+
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(12px);
+
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.15);
+
+  padding:8px;
+
+  box-shadow:
+    0 6px 18px rgba(0,0,0,.25);
+
+  transition:.3s;
 }
-.qr-header {
-  height: 120px;
-  width: 120px;
-  background: #fff;
-  padding: 3px;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+
+.qr-header{
+  width:80px;
+  height:80px;
+
+  background:#fff;
+  padding:5px;
+
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.15);
+
+  box-shadow:
+    0 6px 18px rgba(0,0,0,.25);
+
+  transition:.3s;
 }
+
+.escudo-colombia:hover,
+.qr-header:hover{
+  transform:translateY(-3px);
+}
+  
 /* Certificado */
 .cert-logos-row {
   display: flex;
@@ -179,7 +231,12 @@ rel="stylesheet">
           onclick="toggleTheme()">
           🌙
         </button>
-        
+        <span class="online-badge">
+          <span class="status-dot"></span>
+          <span class="txt">En línea</span>
+        </span>
+      </div>
+    </div>
         <span 
           class="offline-badge" id="offlineBadge">
           <span class="status-dot"></span>
