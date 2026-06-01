@@ -133,36 +133,58 @@ body {
 
 /* IZQUIERDA */
 
-.logo-block{
+/* =========================================================
+   LOGOS HEADER
+========================================================= */
 
+/* CONTENEDOR IZQUIERDO */
+
+.logo-block{
   display:flex;
   align-items:center;
-
   flex:1;
 }
 
-/* LOGO MÁS GRANDE */
-
-/* LOGO IZQUIERDO (principal) */
-
-/* LOGO PRINCIPAL BOMBEROS */
+/* LOGO PRINCIPAL (MUCHO MÁS GRANDE) */
 
 .logo-principal{
 
-  width:145px !important;
-  height:145px !important;
+  width:160px !important;
+  height:160px !important;
 
   object-fit:contain;
 
   margin-right:18px;
 
   filter:
-    drop-shadow(0 0 20px rgba(255,200,0,.45));
+    drop-shadow(0 0 25px rgba(255,200,0,.5));
 
   transition:.35s;
 }
 
 .logo-principal:hover{
+
+  transform:scale(1.06);
+}
+
+/* TODOS LOS DEMÁS LOGOS MÁS PEQUEÑOS */
+
+.logo-block img:not(.logo-principal),
+.header-right img{
+
+  width:70px;
+  height:70px;
+
+  object-fit:contain;
+
+  filter:
+    drop-shadow(0 0 12px rgba(255,200,0,.35));
+
+  transition:.35s;
+}
+
+.logo-block img:not(.logo-principal):hover,
+.header-right img:hover{
 
   transform:scale(1.05);
 }
@@ -173,10 +195,16 @@ body {
 
   .logo-principal{
 
-    width:95px !important;
-    height:95px !important;
+    width:110px !important;
+    height:110px !important;
   }
 
+  .logo-block img:not(.logo-principal),
+  .header-right img{
+
+    width:50px;
+    height:50px;
+  }
 }
 /* LOGO DERECHO AMPLIADO */
 
