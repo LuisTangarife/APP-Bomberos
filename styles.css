@@ -100,10 +100,10 @@ body {
 ========================================================= */
 
 .header{
-  position:sticky;
-  top:0;
-  z-index:100;
-
+  position: sticky;
+  top: 0;
+  z-index: 100000; /* siempre encima */
+  
   background:
   linear-gradient(
     135deg,
@@ -2519,15 +2519,14 @@ transform:translateY(0);
 
 /* Al abrir/usar el selector */
 .ts-wrapper.focus{
-    z-index: 9999 !important;
+    z-index: 50 !important;
 }
+/* Lista desplegable*/
 
-/* Lista desplegable */
 .ts-dropdown{
-    position: absolute !important;
-    z-index: 99999 !important;
+    position:absolute !important;
+    z-index:500 !important;
 }
-
 /* Contenedor general de vehículos */
 #vehicleAssignments{
     position: relative;
