@@ -96,26 +96,51 @@ body {
 }
 
 /* =========================================================
-   HEADER RESPONSIVE PROFESIONAL BOMBEROS
+   HEADER PREMIUM BOMBEROS
 ========================================================= */
 
 .header{
-  background:
-    linear-gradient(
-      135deg,
-      var(--red-dark) 0%,
-      var(--red) 60%,
-      #E03000 100%
-    );
-
-  border-bottom:3px solid var(--gold);
-
   position:sticky;
   top:0;
   z-index:100;
 
+  background:
+  linear-gradient(
+    135deg,
+    #6d0d00 0%,
+    #CC2200 55%,
+    #ff5c33 100%
+  );
+
+  border-bottom:4px solid var(--gold);
+
+  overflow:hidden;
+
   box-shadow:
-    0 8px 25px rgba(0,0,0,.35);
+  0 10px 35px rgba(0,0,0,.35);
+}
+
+/* brillo decorativo */
+
+.header::before{
+  content:"";
+
+  position:absolute;
+
+  top:-120px;
+  right:-100px;
+
+  width:300px;
+  height:300px;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(255,255,255,.12),
+    transparent 70%
+  );
+
+  pointer-events:none;
 }
 
 .header-inner{
@@ -124,16 +149,13 @@ body {
 
   margin:auto;
 
-  padding:12px 24px;
+  padding:14px 25px;
 
   display:flex;
-
   align-items:center;
   justify-content:space-between;
 
   gap:20px;
-
-  flex-wrap:wrap;
 }
 
 
@@ -143,147 +165,180 @@ body {
 
   display:flex;
   align-items:center;
-
   gap:18px;
 
   flex:1;
-
-  min-width:0;
 }
 
 
-/* Logo principal */
+/* LOGO PRINCIPAL */
 
 .logo-principal{
 
+  height:85px;
   width:auto;
-  height:82px;
-
-  flex-shrink:0;
 
   object-fit:contain;
 
+  transition:.35s;
+
   filter:
-    drop-shadow(
-      0 3px 8px rgba(0,0,0,.45)
-    );
+  drop-shadow(
+  0 6px 15px rgba(0,0,0,.45)
+  );
+}
+
+.logo-principal:hover{
+
+  transform:scale(1.05)
+  rotate(-2deg);
 }
 
 
-/* CONTENEDOR TEXTO */
+/* TEXTOS */
 
-.header-text{
+.header-texts{
 
-  min-width:0;
+display:flex;
+flex-direction:column;
+gap:6px;
 
-  display:flex;
-  flex-direction:column;
 }
 
 
 .header-title{
 
-  font-family:var(--font-display);
+font-family:var(--font-display);
 
-  font-size:2rem;
+font-size:1.8rem;
 
-  line-height:1;
+font-weight:700;
 
-  color:#111;
+color:white;
 
-  font-weight:700;
+letter-spacing:1px;
 
-  letter-spacing:.4px;
-
-  text-shadow:
-    0 1px 2px rgba(255,255,255,.25);
+line-height:1;
 }
 
 
 .header-sub{
 
-  margin-top:6px;
+font-size:.78rem;
 
-  color:
-  rgba(255,255,255,.85);
+color:rgba(255,255,255,.85);
 
-  font-size:.78rem;
+letter-spacing:2px;
 
-  letter-spacing:2px;
+text-transform:uppercase;
+}
 
-  text-transform:uppercase;
+.nit-only{
+
+font-size:.72rem;
+
+color:#FFD54A;
+
+font-weight:700;
+
 }
 
 
 /* DERECHA */
 
+.header-right{
+
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+
+/* TARJETAS */
+
+.header-card{
+
+width:90px;
+height:90px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:
+
+rgba(255,255,255,.08);
+
+backdrop-filter:blur(12px);
+
+border-radius:18px;
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:
+
+0 6px 18px rgba(0,0,0,.25);
+
+transition:.3s;
+}
+
+.header-card:hover{
+
+transform:translateY(-3px);
+}
+
+
+.escudo-colombia{
+
+height:70px;
+width:auto;
+}
+
+
+.qr-header{
+
+height:75px;
+width:75px;
+
+background:#fff;
+
+padding:4px;
+
+border-radius:10px;
+}
+
+
+/* BARRA ESTADOS */
+
 .status-bar{
 
-  display:flex;
+display:flex;
 
-  align-items:center;
+align-items:center;
 
-  gap:14px;
+gap:10px;
 
-  flex-wrap:wrap;
+margin-top:8px;
 
-  justify-content:flex-end;
+flex-wrap:wrap;
 }
 
-
-/* Logo Colombia */
-
-.logo-colombia{
-
-  height:76px;
-  width:auto;
-
-  object-fit:contain;
-
-  flex-shrink:0;
-
-  filter:
-    drop-shadow(
-      0 3px 8px rgba(0,0,0,.4)
-    );
-}
-
-
-/* QR */
-
-.qr-logo{
-
-  width:95px;
-  height:95px;
-
-  object-fit:contain;
-
-  background:#fff;
-
-  border-radius:12px;
-
-  padding:4px;
-
-  box-shadow:
-    0 5px 18px rgba(0,0,0,.35);
-}
-
-
-/* BADGES */
 
 .offline-badge,
 .online-badge,
 .pending-badge{
 
-  font-size:.68rem;
+padding:6px 12px;
 
-  font-weight:700;
+border-radius:999px;
 
-  padding:6px 12px;
+font-size:.68rem;
 
-  border-radius:999px;
+font-weight:700;
 
-  white-space:nowrap;
+background:rgba(255,255,255,.12);
+
+color:#fff;
 }
 
 
@@ -291,42 +346,19 @@ body {
    TABLET
 ========================================================= */
 
-@media(max-width:992px){
+@media(max-width:900px){
 
 .header-inner{
 
-    justify-content:center;
+flex-direction:column;
+text-align:center;
+
 }
 
 .logo-block{
 
-    justify-content:center;
-}
-
-.status-bar{
-
-    justify-content:center;
-}
-
-.header-title{
-
-    font-size:1.6rem;
-}
-
-.logo-principal{
-
-    height:70px;
-}
-
-.logo-colombia{
-
-    height:65px;
-}
-
-.qr-logo{
-
-    width:80px;
-    height:80px;
+justify-content:center;
+flex-direction:column;
 }
 
 }
@@ -338,54 +370,36 @@ body {
 
 @media(max-width:768px){
 
-.header-inner{
+.logo-principal{
 
-    flex-direction:column;
-
-    text-align:center;
-
-    padding:14px;
-}
-
-.logo-block{
-
-    flex-direction:column;
-
-    gap:10px;
+height:70px;
 }
 
 .header-title{
 
-    font-size:1.25rem;
-
-    line-height:1.2;
+font-size:1.3rem;
 }
 
-.header-sub{
+.header-right{
 
-    font-size:.65rem;
+gap:8px;
 }
 
-.status-bar{
+.header-card{
 
-    justify-content:center;
-    gap:10px;
+width:70px;
+height:70px;
 }
 
-.logo-principal{
+.escudo-colombia{
 
-    height:65px;
+height:50px;
 }
 
-.logo-colombia{
+.qr-header{
 
-    height:55px;
-}
-
-.qr-logo{
-
-    width:70px;
-    height:70px;
+height:55px;
+width:55px;
 }
 
 }
