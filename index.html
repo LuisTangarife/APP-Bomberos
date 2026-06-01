@@ -34,10 +34,19 @@
   min-width: 0;
 }
 .logo-principal {
-  height: 60px;
+  height: 120px; /* antes 60px */
   width: auto;
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+
+  filter:
+    drop-shadow(0 0 15px rgba(255,200,0,.4))
+    drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+
+  transition: .35s;
+}
+
+.logo-principal:hover{
+  transform: scale(1.05);
 }
 .header-texts { display: flex; flex-direction: column; }
 .header-right {
