@@ -1590,36 +1590,44 @@ body.light-theme .preview-remove{
 
 /* MODO OSCURO APP */
 
+/* Variables automáticas */
+
+:root{
+
+  --card-bg:
+  linear-gradient(
+    145deg,
+    #ffffff 0%,
+    #f7f9fc 55%,
+    #fff1ec 100%
+  );
+
+  --card-border:#e2e8f0;
+
+  --card-highlight:
+  rgba(204,34,0,.08);
+
+}
+
+/* MODO OSCURO */
+
 body:not(.light-theme){
 
-    /* TARJETAS OSCURO */
-
-    --card-bg:
-    linear-gradient(
+  --card-bg:
+  linear-gradient(
     145deg,
-
     #20242c 0%,
     #2c313c 45%,
     #441d16 100%
+  );
 
-    );
+  --card-border:
+  rgba(255,255,255,.06);
 
-    --card-border:
-    rgba(255,255,255,.06);
-
-    --card-highlight:
-    rgba(255,92,51,.12);
-
-}
-
-    --card-border:
-    rgba(255,255,255,.06);
-
-    --card-highlight:
-    rgba(255,92,51,.12);
+  --card-highlight:
+  rgba(255,92,51,.12);
 
 }
-
 
 /* CONTENEDORES */
 
@@ -2440,64 +2448,87 @@ opacity:.3;
 }
 
 
-/* RESPONSIVE */
+/* ==========================
+   HEADER RESPONSIVE
+========================== */
 
 @media(max-width:900px){
 
-.header-inner{
+  .header-inner{
 
     flex-wrap:wrap;
-}
+    justify-content:center;
 
-.logo-block{
+  }
 
-    flex:1 1 auto;
-}
+  .logo-block{
 
-.header-center{
+    width:100%;
+    justify-content:center;
+  }
+
+  .header-center{
 
     order:3;
 
     width:100%;
 
+    padding-top:12px;
+
     border-top:
     1px solid rgba(255,255,255,.1);
 
-    padding-top:10px;
-}
+  }
 
 }
-
 
 @media(max-width:600px){
 
-.header-title{
+  .header-title{
 
-    font-size:1.1rem;
-}
+    font-size:1rem;
+    text-align:center;
 
-.header-card{
+  }
 
-    width:55px;
-    height:55px;
-}
+  .header-sub{
 
-.escudo-colombia{
+    font-size:.65rem;
+    text-align:center;
 
-    height:42px;
-}
+  }
 
-.qr-header{
+  .header-card{
 
-    width:42px;
-    height:42px;
-}
+    width:50px;
+    height:50px;
+  }
 
-.offline-badge .txt,
-.online-badge .txt{
+  .escudo-colombia,
+  .qr-header{
+
+    width:45px;
+    height:45px;
+  }
+
+  .logo-principal{
+
+    width:85px;
+    height:85px;
+  }
+
+  .status-bar{
+
+    gap:6px;
+  }
+
+  .offline-badge .txt,
+  .online-badge .txt,
+  .pending-badge .txt{
 
     display:none;
-}
+
+  }
 
 }
 .header-card {
