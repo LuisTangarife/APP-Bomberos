@@ -1530,24 +1530,6 @@ function buildCertificateHTML(data) {
         
         `).join('')}
         
-        <!-- OFICIAL -->
-        <div class="cert-signature">
-    
-          <!-- ESPACIO VACÍO PARA ALINEAR -->
-          <div class="cert-signature-img-wrap"></div>
-          <div class="cert-signature-line"></div>
-          <div class="cert-signature-role">Oficial de Turno</div>
-        </div>
-    
-        <!-- Afectado -->
-    
-        <div class="cert-signature">
-    
-          <!-- ESPACIO VACÍO PARA ALINEAR -->
-          <div class="cert-signature-img-wrap"></div>
-          <div class="cert-signature-line"></div>
-          <div class="cert-signature-role">Afectado</div>
-        </div>
     
       </div>
     
