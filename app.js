@@ -103,32 +103,61 @@ function saveToIDB(data) {
 
   });
 }
-async function syncToCloud(data) {
+async function syncToCloud(data){
 
-  try {
+    try{
 
-    console.log('Enviando a cloud:', data);
+        console.log(
+            'Enviando a cloud:',
+            data
+        );
 
-    await fetch(API_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: JSON.stringify(data)
-    });
+        const response =
+        await fetch(API_URL,{
 
-    return {
-      success: true
-    };
+            method:'POST',
 
-  } catch (err) {
+            headers:{
+                'Content-Type':
+                'application/json'
+            },
 
-    console.error('Error sincronizando:', err);
+            body:
+            JSON.stringify(data)
 
-    return {
-      success: false,
-      error: err
-    };
+        });
 
-  }
+        if(!response.ok){
+
+            throw new Error(
+                'No se pudo guardar'
+            );
+
+        }
+
+        return{
+
+            success:true
+
+        };
+
+    }
+
+    catch(err){
+
+        console.error(
+            'Error sincronizando:',
+            err
+        );
+
+        return{
+
+            success:false,
+            error:err
+
+        };
+
+    }
 
 }
 function getAllFromIDB() {
@@ -950,9 +979,20 @@ async function saveReport() {
             await fetch(API_URL,{
                 method:'POST',
                 headers:{
-                    'Content-Type':'text/plain'
+                    'Content-Type':'application/json'
                 },
                 body:JSON.stringify(data)
+            })
+            .then(res=>{
+            
+                if(!res.ok){
+                    throw new Error(
+                        `Error ${res.status}`
+                    );
+                }
+            
+                return res.json();
+            
             });
     
         }catch(err){
