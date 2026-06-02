@@ -99,336 +99,84 @@ body {
    HEADER PREMIUM V2
 ========================================================= */
 
-.header{
-  position:sticky;
-  top:0;
-  z-index:100000;
-
-  background:
-    linear-gradient(
-      135deg,
-      #6d0d00 0%,
-      #CC2200 55%,
-      #ff5c33 100%
-    );
-
-  border-bottom:4px solid var(--gold);
-  overflow:hidden;
-
-  box-shadow:
-    0 10px 35px rgba(0,0,0,.35);
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 60%, #E03000 100%);
+  border-bottom: 3px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.logo-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.flame-icon {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 0 8px rgba(255,180,0,0.6));
+  animation: flicker 2s ease-in-out infinite;
+}
+@keyframes flicker {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  50% { transform: scale(1.05) rotate(2deg); }
+}
+.header-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.header-sub {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.status-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  
+}
+.offline-badge, .online-badge, .pending-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.offline-badge {
+  background: rgba(0,0,0,0.35);
+  color: #FF8080;
+  border: 1px solid rgba(255,100,100,0.3);
+}
+.online-badge {
+  background: rgba(0,0,0,0.35);
+  color: #80FF80;
+  border: 1px solid rgba(100,255,100,0.3);
+}
+.pending-badge {
+  background: rgba(245,166,35,0.2);
+  color: var(--gold);
+  border: 1px solid rgba(245,166,35,0.4);
 }
 
-.header::before{
-  content:"";
-  position:absolute;
-  top:-120px;
-  right:-100px;
-
-  width:300px;
-  height:300px;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.12),
-      transparent 70%
-    );
-
-  pointer-events:none;
-}
-
-.header-inner{
-  max-width:1200px;
-  margin:auto;
-
-  padding:12px 20px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  gap:16px;
-}
-
-/* ─────────────────────────
-   IZQUIERDA
-───────────────────────── */
-
-.logo-block{
-  display:flex;
-  align-items:center;
-  gap:14px;
-
-  flex:1;
-  min-width:0;
-}
-
-.logo-principal{
-  flex-shrink:0;
-
-  width:72px;
-  height:72px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 6px 15px rgba(0,0,0,.45)
-    );
-
-  transition:.3s;
-}
-
-.logo-principal:hover{
-  transform:scale(1.04);
-}
-
-.header-texts{
-  display:flex;
-  flex-direction:column;
-  gap:3px;
-
-  min-width:0;
-}
-
-.header-title{
-  font-family:var(--font-display);
-
-  font-size:1.55rem;
-  font-weight:700;
-
-  color:#fff;
-
-  letter-spacing:1px;
-  line-height:1.1;
-
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.header-sub{
-  font-size:.75rem;
-
-  color:rgba(255,255,255,.85);
-
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-
-.nit-only{
-  font-size:.68rem;
-  color:#FFD54A;
-  font-weight:700;
-}
-
-/* ─────────────────────────
-   CENTRO
-───────────────────────── */
-
-.header-center{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-
-  gap:6px;
-
-  flex-shrink:0;
-}
-
-.status-bar{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-wrap:wrap;
-
-  gap:8px;
-}
-
-.offline-badge,
-.online-badge,
-.pending-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-
-  padding:5px 11px;
-
-  border-radius:999px;
-
-  font-size:.67rem;
-  font-weight:700;
-
-  letter-spacing:.5px;
-  text-transform:uppercase;
-}
-
-.offline-badge{
-  background:rgba(0,0,0,.35);
-  color:#ff9980;
-  border:1px solid rgba(255,80,50,.35);
-}
-
-.online-badge{
-  background:rgba(46,204,113,.15);
-  color:#6effc0;
-  border:1px solid rgba(46,204,113,.35);
-}
-
-.pending-badge{
-  background:rgba(245,166,35,.15);
-  color:#ffd54a;
-  border:1px solid rgba(245,166,35,.35);
-}
-
-.status-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-}
-
-.online-badge .status-dot{
-  background:#2ECC71;
-  animation:blink 2s ease infinite;
-}
-
-.offline-badge .status-dot{
-  background:#ff6644;
-}
-
-.pending-badge .status-dot{
-  background:#F5A623;
-}
-
-@keyframes blink{
-  0%,100%{opacity:1;}
-  50%{opacity:.3;}
-}
-
-.theme-toggle{
-  width:36px;
-  height:36px;
-
-  border-radius:10px;
-
-  border:1px solid rgba(255,255,255,.2);
-
-  background:rgba(255,255,255,.08);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* ─────────────────────────
-   DERECHA
-───────────────────────── */
-
-.header-right{
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  flex-shrink:0;
-}
-
-.header-card{
-  width:80px;
-  height:80px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:rgba(255,255,255,.08);
-
-  backdrop-filter:blur(12px);
-
-  border-radius:16px;
-
-  border:1px solid rgba(255,255,255,.15);
-
-  box-shadow:
-    0 6px 18px rgba(0,0,0,.25);
-
-  transition:.3s;
-}
-
-.header-card:hover{
-  transform:translateY(-3px);
-}
-
-.escudo-colombia{
-  max-width:58px;
-  max-height:58px;
-  object-fit:contain;
-}
-
-.qr-header{
-  width:62px;
-  height:62px;
-
-  background:#fff;
-  padding:4px;
-  border-radius:10px;
-}
-
-/* ─────────────────────────
-   TABLET
-───────────────────────── */
-
-@media(max-width:900px){
-
-  .header-inner{
-    flex-wrap:wrap;
-    gap:10px;
-  }
-
-  .header-center{
-    order:3;
-    width:100%;
-  }
-}
-
-/* ─────────────────────────
-   MOVIL
-───────────────────────── */
-
-@media(max-width:600px){
-
-  .header-inner{
-    padding:10px 14px;
-  }
-
-  .logo-principal{
-    width:52px;
-    height:52px;
-  }
-
-  .header-title{
-    font-size:1.1rem;
-  }
-
-  .header-sub{
-    display:none;
-  }
-
-  .header-card{
-    width:52px;
-    height:52px;
-  }
-
-  .escudo-colombia{
-    max-width:38px;
-    max-height:38px;
-  }
-
-  .qr-header{
-    width:42px;
-    height:42px;
-  }
-}
 /* MAIN */
 .main {
   max-width: 960px;
