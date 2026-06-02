@@ -16,147 +16,222 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-/* ── Ajustes de header para logos ── */
+/* ───────────────────────────── */
+/* HEADER */
+/* ───────────────────────────── */
+
+.header{
+  background:linear-gradient(
+    135deg,
+    #991800 0%,
+    #CC2200 50%,
+    #7a1400 100%
+  );
+
+  border-bottom:1px solid rgba(255,255,255,.12);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.35);
+}
+
 .header-inner{
   max-width:1200px;
   margin:auto;
+
   padding:12px 20px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:16px;
+
+  gap:18px;
 }
-.logo-block {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-  min-width: 0;
+
+/* IZQUIERDA */
+
+.logo-block{
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  flex:1;
+  min-width:0;
 }
+
 .logo-principal{
-  width:72px;
-  height:72px;
+  width:78px;
+  height:78px;
+
   object-fit:contain;
   flex-shrink:0;
-}
-  filter:
-    drop-shadow(0 6px 15px rgba(0,0,0,.45));
+
+  filter:drop-shadow(
+    0 6px 15px rgba(0,0,0,.45)
+  );
 
   transition:.3s;
 }
 
 .logo-principal:hover{
-  transform:scale(1.04);
+  transform:scale(1.05);
 }
+
 .header-texts{
   display:flex;
   flex-direction:column;
-  gap:3px;
+  justify-content:center;
+
+  gap:4px;
   min-width:0;
 }
+
+.header-title{
+  font-family:'Oswald',sans-serif;
+  font-size:1.65rem;
+  font-weight:700;
+
+  color:#fff;
+
+  line-height:1;
+  letter-spacing:1px;
+}
+
+.header-sub{
+  font-size:.78rem;
+
+  color:rgba(255,255,255,.85);
+
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.nit-only{
+  color:#FFD54A;
+  font-size:.72rem;
+  font-weight:700;
+}
+
+/* CENTRO */
+
 .header-center{
+  flex-shrink:0;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-shrink:0;
 }
 
 .status-bar{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
+
+  padding:10px 14px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.08);
+
+  backdrop-filter:blur(12px);
+
+  border:1px solid rgba(255,255,255,.12);
 }
+
+/* DERECHA */
 
 .header-right{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
 }
 
-.header-title{
-  font-family:'Oswald',sans-serif;
-  font-size:1.55rem;
-  font-weight:700;
-  color:#fff;
-  letter-spacing:1px;
-  line-height:1.1;
-}
+.escudo-colombia,
+.qr-header{
+  width:78px;
+  height:78px;
 
-.header-sub{
-  font-size:.75rem;
-  color:rgba(255,255,255,.85);
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-.nit-only{
-  font-size:.68rem;
-  color:#FFD54A;
-  font-weight:700;
-}
-.header-right img:hover{
-
-  transform:translateY(-3px) scale(1.04);
-
-}
-
-.header-texts{
-
-  justify-content:center;
-
-}
-
-.header-title{
-
-  font-size:1.6rem;
-  font-weight:700;
-  color:white;
-
-}
-
-.nit-only{
-
-  color:#FFD54A;
-  font-weight:700;
-
-}
-.escudo-colombia{
-  width:80px;
-  height:80px;
   object-fit:contain;
 
+  border-radius:16px;
+
+  transition:.3s;
+
+  box-shadow:
+    0 6px 18px rgba(0,0,0,.25);
+}
+
+.escudo-colombia{
   background:rgba(255,255,255,.08);
+
   backdrop-filter:blur(12px);
 
-  border-radius:16px;
   border:1px solid rgba(255,255,255,.15);
 
   padding:8px;
-
-  box-shadow:
-    0 6px 18px rgba(0,0,0,.25);
-
-  transition:.3s;
 }
 
 .qr-header{
-  width:80px;
-  height:80px;
+  background:white;
 
-  background:#fff;
   padding:5px;
 
-  border-radius:16px;
   border:1px solid rgba(255,255,255,.15);
-
-  box-shadow:
-    0 6px 18px rgba(0,0,0,.25);
-
-  transition:.3s;
 }
 
 .escudo-colombia:hover,
 .qr-header:hover{
-  transform:translateY(-3px);
+  transform:
+    translateY(-3px)
+    scale(1.03);
+}
+
+/* MÓVIL */
+
+@media(max-width:768px){
+
+  .header-inner{
+    padding:10px;
+
+    flex-wrap:wrap;
+    justify-content:center;
+
+    gap:10px;
+  }
+
+  .logo-block{
+    width:100%;
+    justify-content:center;
+  }
+
+  .header-center{
+    order:3;
+    width:100%;
+  }
+
+  .header-right{
+    justify-content:center;
+  }
+
+  .logo-principal,
+  .escudo-colombia,
+  .qr-header{
+    width:58px;
+    height:58px;
+  }
+
+  .header-title{
+    font-size:1.2rem;
+  }
+
+  .header-sub{
+    font-size:.65rem;
+    letter-spacing:1px;
+  }
+
+  .txt{
+    display:none;
+  }
+
 }
   
 /* Certificado */
