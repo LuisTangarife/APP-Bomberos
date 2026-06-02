@@ -957,11 +957,31 @@ async function saveReport() {
     // RENDERIZAR CERTIFICADO
     renderCertificate(data);
     
-    // ESPERAR A QUE EL DOM TERMINE
-    await new Promise(r => setTimeout(r, 800));
+    const images = document
+    .querySelectorAll(
+    '#certContent img'
+    );
     
-    // GENERAR PDF EN BASE64
-    data.pdfBase64 = await generatePDFBase64();
+    await Promise.all(
+    
+    [...images].map(img=>{
+    
+        if(img.complete)
+            return Promise.resolve();
+    
+        return new Promise(resolve=>{
+    
+            img.onload=resolve;
+            img.onerror=resolve;
+    
+        });
+    
+    })
+    
+    );
+    
+    data.pdfBase64 =
+    await generatePDFBase64();
     fb.textContent = 'Subiendo reporte...';
     
   
@@ -1714,18 +1734,44 @@ window.addEventListener('online', syncPendingReports);
 
 async function generatePDFBase64(){
 
-  const element =
-    document.getElementById(
-      'certContent'
+    const temp =
+    await buildHiddenCertificate(
+        getFormData()
     );
 
-  const pdfData = await html2pdf()
-    .from(element)
+    const pdfData =
+    await html2pdf()
+    .set({
+
+        margin:0,
+
+        filename:'reporte.pdf',
+
+        image:{
+            type:'jpeg',
+            quality:1
+        },
+
+        html2canvas:{
+            scale:2,
+            useCORS:true
+        },
+
+        jsPDF:{
+            unit:'mm',
+            format:'a4',
+            orientation:'portrait'
+        }
+
+    })
+    .from(temp)
     .outputPdf(
-      'datauristring'
+        'datauristring'
     );
 
-  return pdfData
+    temp.remove();
+
+    return pdfData
     .split(',')[1];
 
 }
