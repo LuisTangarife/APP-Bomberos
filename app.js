@@ -1,4 +1,5 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbwBN6YZgbZ_NGLiidV9F2dpLNW_Bq0Cr0xyUCtPnvZXJDsyBp6EyTgV0vZCEOSEB6rFvA/exec'
+const IMG_LOGO='icons/icon-512.png';
 let currentPrintHTML = '';
 window.uploadedPhotos = [];
 // ── SERVICE WORKER REGISTRATION ──────────────────────────────────────────
