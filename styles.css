@@ -3171,3 +3171,60 @@ var(--fire-red);
 padding-top:15px;
 
 }
+
+
+/* =====================================
+NOVEDADES
+===================================== */
+
+.doc-novedades{
+
+padding:18px;
+
+margin-top:10px;
+
+margin-bottom:15px;
+
+background:
+
+linear-gradient(
+180deg,
+#fffdf7,
+#fff8e8
+);
+
+border-left:
+
+5px solid
+var(--gold);
+
+border-radius:10px;
+
+line-height:1.8;
+
+text-align:justify;
+
+box-shadow:
+
+0 2px 8px
+rgba(0,0,0,.06);
+
+position:relative;
+
+}
+
+
+.doc-novedades::before{
+
+content:"⚠";
+
+position:absolute;
+
+top:14px;
+right:18px;
+
+font-size:22px;
+
+opacity:.30;
+
+}
