@@ -2906,30 +2906,26 @@ var(--fire-red)
 }
 
 
-/* CABECERA */
+/* ===================================
+CABECERA LIMPIA
+=================================== */
 
 .doc-header{
 
 display:flex;
 
-align-items:flex-start;
+align-items:center;
 
 justify-content:space-between;
 
-gap:5px;
+gap:10px;
 
 padding:0;
 
-margin-top:-5px;
-
-margin-bottom:12px;
-
-min-height:auto;
+margin:0 0 12px 0;
 
 border-bottom:
-
-3px solid
-var(--fire-red);
+3px solid var(--fire-red);
 
 position:relative;
 
@@ -2954,6 +2950,69 @@ font-weight:700;
 
 }
 
+.header-left{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+flex:1;
+
+margin:0;
+
+padding:0;
+
+}
+
+.header-logo{
+
+width:290px;
+
+height:auto;
+
+max-height:none;
+
+display:block;
+
+object-fit:contain;
+
+margin:0;
+
+padding:0;
+
+}
+
+.doc-nit{
+
+font-weight:600;
+
+font-size:12px;
+
+margin-left:12px;
+
+margin-top:0;
+
+color:var(--gray-dark);
+
+}
+
+.doc-city{
+
+font-size:12px;
+
+text-align:right;
+
+line-height:1.4;
+
+margin:0;
+
+padding:0;
+
+white-space:nowrap;
+
+}
 
 /* TITULOS */
 
