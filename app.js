@@ -1235,288 +1235,252 @@ async function buildHiddenCertificate(data) {
 }
 function buildCertificateHTML(data){
 
-const emitted =
-new Date().toLocaleString('es-CO');
+const emitted=new Date().toLocaleString('es-CO');
 
-const docNum =
-Date.now();
+const docNum=`CB-${Date.now()}`;
 
 const coords=
 data.latitud && data.longitud
 ?`${data.latitud}, ${data.longitud}`
 :'No disponibles';
 
+
 return `
 
 <div class="cert-preview-wrapper">
 
-<div class="membrete-page">
+<div class="document-page">
 
-<img
-class="watermark"
-src="${logoMunicipio}"
-alt="">
-
-<!-- ENCABEZADO MEMBRETADO -->
-
-<div class="membrete-header">
+<div class="doc-header">
 
 <div>
 
-<div class="membrete-nit">
+<div class="doc-nit">
 
 NIT. 890.804.607-0
 
 </div>
 
-<div class="membrete-org">
-
-Benemérito Cuerpo de Bomberos Voluntarios
-
 </div>
 
-<div class="membrete-org">
+<div class="doc-city">
 
-Villamaría - Caldas
-
-</div>
-
-</div>
-
-<div class="membrete-doc">
-
-<div>
-
-<b>DOC:</b>
-CB-${docNum}
-
-</div>
-
-<div>
-
-<b>Emitido:</b>
-${emitted}
-
-</div>
-
-</div>
-
-</div>
-
-
-<h1 class="titulo-reporte">
-
-REPORTE DE INTERVENCIÓN
-
-</h1>
-
-<div class="subtitulo-reporte">
-
-${data.evento || "Evento no especificado"}
-
-</div>
-
-
-<div class="cert-grid">
-
-<div class="cert-field">
-
-<div class="cert-label">
-Fecha
-</div>
-
-<div class="cert-value">
+Villamaría Caldas,
 ${formatDate(data.fecha)}
-</div>
-
-</div>
-
-
-<div class="cert-field">
-
-<div class="cert-label">
-Hora reporte
-</div>
-
-<div class="cert-value">
-${data.horaReporte||''}
-</div>
-
-</div>
-
-
-<div class="cert-field">
-
-<div class="cert-label">
-Lugar
-</div>
-
-<div class="cert-value">
-${data.lugar||''}
-</div>
-
-</div>
-
-
-<div class="cert-field">
-
-<div class="cert-label">
-Dirección
-</div>
-
-<div class="cert-value">
-${data.direccion||''}
-</div>
-
-</div>
-
-
-<div class="cert-field">
-
-<div class="cert-label">
-Coordenadas
-</div>
-
-<div class="cert-value">
-${coords}
-</div>
-
-</div>
-
-
-<div class="cert-field">
-
-<div class="cert-label">
-Personal
-</div>
-
-<div class="cert-value">
-
-${Array.isArray(data.personal)
-?data.personal.join(', ')
-:data.personal||''}
 
 </div>
 
 </div>
 
 
+<div class="doc-destino">
 
-<div class="cert-field full">
+Señores:<br>
 
-<div class="cert-label">
+Coordinación Operativa<br>
 
-Vehículos desplegados
+Benemérito Cuerpo de Bomberos Voluntarios<br>
+
+Villamaría – Caldas
 
 </div>
 
-<div class="cert-value">
+
+<div class="doc-asunto">
+
+<b>Asunto:</b>
+
+Reporte de intervención No.
+${docNum}
+
+</div>
+
+
+<p class="doc-saludo">
+
+Cordial saludo,
+
+</p>
+
+
+<p class="doc-texto">
+
+El Benemérito Cuerpo de Bomberos Voluntarios
+de Villamaría se permite presentar el siguiente
+reporte correspondiente a la atención de evento
+operativo desarrollado durante la jornada de servicio.
+
+</p>
+
+
+<table class="doc-table">
+
+<tr>
+
+<td><b>Evento</b></td>
+
+<td>${data.evento||''}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Fecha</b></td>
+
+<td>${formatDate(data.fecha)}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Hora</b></td>
+
+<td>${data.horaReporte||''}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Lugar</b></td>
+
+<td>${data.lugar||''}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Dirección</b></td>
+
+<td>${data.direccion||''}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Coordenadas</b></td>
+
+<td>${coords}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Personal</b></td>
+
+<td>
 
 ${
-data.vehiculos
-?.map(v=>`
-
-<b>${v.vehiculo}</b>
-
-<br>
-
-${v.personal.join(', ')}
-
-`)
-.join('<hr>')
-
-||'Sin vehículos'
+Array.isArray(data.personal)
+?data.personal.join(", ")
+:data.personal||''
 }
 
-</div>
+</td>
 
-</div>
+</tr>
+
+</table>
 
 
+<p class="doc-subtitle">
 
-<div class="cert-field full">
+Descripción de la intervención
 
-<div class="cert-label">
+</p>
 
-Descripción
-
-</div>
-
-<div class="cert-desc-box">
+<div class="doc-descripcion">
 
 ${data.descripcion||''}
 
 </div>
 
-</div>
+
+<p class="doc-subtitle">
+
+Vehículos desplegados
+
+</p>
+
+
+<div class="doc-vehiculos">
+
+${
+data.vehiculos?.map(v=>`
+
+<p>
+
+<b>${v.vehiculo}</b><br>
+
+${v.personal.join(", ")}
+
+</p>
+
+`).join("")
+||"Sin registros"
+
+}
 
 </div>
 
 
-${data.photos?.length ? `
+${
+data.photos?.length
+?`
 
-<div class="cert-photo-section">
+<p class="doc-subtitle">
 
-<div class="cert-photo-title">
+Registro fotográfico
 
-Evidencia Fotográfica
+</p>
 
-</div>
+<div class="doc-photo-grid">
 
-<div class="cert-photo-grid">
-
-${data.photos.map(photo=>`
-
-<div class="cert-photo-card">
-
-<img src="${photo}">
-
-</div>
-
-`).join('')}
-
-</div>
-
-</div>
-
-`:''}
-
-
-<div class="cert-footer">
-
-<div class="cert-signature">
+${
+data.photos.map(p=>`
 
 <img
-class="cert-firma-img"
-src="${IMG_FIRMA}">
+src="${p}"
+class="doc-photo">
 
-<div class="cert-signature-line">
+`).join("")
+}
 
 </div>
 
-<div>
+`
+:""
+}
+
+
+<div class="doc-firma">
+
+<img
+src="${IMG_FIRMA}"
+class="firma-img">
+
+<br>
+
+_________________________________
+
+<br>
+
+Ste. JUAN CAMILO OCAMPO C
+
+<br>
 
 Comandante y Representante Legal
 
-</div>
+<br>
+
+Benemérito Cuerpo de Bomberos
+Voluntarios Villamaría
 
 </div>
 
 
-<div>
+<div class="doc-footer">
 
-<img
-src="${qrCodeImg}"
-class="cert-qr">
-
-</div>
-
-</div>
-
-
-<div class="cert-contact-footer">
-
-Calle 19 N° 9-52 • Villamaría • Caldas • NIT. 890.804.607-0
+NIT. 890.804.607-0
 
 </div>
 
@@ -1527,6 +1491,7 @@ Calle 19 N° 9-52 • Villamaría • Caldas • NIT. 890.804.607-0
 `;
 
 }
+
 function renderCertificate(data, id = null) {
 
   const certHTML = buildCertificateHTML(data);
