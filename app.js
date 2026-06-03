@@ -1268,7 +1268,7 @@ class="watermark-logo">
 src="${IMG_LOGO}"
 class="header-logo">
 
-<div>
+<div class="doc-info">
 
 <div class="doc-nit">
 
