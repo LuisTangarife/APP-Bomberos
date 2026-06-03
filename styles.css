@@ -2578,7 +2578,17 @@ margin-bottom:30px;
 
 .doc-city{
 
+font-size:12px;
+
 text-align:right;
+
+line-height:1.4;
+
+white-space:nowrap;
+
+margin-left:auto;
+
+padding-top:4px;
 
 }
 
@@ -2896,19 +2906,28 @@ var(--fire-red)
 
 .doc-header{
 
-padding-bottom:15px;
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:10px;
+
+padding:0 0 12px 0;
 
 border-bottom:
 
 3px solid
 var(--fire-red);
 
-margin-bottom:25px;
+margin-bottom:20px;
 
 position:relative;
 
-}
+min-height:90px;
 
+}
 
 .doc-header::after{
 
@@ -3239,17 +3258,27 @@ display:flex;
 
 align-items:center;
 
-gap:15px;
+gap:8px;
+
+flex:1;
 
 }
 
 .header-logo{
 
-width:70px;
+width:170px;
 
-height:70px;
+height:auto;
+
+max-height:85px;
 
 object-fit:contain;
+
+display:block;
+
+margin:0;
+
+padding:0;
 
 }
 
