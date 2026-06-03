@@ -1270,13 +1270,6 @@ class="header-logo">
 
 <div>
 
-<div class="doc-title">
-
-BENEMÉRITO CUERPO DE BOMBEROS
-VOLUNTARIOS
-
-</div>
-
 <div class="doc-nit">
 
 NIT. 890.804.607-0
