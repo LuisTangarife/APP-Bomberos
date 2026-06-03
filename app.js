@@ -1411,7 +1411,7 @@ data.vehiculos?.map(v=>`
 
 <b>${v.vehiculo}</b><br>
 
-${v.personal.join(", ")}
+${v.personal?.join(", ") || "Sin personal asignado"}
 
 </p>
 
@@ -1422,6 +1422,159 @@ ${v.personal.join(", ")}
 
 </div>
 
+${
+data.afectados?.length
+?`
+
+<p class="doc-subtitle">
+
+Información de afectados
+
+</p>
+
+<table class="doc-table">
+
+<tr>
+
+<td><b>Nombre</b></td>
+<td><b>DNI</b></td>
+<td><b>Edad</b></td>
+<td><b>Género</b></td>
+<td><b>Teléfono</b></td>
+
+</tr>
+
+${data.afectados.map(a=>`
+
+<tr>
+
+<td>${a.nombre||'-'}</td>
+
+<td>${a.dni||'-'}</td>
+
+<td>${a.edad||'-'}</td>
+
+<td>${a.genero||'-'}</td>
+
+<td>${a.telefono||'-'}</td>
+
+</tr>
+
+`).join('')}
+
+</table>
+
+`
+:''
+
+}
+
+
+${
+data.afectados?.length
+?`
+
+<p class="doc-subtitle">
+
+Firmas de afectados
+
+</p>
+
+<div class="signature-grid">
+
+${data.afectados.map(a=>`
+
+<div class="signature-box">
+
+${
+a.firma && a.firma!=='Sin firma'
+
+?`
+
+<img
+src="${a.firma}"
+class="signature-img">
+
+`
+
+:''
+
+}
+
+<div class="signature-line"></div>
+
+<div class="signature-name">
+
+${a.nombre||'Sin nombre'}
+
+</div>
+
+</div>
+
+`).join('')}
+
+</div>
+
+`
+:''
+
+}
+
+${
+data.firmasBomberos
+?.filter(
+b=>b.nombre
+)
+.length
+?`
+
+<p class="doc-subtitle">
+
+Firmas personal bomberil
+
+</p>
+
+<div class="signature-grid">
+
+${data.firmasBomberos
+.filter(b=>b.nombre)
+.map(b=>`
+
+<div class="signature-box">
+
+${
+b.firma && b.firma!=='Sin firma'
+
+?`
+
+<img
+src="${b.firma}"
+class="signature-img">
+
+`
+
+:''
+
+}
+
+<div class="signature-line"></div>
+
+<div class="signature-name">
+
+${b.nombre}
+
+</div>
+
+</div>
+
+`).join('')}
+
+</div>
+
+`
+:''
+
+}
 
 ${
 data.photos?.length
