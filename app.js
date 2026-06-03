@@ -1233,323 +1233,299 @@ async function buildHiddenCertificate(data) {
 
   return temp;
 }
-function buildCertificateHTML(data) {
+function buildCertificateHTML(data){
 
-  const emitted = new Date().toLocaleString('es-CO');
+const emitted =
+new Date().toLocaleString('es-CO');
 
-  const docNum = Date.now();
+const docNum =
+Date.now();
 
-  const coords =
-    data.latitud && data.longitud
-      ? `${data.latitud}, ${data.longitud}`
-      : 'No disponibles';
+const coords=
+data.latitud && data.longitud
+?`${data.latitud}, ${data.longitud}`
+:'No disponibles';
 
-  return `
-    <div class="cert-preview-wrapper">
-      <div class="page">
-    
-      <!-- Marca de agua -->
-      <img class="watermark"
-           src="${logoMunicipio}"
-           alt="">
-    
-      <!-- BARRA SUPERIOR — igual que "ACADEMIA NACIONAL DE BOMBEROS DE CHILE" -->
-      <div class="top-bar">
-        <span class="top-bar-text">
-          Benemérito Cuerpo de Bomberos Voluntarios — Villamaría, Caldas
-        </span>
-      </div>
-    
-      <!-- CABECERA -->
-      <div class="cert-header">
-        <div class="cert-top">
-    
-          <!-- Logo centrado igual que el escudo chileno -->
-          <img class="cert-logo-center"
-               src="${logoMunicipio}"
-               alt="Bomberos Colombia">
-    
-          <!-- Nombre institucional -->
-          <div class="cert-inst-name">
-            <h1>Benemérito Cuerpo de Bomberos Voluntarios<br>Villamaría, Caldas</h1>
-            <p>NIT. 890.804.607-0</p>
-          </div>
-    
-          <!-- Número y fecha del documento -->
-          <div class="cert-doc-info">
-            <p class="cert-doc-num">DOC: CB-${docNum}</p>
-            <p class="cert-doc-date">Emitido: ${emitted}</p>
-          </div>
-    
-      </div>
-      </div>
-      <div class="cert-body">
-      <!-- ───────────────────────────── -->
-      <!-- TÍTULO -->
-      <!-- ───────────────────────────── -->
-    
-    <div class="cert-body-title">
-      <h2>
-        Reporte de Intervención ${data.evento || 'Evento no especificado'}
-      </h2>
-    </div>
-    
-      <!-- ───────────────────────────── -->
-      <!-- INFORMACIÓN -->
-      <!-- ───────────────────────────── -->
-    
-        <!-- Campos en dos columnas -->
-        <div class="cert-grid">
-          <div class="cert-field">
-            <div class="cert-label">Fecha</div>
-            <div class="cert-value">${formatDate(data.fecha)}</div>
-          </div>
-    
-        <div class="cert-field">
-          <div class="cert-label">Hora de Reporte</div>
-          <div class="cert-value">${data.horaReporte}</div>
-        </div>
-    
-        <div class="cert-field">
-          <div class="cert-label">Hora de Llegada al Sitio</div>
-          <div class="cert-value">${data.horaLlegada}</div>
-        </div>
-    
-        <div class="cert-field">
-          <div class="cert-label">Hora Final</div>
-          <div class="cert-value">${data.horaFinal}</div>
-        </div>
-    
-        <div class="cert-field">
-          <div class="cert-label">Lugar</div>
-          <div class="cert-value">${data.lugar}</div>
-        </div>
-    
-        <div class="cert-field">
-          <div class="cert-label">Dirección</div>
-          <div class="cert-value">${data.direccion}</div>
-        </div>
-    
-        <div class="cert-field">
-          <div class="cert-label">Coordenadas GPS</div>
-          <div class="cert-value">${coords}</div>
-        </div>
-    
-        <div class="cert-field">
-          <div class="cert-label">Tipo de Evento</div>
-          <div class="cert-value">${data.evento}</div>
-        </div>
-    
-        <div class="cert-field">
-          <div class="cert-label">Vehículo Desplegado</div>
-          <div class="cert-value">
+return `
 
-          ${
-          data.vehiculos
-          ?.map(v=>`
-          
-          <b>${v.vehiculo}</b><br>
-          ${v.personal.join(', ')}
-          
-          `)
-          .join('<hr>')
-          
-          || 'Sin vehículos'
-          
-          }
-          
-          </div>
-        </div>
-    
-      <div class="cert-field">
-        <div class="cert-label">Personal Comisionado</div>
-        <div class="cert-value">
-          ${Array.isArray(data.personal) 
-            ? data.personal.join(', ') 
-            : data.personal}
-        </div>
-      </div>
-      
-        <!-- DESCRIPCIÓN -->
-        <div class="cert-field full">
-        
-          <div class="cert-label">
-            Descripción del Incidente
-          </div>
-        
-          <div class="cert-desc-box">
-            ${data.descripcion
-              .split('\n\n')
-              .map(p => `<p>${p}</p>`)
-              .join('')}
-          </div>
-        
-        </div>
-    
-      <!-- ───────────────────────────── -->
-      <!-- VÍCTIMAS -->
-      <!-- ───────────────────────────── -->
-    
-      <div class="cert-victims-bar">
-        <div class="cert-victim-box">
-          <div class="cert-victim-num">${data.lesionados || '0'}</div>
-          <div class="cert-victim-label">Lesionados</div>
-        </div>
-    
-        <div class="cert-victim-box">
-          <div class="cert-victim-num">${data.victimas || '0'}</div>
-          <div class="cert-victim-label">Víctimas Fatales</div>
-        </div>
-      </div>
-      <!-- ───────────────────────────── -->
-      <!-- NOVEDADES -->
-      <!-- ───────────────────────────── -->
-    
-      ${data.novedades ? `
+<div class="cert-preview-wrapper">
 
-        <div class="cert-grid">
-      
-          <div class="cert-field full">
-      
-            <div class="cert-label">
-              Novedades
-            </div>
-      
-            <div class="cert-desc-box">
-              ${data.novedades
-                .split('\n\n')
-                .map(p => `<p>${p}</p>`)
-                .join('')}
-            </div>
-      
-          </div>
-      
-        </div>
-      
-      ` : ''}
-      <!-- ───────────────────────────── -->
-      <!-- EVIDENCIA FOTOGRÁFICA -->
-      <!-- ───────────────────────────── -->
-    
-      ${data.photos && data.photos.length ? `
-        <div class="cert-photo-section">
-          <div class="cert-photo-title">Evidencia Fotográfica</div>
-          <div class="cert-photo-grid">${data.photos.map(photo => `
-              <div class="cert-photo-card">
-                <img src="${photo}"
-                  loading="lazy">
-              </div>
-              `).join('')}
-          </div>
-        </div>
-        ` : ''}
-    </div>
-   ${data.afectados?.length ? `
+<div class="membrete-page">
 
-  <div class="cert-section">
-  
-  <h2>Datos de afectados</h2>
-  
-  ${data.afectados.map(a=>`
-  
-  <div class="cert-field">
-  
-  <b>Nombre:</b> ${a.nombre}<br>
-  <b>DNI:</b> ${a.dni}<br>
-  <b>Edad:</b> ${a.edad}<br>
-  <b>Género:</b> ${a.genero}<br>
-  <b>Teléfono:</b> ${a.telefono}<br>
-  <b>Correo:</b> ${a.correo}<br><br>
-  
-  <b>Firma:</b><br>
-  
-  ${
-  a.firma
-  ? `<img src="${a.firma}" width="140">`
-  : 'Sin firma'
-  }
-  
-  </div>
-  
-  `).join('')}
-  
-  </div>
-  
-  ` : ''}
-    <!-- ───────────────────────────── -->
-    <!-- FOOTER -->
-    <!-- ───────────────────────────── -->
-    
-    <div class="cert-footer">
-      <!-- FIRMAS -->
-      <div class="cert-footer-left">
-    
-        <!-- COMANDANTE -->
-        <div class="cert-signature">
-          <div class="cert-signature-img-wrap">
-            <img class="cert-firma-img"
-              src="${IMG_FIRMA}" 
-              alt="Firma Comandante">
-              
-          </div>
-          <div class="cert-signature-line"></div>
-          <div class="cert-signature-role">Comandante de Unidad</div>
-        </div>
-        ${data.firmasBomberos?.map(f=>`
+<img
+class="watermark"
+src="${logoMunicipio}"
+alt="">
 
-        <div class="cert-signature">
-        
-        <div class="cert-signature-img-wrap">
-        
-        ${
-        f.firma &&
-        f.firma!=="Sin firma"
-        
-        ?
-        
-        `<img
-        src="${f.firma}"
-        class="cert-firma-img">`
-        
-        :
-        
-        'Sin firma'
-        }
-        
-        </div>
-        
-        <div class="cert-signature-line"></div>
-        
-        <div class="cert-signature-role">
-        
-        ${f.nombre}
-        
-        </div>
-        
-        </div>
-        
-        `).join('')}
-        
-    
-      </div>
-    
-      <!-- QR -->
-      <div class="cert-footer-right">
-        <img 
-          src="${qrCodeImg}" 
-          class="cert-qr"
-        >
-        <div class="cert-qr-text">Verificación Digital<br>
-          DOC: CB-${docNum}</div>
-      </div>
-    </div>
-    <!-- PIE DE CONTACTO — igual que Chile -->
-      <div class="cert-contact-footer">
-        Calle 19 N.° 9-52 • Villamaría, Caldas • Tel: (606) 874 00 00 • bomberosvvm@gmail.com • NIT. 890.804.607-0
-      </div>
-    
-    </div><!-- /page -->
-    `;
+<!-- ENCABEZADO MEMBRETADO -->
+
+<div class="membrete-header">
+
+<div>
+
+<div class="membrete-nit">
+
+NIT. 890.804.607-0
+
+</div>
+
+<div class="membrete-org">
+
+Benemérito Cuerpo de Bomberos Voluntarios
+
+</div>
+
+<div class="membrete-org">
+
+Villamaría - Caldas
+
+</div>
+
+</div>
+
+<div class="membrete-doc">
+
+<div>
+
+<b>DOC:</b>
+CB-${docNum}
+
+</div>
+
+<div>
+
+<b>Emitido:</b>
+${emitted}
+
+</div>
+
+</div>
+
+</div>
+
+
+<h1 class="titulo-reporte">
+
+REPORTE DE INTERVENCIÓN
+
+</h1>
+
+<div class="subtitulo-reporte">
+
+${data.evento || "Evento no especificado"}
+
+</div>
+
+
+<div class="cert-grid">
+
+<div class="cert-field">
+
+<div class="cert-label">
+Fecha
+</div>
+
+<div class="cert-value">
+${formatDate(data.fecha)}
+</div>
+
+</div>
+
+
+<div class="cert-field">
+
+<div class="cert-label">
+Hora reporte
+</div>
+
+<div class="cert-value">
+${data.horaReporte||''}
+</div>
+
+</div>
+
+
+<div class="cert-field">
+
+<div class="cert-label">
+Lugar
+</div>
+
+<div class="cert-value">
+${data.lugar||''}
+</div>
+
+</div>
+
+
+<div class="cert-field">
+
+<div class="cert-label">
+Dirección
+</div>
+
+<div class="cert-value">
+${data.direccion||''}
+</div>
+
+</div>
+
+
+<div class="cert-field">
+
+<div class="cert-label">
+Coordenadas
+</div>
+
+<div class="cert-value">
+${coords}
+</div>
+
+</div>
+
+
+<div class="cert-field">
+
+<div class="cert-label">
+Personal
+</div>
+
+<div class="cert-value">
+
+${Array.isArray(data.personal)
+?data.personal.join(', ')
+:data.personal||''}
+
+</div>
+
+</div>
+
+
+
+<div class="cert-field full">
+
+<div class="cert-label">
+
+Vehículos desplegados
+
+</div>
+
+<div class="cert-value">
+
+${
+data.vehiculos
+?.map(v=>`
+
+<b>${v.vehiculo}</b>
+
+<br>
+
+${v.personal.join(', ')}
+
+`)
+.join('<hr>')
+
+||'Sin vehículos'
+}
+
+</div>
+
+</div>
+
+
+
+<div class="cert-field full">
+
+<div class="cert-label">
+
+Descripción
+
+</div>
+
+<div class="cert-desc-box">
+
+${data.descripcion||''}
+
+</div>
+
+</div>
+
+</div>
+
+
+${data.photos?.length ? `
+
+<div class="cert-photo-section">
+
+<div class="cert-photo-title">
+
+Evidencia Fotográfica
+
+</div>
+
+<div class="cert-photo-grid">
+
+${data.photos.map(photo=>`
+
+<div class="cert-photo-card">
+
+<img src="${photo}">
+
+</div>
+
+`).join('')}
+
+</div>
+
+</div>
+
+`:''}
+
+
+<div class="cert-footer">
+
+<div class="cert-signature">
+
+<img
+class="cert-firma-img"
+src="${IMG_FIRMA}">
+
+<div class="cert-signature-line">
+
+</div>
+
+<div>
+
+Comandante y Representante Legal
+
+</div>
+
+</div>
+
+
+<div>
+
+<img
+src="${qrCodeImg}"
+class="cert-qr">
+
+</div>
+
+</div>
+
+
+<div class="cert-contact-footer">
+
+Calle 19 N° 9-52 • Villamaría • Caldas • NIT. 890.804.607-0
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
 }
 function renderCertificate(data, id = null) {
 
