@@ -1252,9 +1252,31 @@ return `
 
 <div class="document-page">
 
+<div class="watermark">
+
+<img
+src="${IMG_LOGO}"
+class="watermark-logo">
+
+</div>
+
+
 <div class="doc-header">
 
+<div class="header-left">
+
+<img
+src="${IMG_LOGO}"
+class="header-logo">
+
 <div>
+
+<div class="doc-title">
+
+BENEMÉRITO CUERPO DE BOMBEROS
+VOLUNTARIOS
+
+</div>
 
 <div class="doc-nit">
 
@@ -1264,9 +1286,13 @@ NIT. 890.804.607-0
 
 </div>
 
+</div>
+
+
 <div class="doc-city">
 
-Villamaría Caldas,
+Villamaría Caldas<br>
+
 ${formatDate(data.fecha)}
 
 </div>
