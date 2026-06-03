@@ -2820,3 +2820,354 @@ break-inside:avoid;
 }
 
 }
+
+
+/* =====================================================
+ESTILO PROFESIONAL REPORTE BOMBEROS V2
+===================================================== */
+
+:root{
+
+--fire-red:#C1121F;
+--fire-dark:#8B0E18;
+
+--gold:#D8A64F;
+
+--gray-dark:#2E3138;
+--gray:#70757D;
+--gray-light:#ECEEF2;
+
+}
+
+
+/* DOCUMENTO */
+
+.document-page{
+
+background:
+
+linear-gradient(
+180deg,
+#ffffff 0%,
+#fcfcfc 100%
+);
+
+border-radius:12px;
+
+box-shadow:
+
+0 6px 24px
+rgba(0,0,0,.12);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+/* BANDA SUPERIOR */
+
+.document-page::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+top:0;
+
+width:100%;
+height:9px;
+
+background:
+
+linear-gradient(
+90deg,
+var(--fire-red),
+var(--gold),
+var(--fire-red)
+);
+
+}
+
+
+/* CABECERA */
+
+.doc-header{
+
+padding-bottom:15px;
+
+border-bottom:
+
+3px solid
+var(--fire-red);
+
+margin-bottom:25px;
+
+position:relative;
+
+}
+
+
+.doc-header::after{
+
+content:"REPORTE OFICIAL";
+
+position:absolute;
+
+right:0;
+bottom:-12px;
+
+font-size:10px;
+
+letter-spacing:3px;
+
+color:var(--gray);
+
+font-weight:700;
+
+}
+
+
+/* TITULOS */
+
+.doc-subtitle{
+
+font-size:15px;
+
+font-weight:700;
+
+padding-left:12px;
+
+margin-top:28px;
+
+margin-bottom:18px;
+
+border-left:
+
+5px solid
+var(--fire-red);
+
+color:
+
+var(--gray-dark);
+
+text-transform:uppercase;
+
+letter-spacing:1px;
+
+}
+
+
+/* TABLAS */
+
+.doc-table{
+
+overflow:hidden;
+
+border-radius:10px;
+
+box-shadow:
+
+0 2px 8px
+rgba(0,0,0,.08);
+
+border:none;
+
+}
+
+.doc-table tr:first-child{
+
+background:
+
+linear-gradient(
+90deg,
+var(--fire-red),
+var(--fire-dark)
+);
+
+color:white;
+
+}
+
+
+.doc-table td{
+
+padding:12px;
+
+border:
+
+1px solid
+#ddd;
+
+}
+
+
+.doc-table tr:nth-child(even){
+
+background:
+
+#fafafa;
+
+}
+
+.doc-table tr:hover{
+
+background:
+
+#f3f3f3;
+
+}
+
+
+/* VEHÍCULOS */
+
+.doc-vehiculos p{
+
+padding:12px;
+
+margin-bottom:12px;
+
+border-left:
+
+4px solid
+var(--gold);
+
+background:
+
+#fafafa;
+
+border-radius:6px;
+
+}
+
+
+/* DESCRIPCIÓN */
+
+.doc-descripcion{
+
+background:
+
+linear-gradient(
+180deg,
+#fff,
+#fafafa
+);
+
+padding:18px;
+
+border-radius:10px;
+
+border:
+
+1px solid
+#e5e5e5;
+
+line-height:1.9;
+
+text-align:justify;
+
+}
+
+
+/* FIRMAS */
+
+.signature-box{
+
+background:white;
+
+border-radius:10px;
+
+padding:15px;
+
+box-shadow:
+
+0 2px 8px
+rgba(0,0,0,.08);
+
+border-top:
+
+4px solid
+var(--fire-red);
+
+}
+
+
+.signature-name{
+
+font-size:12px;
+
+margin-top:10px;
+
+font-weight:700;
+
+color:
+
+var(--gray-dark);
+
+}
+
+
+/* FOTOS */
+
+.doc-photo{
+
+border-radius:12px;
+
+box-shadow:
+
+0 4px 10px
+rgba(0,0,0,.12);
+
+transition:.3s;
+
+}
+
+.doc-photo:hover{
+
+transform:scale(1.02);
+
+}
+
+
+/* FIRMA COMANDANTE */
+
+.doc-firma{
+
+margin-top:70px;
+
+padding-top:20px;
+
+border-top:
+
+2px dashed
+var(--gray);
+
+}
+
+
+/* PIE */
+
+.doc-footer{
+
+margin-top:40px;
+
+font-size:11px;
+
+font-weight:600;
+
+letter-spacing:1px;
+
+color:var(--gray);
+
+text-align:center;
+
+border-top:
+
+2px solid
+var(--fire-red);
+
+padding-top:15px;
+
+}
