@@ -1395,12 +1395,35 @@ ${data.descripcion||''}
 </div>
 
 
+${
+data.novedades?.trim()
+
+?`
+
+<p class="doc-subtitle">
+
+Novedades y observaciones
+
+</p>
+
+<div class="doc-novedades">
+
+${data.novedades}
+
+</div>
+
+`
+
+:''
+
+}
+
+
 <p class="doc-subtitle">
 
 Vehículos desplegados
 
 </p>
-
 
 <div class="doc-vehiculos">
 
