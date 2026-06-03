@@ -2862,6 +2862,12 @@ linear-gradient(
 #fcfcfc 100%
 );
 
+padding:
+10mm
+25mm
+25mm
+25mm;
+
 border-radius:12px;
 
 box-shadow:
@@ -2874,8 +2880,6 @@ position:relative;
 overflow:hidden;
 
 }
-
-
 /* BANDA SUPERIOR */
 
 .document-page::before{
@@ -2908,24 +2912,26 @@ var(--fire-red)
 
 display:flex;
 
-align-items:center;
+align-items:flex-start;
 
 justify-content:space-between;
 
-gap:10px;
+gap:5px;
 
-padding:0 0 12px 0;
+padding:0;
+
+margin-top:-5px;
+
+margin-bottom:12px;
+
+min-height:auto;
 
 border-bottom:
 
 3px solid
 var(--fire-red);
 
-margin-bottom:20px;
-
 position:relative;
-
-min-height:90px;
 
 }
 
@@ -3256,9 +3262,9 @@ LOGOS + MARCA AGUA
 
 display:flex;
 
-align-items:center;
+align-items:flex-start;
 
-gap:8px;
+gap:0;
 
 flex:1;
 
@@ -3266,22 +3272,19 @@ flex:1;
 
 .header-logo{
 
-width:170px;
+width:260px;
 
 height:auto;
 
-max-height:85px;
+max-height:120px;
 
 object-fit:contain;
 
 display:block;
 
-margin:0;
-
-padding:0;
+margin:-8px 0 -10px 0;
 
 }
-
 
 .doc-title{
 
