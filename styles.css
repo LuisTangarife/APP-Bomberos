@@ -1193,26 +1193,47 @@ body.light-theme .preview-remove{
    ============================================================ */
 
 .page::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 200px;
-  background: linear-gradient(135deg, #c49a00 0%, #1a1200 60%, #0d0900 100%);
-  clip-path: ellipse(130% 100% at 50% 0%);
-  z-index: 0;
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+
+  height:110px; /* antes 200 */
+
+  background:
+  linear-gradient(
+  135deg,
+  #c49a00 0%,
+  #1a1200 60%,
+  #0d0900 100%
+  );
+
+  clip-path:ellipse(
+  130% 100% at 50% 0%
+  );
+
+  z-index:0;
 }
 
-/* Ola blanca — idéntica al certificado chileno */
-.page::after {
-  content: '';
-  position: absolute;
-  top: 120px;
-  left: -5%;
-  width: 110%;
-  height: 100px;
-  background: #fff;
-  border-radius: 50%;
-  z-index: 1;
+.page::after{
+  content:'';
+
+  position:absolute;
+
+  top:65px; /* antes 120 */
+
+  left:-5%;
+
+  width:110%;
+
+  height:50px; /* antes 100 */
+
+  background:#fff;
+
+  border-radius:50%;
+
+  z-index:1;
 }
 
 /* ============================================================
@@ -1243,10 +1264,11 @@ body.light-theme .preview-remove{
    CABECERA: logo centrado sobre la curva
    ============================================================ */
 
-.cert-header {
-  position: relative;
-  z-index: 10;
-  padding: 18px 50px 0 50px;
+.cert-header{
+  position:relative;
+  z-index:10;
+
+  padding:8px 50px 0 50px;
 }
 
 .cert-top {
@@ -1292,10 +1314,11 @@ body.light-theme .preview-remove{
 }
 
 /* Número de documento y fecha — derecha */
-.cert-doc-info {
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 30px;
+.cert-doc-info{
+  text-align:center;
+
+  margin-top:6px;
+  margin-bottom:10px;
 }
 
 .cert-doc-num {
@@ -1318,6 +1341,8 @@ body.light-theme .preview-remove{
   padding: 0 55px 40px 55px;
   position: relative;
   z-index: 5;
+
+  margin-top:-10px;
   
 }
 
