@@ -1234,19 +1234,459 @@ async function buildHiddenCertificate(data) {
   return temp;
 }
 function buildCertificateHTML(data){
+
+const emitted=new Date().toLocaleString('es-CO');
+
 const docNum=`CB-${Date.now()}`;
-const coords=data.latitud&&data.longitud?`${data.latitud}, ${data.longitud}`:'No disponibles';
+
+const coords=
+data.latitud && data.longitud
+?`${data.latitud}, ${data.longitud}`
+:'No disponibles';
+
+
 return `
+
 <div class="cert-preview-wrapper">
-<div class="document-page membrete-page">
-<img src="Documents/MEMBRETE.png" class="membrete-bg">
-<div class="certificate-overlay">
-<div class="doc-asunto"><b>Asunto:</b> Reporte de intervención No. ${docNum}</div>
-<table class="doc-table"><tr><td><b>Evento</b></td><td>${data.evento||''}</td></tr><tr><td><b>Fecha</b></td><td>${formatDate(data.fecha)}</td></tr><tr><td><b>Lugar</b></td><td>${data.lugar||''}</td></tr><tr><td><b>Dirección</b></td><td>${data.direccion||''}</td></tr><tr><td><b>Coordenadas</b></td><td>${coords}</td></tr></table>
-<p class="doc-subtitle">Descripción</p><div class="doc-descripcion">${data.descripcion||''}</div>
-${data.novedades?`<p class="doc-subtitle">Novedades</p><div class="doc-novedades">${data.novedades}</div>`:''}
-${data.photos?.length?`<p class="doc-subtitle">Registro fotográfico</p><div class="doc-photo-grid">${data.photos.map(p=>`<img src="${p}" class="doc-photo">`).join('')}</div>`:''}
-</div></div></div>`;}
+
+<div class="document-page">
+
+<div class="watermark">
+
+<img
+src="${IMG_LOGO}"
+class="watermark-logo">
+
+</div>
+
+
+<div class="doc-header">
+
+<div class="header-left">
+
+<img
+src="${IMG_LOGO}"
+class="header-logo">
+
+<div class="doc-info">
+
+<div class="doc-nit">
+
+NIT. 890.804.607-0
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="doc-city">
+
+Villamaría Caldas<br>
+
+${formatDate(data.fecha)}
+
+</div>
+
+</div>
+
+
+<div class="doc-destino">
+
+Señores:<br>
+
+Coordinación Operativa<br>
+
+Benemérito Cuerpo de Bomberos Voluntarios<br>
+
+Villamaría – Caldas
+
+</div>
+
+
+<div class="doc-asunto">
+
+<b>Asunto:</b>
+
+Reporte de intervención No.
+${docNum}
+
+</div>
+
+
+<p class="doc-saludo">
+
+Cordial saludo,
+
+</p>
+
+
+<p class="doc-texto">
+
+El Benemérito Cuerpo de Bomberos Voluntarios
+de Villamaría se permite presentar el siguiente
+reporte correspondiente a la atención de evento
+operativo desarrollado durante la jornada de servicio.
+
+</p>
+
+
+<table class="doc-table">
+
+<tr>
+
+<td><b>Evento</b></td>
+
+<td>${data.evento||''}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Fecha</b></td>
+
+<td>${formatDate(data.fecha)}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Hora</b></td>
+
+<td>${data.horaReporte||''}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Lugar</b></td>
+
+<td>${data.lugar||''}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Dirección</b></td>
+
+<td>${data.direccion||''}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Coordenadas</b></td>
+
+<td>${coords}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Personal</b></td>
+
+<td>
+
+${
+Array.isArray(data.personal)
+?data.personal.join(", ")
+:data.personal||''
+}
+
+</td>
+
+</tr>
+
+</table>
+
+
+<p class="doc-subtitle">
+
+Descripción de la intervención
+
+</p>
+
+<div class="doc-descripcion">
+
+${data.descripcion||''}
+
+</div>
+
+
+${
+data.novedades?.trim()
+
+?`
+
+<p class="doc-subtitle">
+
+Novedades y observaciones
+
+</p>
+
+<div class="doc-novedades">
+
+${data.novedades}
+
+</div>
+
+`
+
+:''
+
+}
+
+
+<p class="doc-subtitle">
+
+Vehículos desplegados
+
+</p>
+
+<div class="doc-vehiculos">
+
+${
+data.vehiculos?.map(v=>`
+
+<p>
+
+<b>${v.vehiculo}</b><br>
+
+${v.personal?.join(", ") || "Sin personal asignado"}
+
+</p>
+
+`).join("")
+||"Sin registros"
+
+}
+
+</div>
+
+${
+data.afectados?.length
+?`
+
+<p class="doc-subtitle">
+
+Información de afectados
+
+</p>
+
+<table class="doc-table">
+
+<tr>
+
+<td><b>Nombre</b></td>
+<td><b>DNI</b></td>
+<td><b>Edad</b></td>
+<td><b>Género</b></td>
+<td><b>Teléfono</b></td>
+
+</tr>
+
+${data.afectados.map(a=>`
+
+<tr>
+
+<td>${a.nombre||'-'}</td>
+
+<td>${a.dni||'-'}</td>
+
+<td>${a.edad||'-'}</td>
+
+<td>${a.genero||'-'}</td>
+
+<td>${a.telefono||'-'}</td>
+
+</tr>
+
+`).join('')}
+
+</table>
+
+`
+:''
+
+}
+
+
+${
+data.afectados?.length
+?`
+
+<p class="doc-subtitle">
+
+Firmas de afectados
+
+</p>
+
+<div class="signature-grid">
+
+${data.afectados.map(a=>`
+
+<div class="signature-box">
+
+${
+a.firma && a.firma!=='Sin firma'
+
+?`
+
+<img
+src="${a.firma}"
+class="signature-img">
+
+`
+
+:''
+
+}
+
+<div class="signature-line"></div>
+
+<div class="signature-name">
+
+${a.nombre||'Sin nombre'}
+
+</div>
+
+</div>
+
+`).join('')}
+
+</div>
+
+`
+:''
+
+}
+
+${
+data.firmasBomberos
+?.filter(
+b=>b.nombre
+)
+.length
+?`
+
+<p class="doc-subtitle">
+
+Firmas personal bomberil
+
+</p>
+
+<div class="signature-grid">
+
+${data.firmasBomberos
+.filter(b=>b.nombre)
+.map(b=>`
+
+<div class="signature-box">
+
+${
+b.firma && b.firma!=='Sin firma'
+
+?`
+
+<img
+src="${b.firma}"
+class="signature-img">
+
+`
+
+:''
+
+}
+
+<div class="signature-line"></div>
+
+<div class="signature-name">
+
+${b.nombre}
+
+</div>
+
+</div>
+
+`).join('')}
+
+</div>
+
+`
+:''
+
+}
+
+${
+data.photos?.length
+?`
+
+<p class="doc-subtitle">
+
+Registro fotográfico
+
+</p>
+
+<div class="doc-photo-grid">
+
+${
+data.photos.map(p=>`
+
+<img
+src="${p}"
+class="doc-photo">
+
+`).join("")
+}
+
+</div>
+
+`
+:""
+}
+
+
+<div class="doc-firma">
+
+<img
+src="${IMG_FIRMA}"
+class="firma-img">
+
+<br>
+
+_________________________________
+
+<br>
+
+Ste. JUAN CAMILO OCAMPO C
+
+<br>
+
+Comandante y Representante Legal
+
+<br>
+
+Benemérito Cuerpo de Bomberos
+Voluntarios Villamaría
+
+</div>
+
+
+<div class="doc-footer">
+
+NIT. 890.804.607-0
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
 function renderCertificate(data, id = null) {
 
   const certHTML = buildCertificateHTML(data);
