@@ -3482,3 +3482,58 @@ break-inside:avoid;
 }
 
 }
+
+/* ===== CERTIFICADO HEADER FIX OVERRIDE ===== */
+.document-page{
+width:210mm !important;
+margin:0 auto !important;
+padding:5mm 25mm 20mm 25mm !important;
+box-sizing:border-box !important;
+min-height:auto !important;
+}
+
+.doc-header{
+display:flex !important;
+align-items:flex-end !important;
+justify-content:space-between !important;
+gap:12px !important;
+margin:0 0 15px 0 !important;
+padding:0 !important;
+min-height:unset !important;
+}
+
+.header-left{
+display:flex !important;
+align-items:flex-end !important;
+gap:15px !important;
+flex:1;
+padding:0 !important;
+margin:0 !important;
+}
+
+.header-logo{
+width:290px !important;
+height:auto !important;
+max-height:none !important;
+margin:0 !important;
+padding:0 !important;
+display:block !important;
+object-fit:contain !important;
+}
+
+.doc-nit{
+margin-left:12px !important;
+margin-bottom:12px !important;
+margin-top:0 !important;
+}
+
+.doc-city{
+padding-bottom:12px !important;
+margin:0 !important;
+}
+
+@media print{
+.document-page{
+padding:5mm 25mm 20mm 25mm !important;
+}
+}
