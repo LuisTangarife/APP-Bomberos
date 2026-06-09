@@ -3483,128 +3483,167 @@ break-inside:avoid;
 
 }
 
-/* ===== CERTIFICADO: MEMBRETE OFICIAL (igual al DOCX) ===== */
+/* ===== CERTIFICADO: MEMBRETE OFICIAL — RÉPLICA EXACTA SOLICITUD.DOCX ===== */
 
-/* Reset limpio del documento */
-.document-page{
-  width:210mm !important;
-  margin:0 auto !important;
-  padding:0 0 25mm 0 !important;
-  box-sizing:border-box !important;
-  min-height:auto !important;
-  background:white !important;
-  border-radius:0 !important;
-  box-shadow:0 6px 24px rgba(0,0,0,.12) !important;
-  overflow:hidden !important;
-  position:relative !important;
-}
-
-/* Quitar la banda decorativa superior que genera espacio */
-.document-page::before{
-  display:none !important;
-}
-
-/* Contenido debajo del header tiene padding lateral */
-.document-page > *:not(.doc-header):not(.watermark){
-  padding-left:25mm !important;
-  padding-right:25mm !important;
-  position:relative;
-  z-index:2;
-}
-
-/* ── CABECERA MEMBRETE ──
-   Logo izq + NIT centro + Ciudad/Fecha der
-   Separada del cuerpo por línea roja + "REPORTE OFICIAL"
+/*
+  Estructura del membrete oficial:
+  ┌─────────────────────────────────────────────────────────┐
+  │ [LOGO HORIZ.]          [NIT. 890.804.607-0]  [ESCUDO] │
+  ├─────────────────────────────── línea roja ──────────────┤
+  │                                      REPORTE OFICIAL   │
+  │                                                         │
+  │  Señores:                  Villamaría Caldas            │
+  │  ...                       09 Jun 2026                  │
+  └─────────────────────────────────────────────────────────┘
+  Proporciones sacadas del XML del DOCX:
+  - Grupo total: 161mm × 23.5mm
+  - Logo (image3): 0–83.1mm → ~52% del ancho
+  - NIT: cuadro centrado a 40.1mm, ancho 41.3mm
+  - Escudo Colombia: 139.9mm→161mm → ~13% del ancho, derecha
+  - Márgenes página: top=47.5mm, left/right=30mm
+  - Header empieza a 12.5mm del borde superior
 */
-.doc-header{
-  display:flex !important;
-  align-items:center !important;
-  justify-content:space-between !important;
-  gap:12px !important;
-  padding:10px 25mm 10px 25mm !important;
-  margin:0 0 0 0 !important;
-  border-bottom:3px solid #CC2200 !important;
-  position:relative !important;
-  background:#fff !important;
+
+/* ── 1. PÁGINA ── */
+.document-page {
+  width: 210mm !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  min-height: auto !important;
+  background: #fff !important;
+  border-radius: 0 !important;
+  box-shadow: 0 6px 24px rgba(0,0,0,.12) !important;
+  overflow: hidden !important;
+  position: relative !important;
+  font-family: "Century Gothic", Arial, sans-serif !important;
 }
 
-.doc-header::after{
-  content:"REPORTE OFICIAL" !important;
-  position:absolute !important;
-  right:25mm !important;
-  bottom:-14px !important;
-  font-size:9px !important;
-  letter-spacing:3px !important;
-  color:#888 !important;
-  font-weight:700 !important;
-  font-family:Arial, sans-serif !important;
+/* Quitar la banda decorativa superior que genera el espacio en blanco */
+.document-page::before {
+  display: none !important;
 }
 
-/* Logo: imagen horizontal con escudo + nombre institucional */
-.header-left{
-  display:flex !important;
-  align-items:center !important;
-  gap:0 !important;
-  flex:1 !important;
-  padding:0 !important;
-  margin:0 !important;
+/* Todo el contenido debajo del header lleva padding lateral */
+.document-page > *:not(.doc-header):not(.watermark) {
+  padding-left: 30mm !important;
+  padding-right: 30mm !important;
+  position: relative;
+  z-index: 2;
 }
 
-.header-logo{
-  width:220px !important;
-  height:auto !important;
-  max-height:70px !important;
-  object-fit:contain !important;
-  display:block !important;
-  margin:0 !important;
-  padding:0 !important;
+/* ── 2. MEMBRETE (doc-header) ── */
+.doc-header {
+  /* Fila horizontal pegada al borde superior */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 0 !important;
+
+  /* Padding lateral igual a márgenes del doc; vertical proporcional a 23.5mm */
+  padding: 5mm 30mm 5mm 30mm !important;
+  margin: 0 !important;
+
+  /* Línea roja separadora igual al DOCX */
+  border-bottom: 2.5px solid #CC2200 !important;
+
+  background: #fff !important;
+  position: relative !important;
+  z-index: 10 !important;
 }
 
-/* NIT debajo del logo, alineado izq */
-.doc-info{
-  display:none !important; /* El NIT ya está en .doc-nit dentro del header */
+/* "REPORTE OFICIAL" en rojo pequeño, bajo la línea, alineado a la derecha */
+.doc-header::after {
+  content: "REPORTE OFICIAL" !important;
+  position: absolute !important;
+  right: 30mm !important;
+  bottom: -13px !important;
+  font-size: 7.5pt !important;
+  letter-spacing: 3px !important;
+  color: #CC2200 !important;
+  font-weight: 700 !important;
+  font-family: "Century Gothic", Arial, sans-serif !important;
+  font-style: italic !important;
 }
 
-.doc-nit{
-  font-size:10px !important;
-  font-weight:600 !important;
-  color:#444 !important;
-  white-space:nowrap !important;
-  margin:0 0 0 12px !important;
-  padding:0 !important;
-  align-self:flex-end !important;
-  padding-bottom:2px !important;
+/* ── 3. COLUMNA IZQUIERDA: logo horizontal ── */
+/* El logo (image3) ocupa ~52% del grupo (83.1/161mm) */
+.header-left {
+  display: flex !important;
+  align-items: center !important;
+  flex: 0 0 auto !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-/* Ciudad y fecha — derecha */
-.doc-city{
-  font-size:11px !important;
-  text-align:right !important;
-  line-height:1.5 !important;
-  margin:0 !important;
-  padding:0 !important;
-  white-space:nowrap !important;
-  color:#222 !important;
-  align-self:flex-end !important;
-  padding-bottom:2px !important;
+.header-logo {
+  /* Proporcional: 83.1mm a 96dpi ≈ 314px; usamos altura fija igual al DOCX */
+  height: 23.5mm !important;
+  width: auto !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* Espacio entre header y el cuerpo */
-.doc-destino{
-  margin-top:28px !important;
+/* ── 4. COLUMNA CENTRAL: NIT ── */
+/* Cuadro de texto centrado en 40.1mm del grupo */
+.doc-info {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 1 !important;
 }
 
-@media print{
-  .document-page{
-    padding:0 0 20mm 0 !important;
-    box-shadow:none !important;
-    border-radius:0 !important;
+.doc-nit {
+  font-family: "Century Gothic", Arial, sans-serif !important;
+  font-size: 9pt !important;
+  font-weight: 700 !important;
+  color: #131D1F !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ── 5. COLUMNA DERECHA: ciudad/fecha + escudo ── */
+/* En el DOCX: ciudad a la derecha, escudo Colombia al extremo derecho */
+.doc-city {
+  font-family: "Century Gothic", Arial, sans-serif !important;
+  font-size: 9pt !important;
+  color: #222 !important;
+  text-align: right !important;
+  line-height: 1.4 !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 0 0 auto !important;
+}
+
+/* ── 6. CUERPO DEL DOCUMENTO ── */
+/* El top-margin del cuerpo en el DOCX es 47.5mm del borde → el header ocupa ~33mm,
+   dejamos 20px de espacio visual entre la línea y el primer párrafo */
+.doc-destino {
+  margin-top: 24px !important;
+  padding-top: 0 !important;
+}
+
+/* ── 7. IMPRESIÓN ── */
+@media print {
+  .document-page {
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    width: 210mm !important;
   }
-  .document-page > *:not(.doc-header):not(.watermark){
-    padding-left:25mm !important;
-    padding-right:25mm !important;
+  .document-page > *:not(.doc-header):not(.watermark) {
+    padding-left: 30mm !important;
+    padding-right: 30mm !important;
   }
-  .doc-header{
-    padding:10px 25mm 10px 25mm !important;
+  .doc-header {
+    padding: 5mm 30mm 5mm 30mm !important;
   }
 }
