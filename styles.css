@@ -2558,302 +2558,415 @@ transform:translateY(0);
     overflow: visible !important;
 }
 /* ==========================================
-CERTIFICADO MEMBRETADO VILLAMARÍA
+   CERTIFICADO MEMBRETADO VILLAMARÍA — v2
+   Diseño institucional profesional
 ========================================== */
 
-/*=====================================
-DOCUMENTO GESTIÓN DOCUMENTAL
-=====================================*/
-
-.document-page{
-
-width:210mm;
-min-height:297mm;
-
-padding:
-
-22mm
-25mm
-25mm
-25mm;
-
-background:white;
-
-box-sizing:border-box;
-
-font-family:Arial,sans-serif;
-
-font-size:12pt;
-
-line-height:1.7;
-
-color:#000;
-
+/* ── Wrapper externo (fondo gris pantalla) ── */
+.cert-preview-wrapper {
+  background: #d4d4d4;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
-.doc-city{
-
-font-size:12px;
-
-text-align:right;
-
-line-height:1.4;
-
-white-space:nowrap;
-
-margin-left:auto;
-
-padding-top:4px;
-
+/* ── Hoja A4 ── */
+.document-page {
+  width: 210mm;
+  min-height: 297mm;
+  background: #fff;
+  box-sizing: border-box;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 11pt;
+  line-height: 1.75;
+  color: #111;
+  position: relative;
+  box-shadow: 0 6px 40px rgba(0,0,0,.22);
+  overflow: hidden;
 }
 
-.doc-nit{
-
-font-weight:600;
-
-margin-left:12px;
-
-margin-top:8px;
-
-font-size:12px;
-
-color:var(--gray-dark);
-
-letter-spacing:.5px;
-
+/* ── Banda superior institucional ── */
+.document-page::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 7px;
+  background: linear-gradient(90deg, #8B0000 0%, #CC2200 45%, #f5c400 100%);
 }
 
-.doc-destino{
-
-margin-bottom:18px;
-
+/* ── Encabezado del documento ── */
+.doc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px 14px 28px;
+  border-bottom: 1.5px solid #CC2200;
+  gap: 16px;
 }
 
-.doc-asunto{
-
-margin-bottom:20px;
-
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
 }
 
-.doc-saludo{
-
-margin-bottom:15px;
-
+.header-logo {
+  height: 72px;
+  width: auto;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
-.doc-texto{
-
-text-align:justify;
-
-margin-bottom:20px;
-
+.doc-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.doc-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-margin-bottom:25px;
-
+.doc-nit {
+  font-size: 9pt;
+  font-weight: 700;
+  color: #555;
+  letter-spacing: .6px;
+  text-transform: uppercase;
 }
 
-.doc-table td{
-
-border:1px solid black;
-
-padding:8px;
-
-vertical-align:top;
-
+.doc-inst-name {
+  font-size: 11.5pt;
+  font-weight: 700;
+  color: #1a0000;
+  line-height: 1.35;
+  letter-spacing: .3px;
 }
 
-.doc-table td:first-child{
-
-width:30%;
-
-font-weight:bold;
-
+.doc-inst-sub {
+  font-size: 8.5pt;
+  color: #666;
+  letter-spacing: .5px;
 }
 
-.doc-subtitle{
-
-font-weight:bold;
-
-margin-top:25px;
-
-margin-bottom:10px;
-
+.doc-city {
+  text-align: right;
+  font-size: 9.5pt;
+  color: #444;
+  line-height: 1.5;
+  white-space: nowrap;
+  padding-top: 2px;
 }
 
-.doc-descripcion{
-
-text-align:justify;
-
-line-height:1.9;
-
+/* ── Banda roja con título del documento ── */
+.doc-title-bar {
+  background: linear-gradient(135deg, #8B0000 0%, #CC2200 100%);
+  color: #fff;
+  text-align: center;
+  padding: 10px 28px;
+  font-size: 10.5pt;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
 }
 
-.doc-vehiculos{
-
-text-align:justify;
-
+/* ── Cuerpo principal ── */
+.doc-body {
+  padding: 22px 28px 28px 28px;
 }
 
-.doc-photo-grid{
-
-display:grid;
-
-grid-template-columns:
-
-1fr 1fr;
-
-gap:10px;
-
-margin-top:10px;
-
+/* ── Número de documento ── */
+.doc-num-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
 }
 
-.doc-photo{
-
-width:100%;
-
-height:200px;
-
-object-fit:cover;
-
-border:1px solid #ccc;
-
+.doc-num-badge {
+  background: #fff8e1;
+  border: 1px solid #f5c400;
+  border-radius: 4px;
+  padding: 4px 14px;
+  font-size: 9pt;
+  color: #7a5800;
+  font-weight: 700;
+  letter-spacing: .5px;
 }
 
-.doc-firma{
-
-margin-top:70px;
-
-text-align:center;
-
+/* ── Destinatario ── */
+.doc-destino {
+  margin-bottom: 16px;
+  font-size: 10.5pt;
+  line-height: 1.7;
+  color: #222;
 }
 
-.firma-img{
-
-height:80px;
-
+/* ── Asunto ── */
+.doc-asunto {
+  margin-bottom: 18px;
+  font-size: 10.5pt;
+  background: #f9f9f9;
+  border-left: 3px solid #CC2200;
+  padding: 8px 14px;
+  color: #111;
 }
 
-.doc-footer{
-
-margin-top:30px;
-
-padding-top:10px;
-
-border-top:1px solid black;
-
-text-align:center;
-
-font-size:10pt;
-
+/* ── Párrafos intro ── */
+.doc-saludo {
+  margin-bottom: 10px;
+  font-size: 10.5pt;
 }
 
-
-@media print{
-
-body{
-
-background:white;
-
+.doc-texto {
+  text-align: justify;
+  margin-bottom: 20px;
+  font-size: 10.5pt;
+  color: #333;
 }
 
-.document-page{
-
-margin:0;
-padding:22mm 25mm;
-
+/* ── Tabla de datos del incidente ── */
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  font-size: 10pt;
 }
 
+.doc-table tr:first-child td {
+  background: #1a0000;
+  color: #f5c400;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  font-size: 8.5pt;
+  padding: 7px 10px;
+  border: 1px solid #1a0000;
 }
 
-
-/* ==========================
-FIRMAS Y AFECTADOS
-========================== */
-
-.signature-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(2,1fr);
-
-gap:25px;
-
-margin-top:20px;
-
-margin-bottom:30px;
-
+.doc-table td {
+  border: 1px solid #ddd;
+  padding: 7px 10px;
+  vertical-align: top;
 }
 
-.signature-box{
-
-text-align:center;
-
-padding:10px;
-
-min-height:140px;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:flex-end;
-
+.doc-table tr:not(:first-child):nth-child(even) td {
+  background: #fafafa;
 }
 
-.signature-img{
-
-max-width:180px;
-
-height:70px;
-
-object-fit:contain;
-
-margin:auto;
-
+.doc-table td:first-child {
+  width: 28%;
+  font-weight: 700;
+  color: #7a0000;
+  background: #fff5f5;
+  font-size: 9.5pt;
 }
 
-.signature-line{
-
-border-top:
-1px solid black;
-
-margin-top:10px;
-
-padding-top:5px;
-
+/* ── Subtítulos de sección ── */
+.doc-subtitle {
+  font-family: Arial, sans-serif;
+  font-size: 9pt;
+  font-weight: 700;
+  color: #fff;
+  background: #CC2200;
+  padding: 5px 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 22px;
+  margin-bottom: 10px;
+  border-radius: 2px;
 }
 
-.signature-name{
-
-font-size:11px;
-
-font-weight:600;
-
+/* ── Descripción / novedades ── */
+.doc-descripcion,
+.doc-novedades {
+  text-align: justify;
+  line-height: 1.85;
+  font-size: 10.5pt;
+  color: #222;
+  padding: 10px 14px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-left: 3px solid #CC2200;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-@media print{
-
-.signature-grid{
-
-page-break-inside:avoid;
-
+/* ── Vehículos ── */
+.doc-vehiculos {
+  font-size: 10pt;
+  line-height: 1.7;
+  color: #222;
+  padding: 8px 14px;
+  background: #fafafa;
+  border: 1px solid #eee;
 }
 
-.signature-box{
-
-break-inside:avoid;
-
+.doc-vehiculos p {
+  margin-bottom: 8px;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 8px;
 }
 
+.doc-vehiculos p:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* ── Fotos ── */
+.doc-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.doc-photo {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  display: block;
+}
+
+/* ── Firmas ── */
+.signature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 16px;
+  margin-bottom: 28px;
+}
+
+.signature-box {
+  text-align: center;
+  padding: 10px;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  background: #fafafa;
+}
+
+.signature-img {
+  max-width: 160px;
+  height: 65px;
+  object-fit: contain;
+  margin: 0 auto 4px;
+}
+
+.signature-line {
+  border-top: 1px solid #666;
+  margin-top: 8px;
+  padding-top: 5px;
+}
+
+.signature-name {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: #222;
+  letter-spacing: .3px;
+}
+
+/* ── Firma principal (comandante) ── */
+.doc-firma {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 10pt;
+  line-height: 1.7;
+  color: #222;
+}
+
+.firma-img {
+  height: 72px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 6px;
+}
+
+.doc-firma-line {
+  border-top: 1px solid #333;
+  width: 220px;
+  margin: 0 auto 6px;
+}
+
+/* ── Pie del documento ── */
+.doc-footer {
+  margin-top: 36px;
+  padding: 8px 28px;
+  border-top: 1.5px solid #CC2200;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8pt;
+  color: #666;
+  letter-spacing: .3px;
+}
+
+/* ── Banda inferior de color ── */
+.document-page::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #f5c400 0%, #CC2200 55%, #8B0000 100%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* ── Marca de agua ── */
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.watermark-logo {
+  width: 380px;
+  height: 380px;
+  object-fit: contain;
+  opacity: 0.04;
+}
+
+/* ── Z-index para contenido sobre marca de agua ── */
+.doc-header,
+.doc-title-bar,
+.doc-body,
+.doc-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Print ── */
+@media print {
+  body { background: white; }
+
+  .document-page {
+    margin: 0;
+    box-shadow: none;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .document-page::before,
+  .document-page::after {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .doc-title-bar,
+  .doc-table tr:first-child td,
+  .doc-subtitle {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .signature-grid { page-break-inside: avoid; }
+  .signature-box  { break-inside: avoid; }
 }
 
 
