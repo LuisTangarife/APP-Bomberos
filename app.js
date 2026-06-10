@@ -996,24 +996,31 @@ async function saveReport() {
     
         try{
     
+            const response =
             await fetch(API_URL,{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'
                 },
                 body:JSON.stringify(data)
-            })
-            .then(res=>{
-            
-                if(!res.ok){
-                    throw new Error(
-                        `Error ${res.status}`
-                    );
-                }
-            
-                return res.json();
-            
             });
+            
+            const result =
+            await response.json();
+            
+            console.log(
+                'Respuesta Apps Script:',
+                result
+            );
+            
+            if(!result.success){
+            
+                throw new Error(
+                    result.error ||
+                    'Error desconocido'
+                );
+            
+            }
     
         }catch(err){
     
