@@ -2572,8 +2572,8 @@ transform:translateY(0);
 
 /* ── Hoja A4 ── */
 .document-page {
-  width: 210mm;
-  min-height: 297mm;
+  width: 794px;
+  min-height: 1123px;
   background: #fff;
   box-sizing: border-box;
   font-family: 'Georgia', 'Times New Roman', serif;
@@ -2599,7 +2599,7 @@ transform:translateY(0);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 20mm 14px 20mm;
+  padding: 18px 32px 14px 32px;
   border-bottom: 1.5px solid #CC2200;
   gap: 16px;
 }
@@ -2660,7 +2660,7 @@ transform:translateY(0);
   background: linear-gradient(135deg, #8B0000 0%, #CC2200 100%);
   color: #fff;
   text-align: center;
-  padding: 10px 20mm;
+  padding: 10px 32px;
   font-size: 10.5pt;
   font-weight: 700;
   letter-spacing: 3px;
@@ -2670,7 +2670,7 @@ transform:translateY(0);
 
 /* ── Cuerpo principal ── */
 .doc-body {
-  padding: 22px 20mm 28px 20mm;
+  padding: 22px 32px 28px 32px;
 }
 
 /* ── Número de documento ── */
@@ -2893,7 +2893,7 @@ transform:translateY(0);
 /* ── Pie del documento ── */
 .doc-footer {
   margin-top: 36px;
-  padding: 8px 20mm;
+  padding: 8px 32px;
   border-top: 1.5px solid #CC2200;
   display: flex;
   justify-content: space-between;
