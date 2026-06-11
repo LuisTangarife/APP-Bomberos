@@ -1735,45 +1735,6 @@ function renderCertificate(data, id = null) {
 
 }
 
-  const styles = Array.from(document.styleSheets)
-    .map(sheet => {
-      try {
-        return Array.from(sheet.cssRules)
-          .map(rule => rule.cssText)
-          .join('');
-      } catch (e) {
-        return '';
-      }
-    })
-    .join('');
-
-  currentPrintHTML = `
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-      <meta charset="UTF-8">
-      <title>Reporte Bomberos</title>
-
-      <style>
-        ${styles}
-      </style>
-    </head>
-
-    <body class="print-mode">
-
-      ${certHTML}
-
-    </body>
-    </html>
-  `;
-
-  document.getElementById('certModal').style.display =
-    'flex';
-
-  document.body.style.overflow = 'hidden';
-
-}
-
 function closeModal() {
   document.getElementById('certModal').style.display = 'none';
   document.body.style.overflow = '';
