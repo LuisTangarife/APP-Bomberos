@@ -1267,6 +1267,55 @@ return `
 
 <div class="cert-preview-wrapper">
 
+<div class="certificate-hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <div class="hero-logo-wrap">
+
+            <img
+            src="${IMG_LOGO}"
+            class="hero-logo">
+
+        </div>
+
+        <div class="hero-center">
+
+            <div class="hero-badge">
+                REPORTE OPERATIVO OFICIAL
+            </div>
+
+            <h1>
+                CUERPO DE BOMBEROS
+                VOLUNTARIOS DE VILLAMARÍA
+            </h1>
+
+            <p>
+                Certificación de atención e intervención operativa
+            </p>
+
+        </div>
+
+        <div class="hero-meta">
+
+            <div class="meta-item">
+                <span>RADICADO</span>
+                <strong>${docNum}</strong>
+            </div>
+
+            <div class="meta-item">
+                <span>EMITIDO</span>
+                <strong>${formatDate(data.fecha)}</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 <div class="document-page">
 
 <div class="watermark">
