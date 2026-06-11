@@ -3526,3 +3526,35 @@ transform:translateY(0);
     }
 
 }
+
+.report-banner{
+
+    background:
+    linear-gradient(
+      135deg,
+      #CC2200,
+      #8B1B00
+    );
+
+    color:white;
+
+    padding:20px;
+
+    border-radius:14px;
+
+    margin-bottom:24px;
+}
+
+.report-banner h2{
+
+    margin:0;
+
+    font-size:1.4rem;
+}
+
+.report-banner p{
+
+    margin:8px 0 0;
+
+    opacity:.9;
+}
