@@ -859,7 +859,10 @@ data.personal = [
 ];
 
 // Guardar firmas
-data.personal.forEach(nombre=>{
+if(data.personal.length){
+
+const nombre =
+data.personal[0];
 
 const safeId=
 nombre
@@ -871,29 +874,28 @@ document.getElementById(
 `firma_${safeId}`
 );
 
-    let firma='';
+let firma='';
 
-    if(canvas){
+if(canvas){
 
-        try{
+    try{
 
-            firma =
-                canvas.toDataURL();
+        firma =
+        canvas.toDataURL();
 
-        }catch{}
+    }catch{}
 
-    }
+}
 
-    data.firmasBomberos.push({
+data.firmasBomberos.push({
 
-        nombre,
-        firma:
-            firma || 'Sin firma'
-
-    });
+    nombre,
+    firma:
+    firma || 'Sin firma'
 
 });
 
+}
 return data;  
 }
 function validateForm(data){
@@ -2021,75 +2023,55 @@ document.getElementById(
 'firefighterSignatures'
 );
 
-let personal=[];
-
-// Obtener todos los bomberos seleccionados
-vehiculosTS.items.forEach((v,index)=>{
-
-const select=
-document.getElementById(
-`bomberos_${index}`
-);
-
-if(
-select &&
-select.tomselect
-){
-
-personal.push(
-...select.tomselect.items
-);
-
-}
-
-});
-
-// eliminar duplicados
-personal=[
-...new Set(personal)
-];
-
-// Guardar firmas existentes
-const firmasActuales={};
-
-document
-.querySelectorAll(
-'#firefighterSignatures canvas'
-)
-.forEach(canvas=>{
-
-try{
-
-firmasActuales[
-canvas.dataset.nombre
-]=canvas.toDataURL();
-
-}catch{}
-
-});
-
 container.innerHTML='';
 
-personal.forEach(nombre=>{
+let primerBombero=null;
+
+// Buscar el primer bombero seleccionado
+vehiculosTS.items.forEach((v,index)=>{
+
+    if(primerBombero) return;
+
+    const select=
+    document.getElementById(
+    `bomberos_${index}`
+    );
+
+    if(
+    select &&
+    select.tomselect &&
+    select.tomselect.items.length
+    ){
+
+        primerBombero =
+        select.tomselect.items[0];
+
+    }
+
+});
+
+if(!primerBombero) return;
 
 const safeId=
-nombre
+primerBombero
 .replace(/\s+/g,'_')
 .replace(/[^\w]/g,'');
 
 const id=
 `firma_${safeId}`;
 
-container.innerHTML += `
+container.innerHTML=`
 
 <div class="affected-card">
 
-<h3>${nombre}</h3>
+<h3>
+${primerBombero}
+</h3>
 
 <canvas
 class="signature-pad"
 id="${id}"
-data-nombre="${nombre}"
+data-nombre="${primerBombero}"
 width="350"
 height="120"
 ></canvas>
@@ -2098,29 +2080,16 @@ height="120"
 type="button"
 onclick="clearSignature('${id}')"
 >
-
 Limpiar firma
-
 </button>
 
 </div>
 
 `;
 
-});
-
-// Inicializar y restaurar
-personal.forEach(nombre=>{
-
-const safeId=
-nombre
-.replace(/\s+/g,'_')
-.replace(/[^\w]/g,'');
-
-const id=
-`firma_${safeId}`;
-
 setupSignature(id);
+
+}
 
 // restaurar firma previa
 if(firmasActuales[nombre]){
