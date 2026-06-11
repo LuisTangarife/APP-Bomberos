@@ -3430,3 +3430,99 @@ transform:translateY(0);
   display:flex;
   justify-content:center;
 }
+
+
+/* =====================================================
+   MODAL REPORTE OPERATIVO
+===================================================== */
+
+.modal{
+
+    width:min(1100px,95vw);
+
+    max-height:95vh;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.cert-content{
+
+    padding:24px;
+
+    overflow-y:auto;
+
+    background:#111318;
+}
+
+/* quitar apariencia de hoja impresa */
+
+.document-page{
+
+    width:100%;
+
+    max-width:none;
+
+    margin:0;
+
+    background:transparent;
+
+    box-shadow:none;
+
+    border:none;
+
+    padding:0;
+}
+
+.cert-preview-wrapper{
+
+    background:transparent;
+}
+
+/* fotos más agradables */
+
+.doc-photo-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:16px;
+}
+
+.doc-photo{
+
+    width:100%;
+
+    height:auto;
+
+    border-radius:12px;
+
+    object-fit:contain;
+
+    background:#0c0c0c;
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+/* móvil */
+
+@media(max-width:768px){
+
+    .cert-content{
+
+        padding:14px;
+    }
+
+    .doc-table{
+
+        display:block;
+
+        overflow-x:auto;
+    }
+
+}
