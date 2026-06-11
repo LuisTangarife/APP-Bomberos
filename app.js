@@ -859,41 +859,39 @@ data.personal = [
 ];
 
 // Guardar firmas
-if(data.personal.length){
+// =========================
+// FIRMA DEL PRIMER BOMBERO
+// =========================
 
-const nombre =
-data.personal[0];
-
-const safeId=
-nombre
-.replace(/\s+/g,'_')
-.replace(/[^\w]/g,'');
-
-const canvas=
-document.getElementById(
-`firma_${safeId}`
+const canvas =
+document.querySelector(
+'#firefighterSignatures canvas'
 );
 
-let firma='';
-
 if(canvas){
+
+    let firma = '';
 
     try{
 
         firma =
         canvas.toDataURL();
 
-    }catch{}
+    }catch(err){
 
-}
+        console.error(err);
 
-data.firmasBomberos.push({
+    }
 
-    nombre,
-    firma:
-    firma || 'Sin firma'
+    data.firmasBomberos.push({
 
-});
+        nombre:
+        canvas.dataset.nombre || '',
+
+        firma:
+        firma || 'Sin firma'
+
+    });
 
 }
 return data;  
