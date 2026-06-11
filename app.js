@@ -2112,28 +2112,31 @@ function setupSignature(id){
 
     let drawing=false;
 
-    // Tamaño visual fijo
-    const displayWidth = 350;
-    const displayHeight = 120;
-
-    // DPI para pantallas HD
+    // Responsive
     const ratio =
         window.devicePixelRatio || 1;
-
-    // Mantener tamaño visual
+    
+    const displayWidth =
+        Math.min(
+            canvas.parentElement.clientWidth - 20,
+            350
+        );
+    
+    const displayHeight = 120;
+    
+    // Tamaño visual
     canvas.style.width =
         displayWidth + "px";
-
+    
     canvas.style.height =
         displayHeight + "px";
-
-    // Tamaño interno real
+    
+    // Resolución interna
     canvas.width =
         displayWidth * ratio;
-
+    
     canvas.height =
         displayHeight * ratio;
-
     // Reiniciar transformaciones
     ctx.setTransform(
         ratio,
