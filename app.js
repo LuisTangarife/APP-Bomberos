@@ -1278,7 +1278,17 @@ class="watermark-logo">
 </div>
 
 
-<div class="doc-header">
+<div class="report-banner">
+
+<h2>
+🚒 Reporte Operativo
+</h2>
+
+<p>
+${data.evento || ''}
+</p>
+
+</div>
 
 <div class="header-left">
 
