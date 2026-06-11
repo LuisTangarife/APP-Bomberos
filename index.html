@@ -312,11 +312,11 @@
     <!-- Vehículos -->
     <div class="field-group full-width">
 
-        <label>
+        <label for="vehiculos">
             🚒 Vehículos desplegados
             <span class="req">*</span>
         </label>
-
+        
         <select
             id="vehiculos"
             multiple
@@ -416,8 +416,10 @@
     </div>
     <div class="fields-grid">
       <div class="field-group full-width">
-        <label>Descripción <span class="req">*</span>
-          <span class="voice-hint">— Puede dictar por voz</span>
+        <label for="descripcion">
+            Descripción
+            <span class="req">*</span>
+            <span class="voice-hint">— Puede dictar por voz</span>
         </label>
         <div class="textarea-wrapper">
           <textarea id="descripcion" rows="5" placeholder="Describa detalladamente el incidente..." class="spell-check" spellcheck="true" lang="es"></textarea>
@@ -435,7 +437,7 @@
     </div>
     <div class="fields-grid">
       <div class="field-group">
-        <label>Lesionados</label>
+        <label> for" "Lesionados"</label>
         <input type="number" id="lesionados" min="0" value="0" placeholder="0">
       </div>
       <div class="field-group">
