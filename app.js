@@ -1,5 +1,5 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbwBN6YZgbZ_NGLiidV9F2dpLNW_Bq0Cr0xyUCtPnvZXJDsyBp6EyTgV0vZCEOSEB6rFvA/exec'
-let currentPrintHTML = '';
+
 window.uploadedPhotos = [];
 // ── SERVICE WORKER REGISTRATION ──────────────────────────────────────────
 if ('serviceWorker' in navigator) {
@@ -1707,10 +1707,23 @@ NIT. 890.804.607-0
 
 function renderCertificate(data, id = null) {
 
-  const certHTML = buildCertificateHTML(data);
+  const certHTML =
+    buildCertificateHTML(data);
 
-  document.getElementById('certContent').innerHTML =
+  document.getElementById(
+    'certContent'
+  ).innerHTML =
     certHTML;
+
+  document.getElementById(
+    'certModal'
+  ).style.display =
+    'flex';
+
+  document.body.style.overflow =
+    'hidden';
+
+}
 
   const styles = Array.from(document.styleSheets)
     .map(sheet => {
@@ -1756,38 +1769,6 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-function printCertificate() {
-
-  if (!currentPrintHTML) {
-    alert('Primero genera el certificado.');
-    return;
-  }
-
-  const printWindow = window.open('', '_blank');
-
-  if (!printWindow) {
-    alert('El navegador bloqueó la ventana emergente.');
-    return;
-  }
-
-  printWindow.document.open();
-
-  printWindow.document.write(currentPrintHTML);
-
-  printWindow.document.close();
-
-  printWindow.onload = () => {
-
-    setTimeout(() => {
-
-      printWindow.focus();
-      printWindow.print();
-
-    }, 500);
-
-  };
-
-}
 // Close modal on overlay click
 const certModal = document.getElementById('certModal');
 
