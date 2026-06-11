@@ -298,7 +298,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     vehiculosTS.on(
         "change",
-        generateVehicleAssignments
+        ()=>{
+            generateVehicleAssignments();
+    
+            document.getElementById(
+            'firefighterSignatures'
+            ).innerHTML='';
+        }
     );
 
 });
@@ -311,6 +317,11 @@ function generateVehicleAssignments(){
     );
 
     container.innerHTML='';
+
+
+  document.getElementById(
+  'firefighterSignatures'
+  ).innerHTML='';
 
     const vehiculos=
     vehiculosTS.items;
@@ -2086,39 +2097,6 @@ Limpiar firma
 `;
 
 setupSignature(id);
-
-}
-
-// restaurar firma previa
-if(firmasActuales[nombre]){
-
-const canvas=
-document.getElementById(id);
-
-const ctx=
-canvas.getContext('2d');
-
-const img=
-new Image();
-
-img.onload=()=>{
-
-ctx.drawImage(
-img,
-0,
-0,
-350,
-120
-);
-
-};
-
-img.src=
-firmasActuales[nombre];
-
-}
-
-});
 
 }
 
