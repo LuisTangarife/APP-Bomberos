@@ -1170,20 +1170,25 @@ body.light-theme .preview-remove{
    CONTENEDOR DEL CERTIFICADO
 ============================================================ */
 
-.page {
-  font-family: "Century Gothic", sans-serif;
-  color: #222;
-  background: #fff;
+.page{
+  width:210mm;
+  min-height:297mm;
 
-  width: 794px;
-  min-height: 1123px;
+  background:#fff;
+  position:relative;
+  overflow:hidden;
 
-  position: relative;
-  overflow: visible;
+  margin:30px auto;
 
-  margin: 40px auto;
+  border-radius:12px;
 
-  box-shadow: 0 4px 32px rgba(0,0,0,.18);
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.12);
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
 }
 
 /* ============================================================
@@ -1191,48 +1196,23 @@ body.light-theme .preview-remove{
    Color: amarillo dorado → negro profundo (Villamaría)
    ============================================================ */
 
-.page::before {
+.page::before{
   content:'';
   position:absolute;
   top:0;
   left:0;
   right:0;
 
-  height:110px; /* antes 200 */
+  height:16px;
 
   background:
   linear-gradient(
-  135deg,
-  #c49a00 0%,
-  #1a1200 60%,
-  #0d0900 100%
+    90deg,
+    #c1121f,
+    #8b0000
   );
 
-  clip-path:ellipse(
-  130% 100% at 50% 0%
-  );
-
-  z-index:0;
-}
-
-.page::after{
-  content:'';
-
-  position:absolute;
-
-  top:65px; /* antes 120 */
-
-  left:-5%;
-
-  width:110%;
-
-  height:50px; /* antes 100 */
-
-  background:#fff;
-
-  border-radius:50%;
-
-  z-index:1;
+  z-index:2;
 }
 
 /* ============================================================
@@ -1241,22 +1221,31 @@ body.light-theme .preview-remove{
    Aquí: negro + texto amarillo
    ============================================================ */
 
-.top-bar {
-  position: relative;
-  z-index: 10;
-  background: #1a1200;
-  padding: 8px 30px;
-  text-align: center;
-  border-bottom: 3px solid #f5c400;
+.top-bar{
+  background:#111827;
+
+  color:white;
+
+  text-align:center;
+
+  padding:14px 30px;
+
+  border-bottom:4px solid #c1121f;
+
+  position:relative;
+  z-index:10;
 }
 
-.top-bar-text {
-  color: #f5c400;
-  font-size: 9.5pt;
-  letter-spacing: 5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-family: "Garamond", serif;
+.top-bar-text{
+  color:white;
+
+  font-size:10pt;
+
+  letter-spacing:3px;
+
+  font-weight:700;
+
+  text-transform:uppercase;
 }
 
 /* ============================================================
@@ -1264,99 +1253,124 @@ body.light-theme .preview-remove{
    ============================================================ */
 
 .cert-header{
+  padding:30px 60px 10px;
+
   position:relative;
-  z-index:10;
-
-  padding:8px 50px 0 50px;
+  z-index:5;
 }
+.cert-top{
+  display:grid;
 
-.cert-top {
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: center;
-  gap: 0;
+  grid-template-columns:
+  120px
+  1fr
+  180px;
+
+  align-items:center;
+
+  gap:20px;
 }
 
 /* Logo principal centrado — igual que el escudo en Chile */
-.cert-logo-center {
-  width: 110px;
-  height: 110px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  z-index: 5;
+.cert-logo-center{
+  width:95px;
+  height:95px;
+
+  object-fit:contain;
 }
 
 /* Nombre institucional bajo el logo */
-.cert-inst-name {
-  text-align: center;
-  margin-top: 14px;
-  color: #222;
+.cert-inst-name{
+  text-align:center;
 }
 
-.cert-inst-name h1 {
-  font-size: 11pt;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #222;
-  line-height: 1.4;
-}
+.cert-inst-name h1{
+  margin:0;
 
-.cert-inst-name p {
-  font-family: "Century Gothic", sans-serif;
-  font-size: 9pt;
-  color: #555;
-  margin-top: 2px;
-  letter-spacing: 0.5px;
-}
+  font-size:18pt;
 
+  font-weight:800;
+
+  color:#111827;
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
+}
+.cert-inst-name p{
+  margin-top:6px;
+
+  color:#6b7280;
+
+  font-size:10pt;
+}
 /* Número de documento y fecha — derecha */
 .cert-doc-info{
-  text-align:center;
+  text-align:right;
 
+  background:#f8fafc;
+
+  border:1px solid #e5e7eb;
+
+  border-radius:12px;
+
+  padding:14px;
+}
+
+.cert-doc-num{
+  font-size:12pt;
+
+  font-weight:800;
+
+  color:#b91c1c;
+}
+
+.cert-doc-date{
   margin-top:6px;
-  margin-bottom:10px;
-}
 
-.cert-doc-num {
-  font-size: 11pt;
-  font-weight: 700;
-  color: #222;
+  color:#4b5563;
 }
-
-.cert-doc-date {
-  font-size: 10pt;
-  color: #555;
-  margin-top: 2px;
-}
-
 /* ============================================================
    CUERPO DEL DOCUMENTO
    ============================================================ */
 
-.cert-body {
-  padding: 0 55px 40px 55px;
-  position: relative;
-  z-index: 5;
-
-  margin-top:-10px;
-  
+.cert-body{
+  padding:20px 60px 40px;
 }
 
 /* Título del reporte — mismo estilo que "CERTIFICADO" en Chile */
-.cert-body-title {
-  text-align: center;
-  font-size: 19pt;
-  font-weight: 700;
-  color: #7a5800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 36px;
-  margin-top: 10px;
-}
+.cert-body-title{
+  text-align:center;
 
+  font-size:28pt;
+
+  font-weight:900;
+
+  color:#111827;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  margin-bottom:40px;
+
+  position:relative;
+}
+.cert-body-title::after{
+  content:'';
+
+  display:block;
+
+  width:140px;
+
+  height:4px;
+
+  background:#c1121f;
+
+  margin:14px auto 0;
+
+  border-radius:999px;
+}
 /* ---- Campos de datos ---- */
 
 .cert-field.full {
@@ -1384,14 +1398,25 @@ body.light-theme .preview-remove{
 }
 
 /* Grid de dos columnas para campos cortos */
-.cert-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 30px;
-}
+.cert-grid-2{
+  display:grid;
 
+  grid-template-columns:1fr 1fr;
+
+  gap:18px;
+}
+.cert-field{
+  background:#f9fafb;
+
+  border:1px solid #e5e7eb;
+
+  border-radius:12px;
+
+  padding:14px 16px;
+}
 /* Descripción con borde lateral — idéntico a Chile */
 /* Descripción / novedades */
+
 .cert-desc-box{
 
   margin-top:10px;
@@ -3167,24 +3192,29 @@ transform:translateY(0);
   margin-top: 24px;
 }
 
-.cert-label {
-  display: inline;
-  font-size: 11pt;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #7a5800;
-  letter-spacing: .5px;
-}
+.cert-label{
+  display:block;
 
+  font-size:9pt;
+
+  text-transform:uppercase;
+
+  color:#6b7280;
+
+  font-weight:700;
+
+  margin-bottom:6px;
+}
 .cert-label::after {
   content: ': ';
 }
 
-.cert-value {
-  display: inline;
-  font-size: 11.5pt;
-  line-height: 1.9;
-  color: #222;
+.cert-value{
+  font-size:11pt;
+
+  color:#111827;
+
+  font-weight:600;
 }
 
 /* Grid de dos columnas para campos cortos */
@@ -3196,30 +3226,20 @@ transform:translateY(0);
 
 /* Descripción con borde lateral — idéntico a Chile */
 /* Descripción / novedades */
-.cert-desc-box {
+.cert-desc-box{
+  margin-top:20px;
 
-  margin-top: 8px;
+  background:#fafafa;
 
-  padding-left: 16px;
+  border-left:6px solid #c1121f;
 
-  border-left: 2px solid #c5a100;
+  border-radius:12px;
 
-  background: transparent;
+  padding:20px;
 
-  font-size: 11.5pt;
-  line-height: 1.9;
-  color: #222;
+  line-height:1.8;
 
-  text-align: justify;
-
-  white-space: pre-wrap;
-
-  word-break: break-word;
-  overflow-wrap: break-word;
-
-  max-width: 100%;
-
-  page-break-inside: avoid;
+  color:#374151;
 }
 
 /* ---- Víctimas / Lesionados ---- */
@@ -3286,21 +3306,44 @@ transform:translateY(0);
   border: 1px solid #d8d8d8;
   display: block;
 }
+.cert-photo-card{
+  background:white;
 
+  border-radius:14px;
+
+  overflow:hidden;
+
+  border:1px solid #e5e7eb;
+
+  box-shadow:
+    0 4px 15px rgba(0,0,0,.08);
+}
+
+.cert-photo-card img{
+  width:100%;
+
+  display:block;
+}
 /* ============================================================
    PIE — FIRMAS + QR
    Idéntico al certificado chileno
    ============================================================ */
 
-.cert-footer {
-  padding: 0 55px;
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 20px;
-  position: relative;
-  z-index: 5;
+.cert-footer{
+  margin-top:70px;
+
+  padding:0 60px;
+
+  display:grid;
+
+  grid-template-columns:
+  1fr
+  1fr
+  150px;
+
+  gap:25px;
+
+  align-items:end;
 }
 
 .cert-footer-left {
@@ -3327,26 +3370,34 @@ transform:translateY(0);
   object-fit: contain;
 }
 
-.cert-signature-line {
-  border-top: 1px solid #000;
-  margin-top: 6px;
-  margin-bottom: 6px;
+.cert-signature-line{
+  border-top:2px solid #111827;
+
+  margin:10px 0;
 }
 
-.cert-signature-role {
-  font-size: 8.5pt;
-  text-transform: uppercase;
-  font-weight: 700;
-  line-height: 1.5;
-  color: #222;
+.cert-signature-role{
+  font-size:9pt;
+
+  font-weight:700;
+
+  color:#111827;
+
+  text-transform:uppercase;
 }
 
 /* QR — igual posición que en Chile */
-.cert-footer-right {
-  width: 120px;
-  text-align: center;
-}
+.cert-footer-right{
+  background:#f8fafc;
 
+  border:1px solid #e5e7eb;
+
+  border-radius:12px;
+
+  padding:12px;
+
+  text-align:center;
+}
 .cert-qr-img {
   width: 90px;
   height: 90px;
@@ -3365,16 +3416,18 @@ transform:translateY(0);
    Chile: línea + dirección / teléfono / web
    ============================================================ */
 
-.cert-contact-footer {
-  margin-top: 40px;
-  border-top: 1px solid #d4a800;
-  padding: 8px 55px;
-  font-size: 8pt;
-  color: #555;
-  text-align: center;
-  letter-spacing: 0.3px;
-  position: relative;
-  z-index: 5;
+.cert-contact-footer{
+  margin-top:50px;
+
+  border-top:2px solid #c1121f;
+
+  padding:14px 60px;
+
+  text-align:center;
+
+  font-size:8.5pt;
+
+  color:#4b5563;
 }
 
 /* ============================================================
