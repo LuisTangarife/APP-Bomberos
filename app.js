@@ -1264,10 +1264,423 @@ data.latitud && data.longitud
 
 
 return `
+<style>
 
+/* ============================================================
+   ESTILOS GENERALES (pantalla)
+   Idéntica estructura al certificado ANBC Chile
+   Paleta: amarillo/negro institucional Villamaría, Caldas
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Garamond", "Georgia", serif;
+  color: #222;
+  background: #e8e8e8;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* Hoja A4 simulada */
+.page {
+  width: 794px;
+  min-height: 1123px;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,.18);
+}
+
+/* ============================================================
+   FONDO SUPERIOR CURVO — mismo clip-path que Chile
+   Color: amarillo dorado → negro profundo (Villamaría)
+   ============================================================ */
+
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 200px;
+  background: linear-gradient(135deg, #c49a00 0%, #1a1200 60%, #0d0900 100%);
+  clip-path: ellipse(130% 100% at 50% 0%);
+  z-index: 0;
+}
+
+/* Ola blanca — idéntica al certificado chileno */
+.page::after {
+  content: '';
+  position: absolute;
+  top: 120px;
+  left: -5%;
+  width: 110%;
+  height: 100px;
+  background: #fff;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* ============================================================
+   BARRA SUPERIOR
+   Chile: rojo + "ACADEMIA NACIONAL DE BOMBEROS DE CHILE" blanco
+   Aquí: negro + texto amarillo
+   ============================================================ */
+
+.top-bar {
+  position: relative;
+  z-index: 10;
+  background: #1a1200;
+  padding: 8px 30px;
+  text-align: center;
+  border-bottom: 3px solid #f5c400;
+}
+
+.top-bar-text {
+  color: #f5c400;
+  font-size: 9.5pt;
+  letter-spacing: 5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: "Garamond", serif;
+}
+
+/* ============================================================
+   CABECERA: logo centrado sobre la curva
+   ============================================================ */
+
+.cert-header {
+  position: relative;
+  z-index: 10;
+  padding: 18px 50px 0 50px;
+}
+
+.cert-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 0;
+}
+
+/* Logo principal centrado — igual que el escudo en Chile */
+.cert-logo-center {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+/* Nombre institucional bajo el logo */
+.cert-inst-name {
+  text-align: center;
+  margin-top: 14px;
+  color: #222;
+}
+
+.cert-inst-name h1 {
+  font-size: 11pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #222;
+  line-height: 1.4;
+}
+
+.cert-inst-name p {
+  font-size: 9pt;
+  color: #555;
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+}
+
+/* Número de documento y fecha — derecha */
+.cert-doc-info {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.cert-doc-num {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #222;
+}
+
+.cert-doc-date {
+  font-size: 10pt;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   CUERPO DEL DOCUMENTO
+   ============================================================ */
+
+.cert-body {
+  padding: 0 55px 40px 55px;
+  position: relative;
+  z-index: 5;
+}
+
+/* Título del reporte — mismo estilo que "CERTIFICADO" en Chile */
+.cert-body-title {
+  text-align: center;
+  font-size: 19pt;
+  font-weight: 700;
+  color: #7a5800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 36px;
+  margin-top: 10px;
+}
+
+/* ---- Campos de datos ---- */
+.cert-field {
+  margin-bottom: 16px;
+}
+
+.cert-field.full {
+  margin-top: 24px;
+}
+
+.cert-label {
+  display: inline;
+  font-size: 11pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #7a5800;
+  letter-spacing: .5px;
+}
+
+.cert-label::after {
+  content: ': ';
+}
+
+.cert-value {
+  display: inline;
+  font-size: 11.5pt;
+  line-height: 1.9;
+  color: #222;
+}
+
+/* Grid de dos columnas para campos cortos */
+.cert-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 30px;
+}
+
+/* Descripción con borde lateral — idéntico a Chile */
+.cert-desc-box {
+  margin-top: 8px;
+  padding-left: 16px;
+  border-left: 2px solid #c5c5c5;
+  font-size: 11.5pt;
+  line-height: 2;
+  text-align: justify;
+}
+
+/* ---- Víctimas / Lesionados ---- */
+.cert-victims-bar {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin: 36px 0;
+}
+
+.cert-victim-box {
+  text-align: center;
+  border: 1.5px solid #e8d58a;
+  border-radius: 8px;
+  padding: 18px 32px;
+  background: #fffdf0;
+  min-width: 130px;
+}
+
+.cert-victim-num {
+  font-size: 38pt;
+  font-weight: 700;
+  color: #7a5800;
+  line-height: 1;
+}
+
+.cert-victim-label {
+  margin-top: 8px;
+  font-size: 9pt;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #555;
+}
+
+/* ============================================================
+   EVIDENCIA FOTOGRÁFICA
+   ============================================================ */
+
+.cert-photo-section {
+  margin-top: 40px;
+}
+
+.cert-photo-title {
+  text-align: center;
+  font-size: 13pt;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #7a5800;
+  margin-bottom: 16px;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid #e8d58a;
+}
+
+.cert-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.cert-photo-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border: 1px solid #d8d8d8;
+  display: block;
+}
+
+/* ============================================================
+   PIE — FIRMAS + QR
+   Idéntico al certificado chileno
+   ============================================================ */
+
+.cert-footer {
+  padding: 0 55px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  position: relative;
+  z-index: 5;
+}
+
+.cert-footer-left {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.cert-signature {
+  flex: 1;
+  text-align: center;
+}
+
+.cert-signature-img-wrap {
+  height: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.cert-firma-img {
+  max-height: 65px;
+  object-fit: contain;
+}
+
+.cert-signature-line {
+  border-top: 1px solid #000;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.cert-signature-role {
+  font-size: 8.5pt;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #222;
+}
+
+/* QR — igual posición que en Chile */
+.cert-footer-right {
+  width: 120px;
+  text-align: center;
+}
+
+.cert-qr-img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.cert-qr-text {
+  margin-top: 5px;
+  font-size: 7.5pt;
+  line-height: 1.5;
+  color: #666;
+}
+
+/* ============================================================
+   PIE FINAL DE PÁGINA
+   Chile: línea + dirección / teléfono / web
+   ============================================================ */
+
+.cert-contact-footer {
+  margin-top: 40px;
+  border-top: 1px solid #d4a800;
+  padding: 8px 55px;
+  font-size: 8pt;
+  color: #555;
+  text-align: center;
+  letter-spacing: 0.3px;
+  position: relative;
+  z-index: 5;
+}
+
+/* ============================================================
+   MARCA DE AGUA — igual opacidad que Chile (4%)
+   ============================================================ */
+
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  height: 420px;
+  object-fit: contain;
+  opacity: 0.04;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   @MEDIA PRINT — página real A4
+   ============================================================ */
+
+@media print {
+
+  @page { size: A4; margin: 0; }
+
+  body {
+    background: #fff;
+    padding: 0;
+    display: block;
+  }
+
+  .page {
+    width: 100%;
+    min-height: 100vh;
+    box-shadow: none;
+  }
+
+}
+
+</style>
 <div class="cert-preview-wrapper">
 
-<div class="document-page">
+<div class="page document-page">
 
 <div class="watermark">
 
