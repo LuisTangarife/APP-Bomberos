@@ -816,6 +816,9 @@ function getFormData() {
 
       genero:
         document.getElementById(`genero_${i}`)?.value || '',
+      
+      lesionado:
+        document.getElementById(`lesionado_${i}`)?.value || 'NO',
 
       telefono:
         document.getElementById(`telefono_${i}`)?.value || '',
@@ -1994,6 +1997,15 @@ function generateAffectedFields(){
             <option>Masculino</option>
             <option>Femenino</option>
             <option>Otro</option>
+        </select>
+        <select id="lesionado_${i}">
+            <option value="SI">
+                Lesionado: SI
+            </option>
+        
+            <option value="NO">
+                Lesionado: NO
+            </option>
         </select>
 
         <input
