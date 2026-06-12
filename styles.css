@@ -1772,21 +1772,30 @@ body.light-theme .preview-remove{
     overflow:hidden;
   }
 
-  .cert-photo-card img{
+  .cert-photo-card{
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    width:100%;
+    padding:10px;
+
+    min-height:220px;
+
+    overflow:visible;
+}
+
+.cert-photo-card img{
+
+    max-width:100%;
+    max-height:100%;
+
+    width:auto;
     height:auto;
 
-    max-height:320px;
+    object-fit:contain;
 
-    object-fit:cover;
-
-    display:block;
-
-    break-inside:avoid;
-    page-break-inside:avoid;
-  }
-
+    border-radius:8px;
+}
   /* footer */
 
   .cert-footer{
@@ -3170,11 +3179,6 @@ transform:translateY(0);
     0 4px 15px rgba(0,0,0,.08);
 }
 
-.cert-photo-card img{
-  width:100%;
-
-  display:block;
-}
 /* ============================================================
    PIE — FIRMAS + QR
    Idéntico al certificado chileno
