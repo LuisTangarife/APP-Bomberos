@@ -1625,6 +1625,27 @@ ${data.photos.map(photo => `
 
 <div class="cert-signature-img-wrap">
 
+<img
+src="${IMG_FIRMA}"
+class="cert-firma-img"
+>
+
+</div>
+
+<div class="cert-signature-line"></div>
+
+<div class="cert-signature-role">
+
+Comandante de Unidad
+
+</div>
+
+</div>
+
+<div class="cert-signature">
+
+<div class="cert-signature-img-wrap">
+
 ${
 data.firmasBomberos?.length &&
 data.firmasBomberos[0]?.firma
