@@ -1,5 +1,5 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbwBN6YZgbZ_NGLiidV9F2dpLNW_Bq0Cr0xyUCtPnvZXJDsyBp6EyTgV0vZCEOSEB6rFvA/exec'
-
+let currentPrintHTML = '';
 window.uploadedPhotos = [];
 // ── SERVICE WORKER REGISTRATION ──────────────────────────────────────────
 if ('serviceWorker' in navigator) {
@@ -1267,55 +1267,6 @@ return `
 
 <div class="cert-preview-wrapper">
 
-<div class="certificate-hero">
-
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content">
-
-        <div class="hero-logo-wrap">
-
-            <img
-            src="${IMG_LOGO}"
-            class="hero-logo">
-
-        </div>
-
-        <div class="hero-center">
-
-            <div class="hero-badge">
-                REPORTE OPERATIVO OFICIAL
-            </div>
-
-            <h1>
-                CUERPO DE BOMBEROS
-                VOLUNTARIOS DE VILLAMARÍA
-            </h1>
-
-            <p>
-                Certificación de atención e intervención operativa
-            </p>
-
-        </div>
-
-        <div class="hero-meta">
-
-            <div class="meta-item">
-                <span>RADICADO</span>
-                <strong>${docNum}</strong>
-            </div>
-
-            <div class="meta-item">
-                <span>EMITIDO</span>
-                <strong>${formatDate(data.fecha)}</strong>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
 <div class="document-page">
 
 <div class="watermark">
@@ -1327,17 +1278,7 @@ class="watermark-logo">
 </div>
 
 
-<div class="report-banner">
-
-<h2>
-🚒 Reporte Operativo
-</h2>
-
-<p>
-${data.evento || ''}
-</p>
-
-</div>
+<div class="doc-header">
 
 <div class="header-left">
 
@@ -1766,21 +1707,47 @@ NIT. 890.804.607-0
 
 function renderCertificate(data, id = null) {
 
-  const certHTML =
-    buildCertificateHTML(data);
+  const certHTML = buildCertificateHTML(data);
 
-  document.getElementById(
-    'certContent'
-  ).innerHTML =
+  document.getElementById('certContent').innerHTML =
     certHTML;
 
-  document.getElementById(
-    'certModal'
-  ).style.display =
+  const styles = Array.from(document.styleSheets)
+    .map(sheet => {
+      try {
+        return Array.from(sheet.cssRules)
+          .map(rule => rule.cssText)
+          .join('');
+      } catch (e) {
+        return '';
+      }
+    })
+    .join('');
+
+  currentPrintHTML = `
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <title>Reporte Bomberos</title>
+
+      <style>
+        ${styles}
+      </style>
+    </head>
+
+    <body class="print-mode">
+
+      ${certHTML}
+
+    </body>
+    </html>
+  `;
+
+  document.getElementById('certModal').style.display =
     'flex';
 
-  document.body.style.overflow =
-    'hidden';
+  document.body.style.overflow = 'hidden';
 
 }
 
@@ -1789,6 +1756,38 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
+function printCertificate() {
+
+  if (!currentPrintHTML) {
+    alert('Primero genera el certificado.');
+    return;
+  }
+
+  const printWindow = window.open('', '_blank');
+
+  if (!printWindow) {
+    alert('El navegador bloqueó la ventana emergente.');
+    return;
+  }
+
+  printWindow.document.open();
+
+  printWindow.document.write(currentPrintHTML);
+
+  printWindow.document.close();
+
+  printWindow.onload = () => {
+
+    setTimeout(() => {
+
+      printWindow.focus();
+      printWindow.print();
+
+    }, 500);
+
+  };
+
+}
 // Close modal on overlay click
 const certModal = document.getElementById('certModal');
 
