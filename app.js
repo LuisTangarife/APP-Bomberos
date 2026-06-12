@@ -1267,30 +1267,61 @@ return `
 
 <div class="cert-preview-wrapper">
 
-<div class="document-page">
-
-<div class="watermark">
+<div class="page">
 
 <img
 src="${IMG_LOGO}"
-class="watermark-logo">
+class="watermark"
+>
+
+<!-- BARRA SUPERIOR -->
+
+<div class="top-bar">
+
+<span class="top-bar-text">
+
+BENEMÉRITO CUERPO DE BOMBEROS VOLUNTARIOS
+
+</span>
 
 </div>
 
+<!-- CABECERA -->
 
-<div class="doc-header">
+<div class="cert-header">
 
-<div class="header-left">
+<div class="cert-top">
 
 <img
 src="${IMG_LOGO}"
-class="header-logo">
+class="cert-logo-center"
+>
 
-<div class="doc-info">
+<div class="cert-inst-name">
 
-<div class="doc-nit">
+<h1>
+BENEMÉRITO CUERPO DE BOMBEROS VOLUNTARIOS
+<br>
+VILLAMARÍA CALDAS
+</h1>
 
+<p>
 NIT. 890.804.607-0
+</p>
+
+</div>
+
+<div class="cert-doc-info">
+
+<div class="cert-doc-num">
+
+DOC: ${docNum}
+
+</div>
+
+<div class="cert-doc-date">
+
+Emitido: ${emitted}
 
 </div>
 
@@ -1298,401 +1329,307 @@ NIT. 890.804.607-0
 
 </div>
 
+</div>
 
-<div class="doc-city">
+<!-- CUERPO -->
 
-Villamaría Caldas<br>
+<div class="cert-body">
 
+<div class="cert-body-title">
+
+REPORTE DE INTERVENCIÓN
+
+</div>
+
+<div class="cert-grid">
+
+<div class="cert-field">
+
+<span class="cert-label">
+Fecha
+</span>
+
+<span class="cert-value">
 ${formatDate(data.fecha)}
+</span>
+
+</div>
+
+<div class="cert-field">
+
+<span class="cert-label">
+Hora Reporte
+</span>
+
+<span class="cert-value">
+${data.horaReporte || ''}
+</span>
+
+</div>
+
+<div class="cert-field">
+
+<span class="cert-label">
+Hora Llegada
+</span>
+
+<span class="cert-value">
+${data.horaLlegada || ''}
+</span>
+
+</div>
+
+<div class="cert-field">
+
+<span class="cert-label">
+Hora Final
+</span>
+
+<span class="cert-value">
+${data.horaFinal || ''}
+</span>
+
+</div>
+
+<div class="cert-field">
+
+<span class="cert-label">
+Lugar
+</span>
+
+<span class="cert-value">
+${data.lugar || ''}
+</span>
+
+</div>
+
+<div class="cert-field">
+
+<span class="cert-label">
+Dirección
+</span>
+
+<span class="cert-value">
+${data.direccion || ''}
+</span>
+
+</div>
+
+<div class="cert-field">
+
+<span class="cert-label">
+Coordenadas GPS
+</span>
+
+<span class="cert-value">
+${coords}
+</span>
+
+</div>
+
+<div class="cert-field">
+
+<span class="cert-label">
+Evento
+</span>
+
+<span class="cert-value">
+${data.evento || ''}
+</span>
 
 </div>
 
 </div>
 
+<div class="cert-field full">
 
-<div class="doc-destino">
+<div class="cert-label">
 
-Señores:<br>
-
-Coordinación Operativa<br>
-
-Benemérito Cuerpo de Bomberos Voluntarios<br>
-
-Villamaría – Caldas
+Descripción del incidente
 
 </div>
 
+<div class="cert-desc-box">
 
-<div class="doc-asunto">
-
-<b>Asunto:</b>
-
-Reporte de intervención No.
-${docNum}
+${data.descripcion || ''}
 
 </div>
 
+</div>
 
-<p class="doc-saludo">
+<div class="cert-victims-bar">
 
-Cordial saludo,
+<div class="cert-victim-box">
 
-</p>
+<div class="cert-victim-num">
 
+${data.lesionados || 0}
 
-<p class="doc-texto">
+</div>
 
-El Benemérito Cuerpo de Bomberos Voluntarios
-de Villamaría se permite presentar el siguiente
-reporte correspondiente a la atención de evento
-operativo desarrollado durante la jornada de servicio.
+<div class="cert-victim-label">
 
-</p>
+Lesionados
 
+</div>
 
-<table class="doc-table">
+</div>
 
-<tr>
+<div class="cert-victim-box">
 
-<td><b>Evento</b></td>
+<div class="cert-victim-num">
 
-<td>${data.evento||''}</td>
+${data.victimas || 0}
 
-</tr>
+</div>
 
-<tr>
+<div class="cert-victim-label">
 
-<td><b>Fecha</b></td>
+Víctimas fatales
 
-<td>${formatDate(data.fecha)}</td>
+</div>
 
-</tr>
+</div>
 
-<tr>
-
-<td><b>Hora</b></td>
-
-<td>${data.horaReporte||''}</td>
-
-</tr>
-
-<tr>
-
-<td><b>Lugar</b></td>
-
-<td>${data.lugar||''}</td>
-
-</tr>
-
-<tr>
-
-<td><b>Dirección</b></td>
-
-<td>${data.direccion||''}</td>
-
-</tr>
-
-<tr>
-
-<td><b>Coordenadas</b></td>
-
-<td>${coords}</td>
-
-</tr>
-
-<tr>
-
-<td><b>Personal</b></td>
-
-<td>
+</div>
 
 ${
-Array.isArray(data.personal)
-?data.personal.join(", ")
-:data.personal||''
-}
-
-</td>
-
-</tr>
-
-</table>
-
-
-<p class="doc-subtitle">
-
-Descripción de la intervención
-
-</p>
-
-<div class="doc-descripcion">
-
-${data.descripcion||''}
-
-</div>
-
-
-${
-data.novedades?.trim()
-
+data.novedades
 ?`
+<div class="cert-field full">
 
-<p class="doc-subtitle">
+<div class="cert-label">
 
-Novedades y observaciones
+Novedades
 
-</p>
+</div>
 
-<div class="doc-novedades">
+<div class="cert-desc-box">
 
 ${data.novedades}
 
 </div>
 
-`
-
-:''
-
-}
-
-
-<p class="doc-subtitle">
-
-Vehículos desplegados
-
-</p>
-
-<div class="doc-vehiculos">
-
-${
-data.vehiculos?.map(v=>`
-
-<p>
-
-<b>${v.vehiculo}</b><br>
-
-${v.personal?.join(", ") || "Sin personal asignado"}
-
-</p>
-
-`).join("")
-||"Sin registros"
-
-}
-
 </div>
-
-${
-data.afectados?.length
-?`
-
-<p class="doc-subtitle">
-
-Información de afectados
-
-</p>
-
-<table class="doc-table">
-
-<tr>
-
-<td><b>Nombre</b></td>
-<td><b>DNI</b></td>
-<td><b>Edad</b></td>
-<td><b>Género</b></td>
-<td><b>Teléfono</b></td>
-
-</tr>
-
-${data.afectados.map(a=>`
-
-<tr>
-
-<td>${a.nombre||'-'}</td>
-
-<td>${a.dni||'-'}</td>
-
-<td>${a.edad||'-'}</td>
-
-<td>${a.genero||'-'}</td>
-
-<td>${a.telefono||'-'}</td>
-
-</tr>
-
-`).join('')}
-
-</table>
-
 `
 :''
-
-}
-
-
-${
-data.afectados?.length
-?`
-
-<p class="doc-subtitle">
-
-Firmas de afectados
-
-</p>
-
-<div class="signature-grid">
-
-${data.afectados.map(a=>`
-
-<div class="signature-box">
-
-${
-a.firma && a.firma!=='Sin firma'
-
-?`
-
-<img
-src="${a.firma}"
-class="signature-img">
-
-`
-
-:''
-
-}
-
-<div class="signature-line"></div>
-
-<div class="signature-name">
-
-${a.nombre||'Sin nombre'}
-
-</div>
-
-</div>
-
-`).join('')}
-
-</div>
-
-`
-:''
-
-}
-
-${
-data.firmasBomberos
-?.filter(
-b=>b.nombre
-)
-.length
-?`
-
-<p class="doc-subtitle">
-
-Firmas personal bomberil
-
-</p>
-
-<div class="signature-grid">
-
-${data.firmasBomberos
-.filter(b=>b.nombre)
-.map(b=>`
-
-<div class="signature-box">
-
-${
-b.firma && b.firma!=='Sin firma'
-
-?`
-
-<img
-src="${b.firma}"
-class="signature-img">
-
-`
-
-:''
-
-}
-
-<div class="signature-line"></div>
-
-<div class="signature-name">
-
-${b.nombre}
-
-</div>
-
-</div>
-
-`).join('')}
-
-</div>
-
-`
-:''
-
 }
 
 ${
 data.photos?.length
 ?`
 
-<p class="doc-subtitle">
+<div class="cert-photo-section">
 
-Registro fotográfico
+<div class="cert-photo-title">
 
-</p>
+Evidencia Fotográfica
 
-<div class="doc-photo-grid">
+</div>
 
-${
-data.photos.map(p=>`
+<div class="cert-photo-grid">
 
-<img
-src="${p}"
-class="doc-photo">
+${data.photos.map(photo => `
 
-`).join("")
-}
+<div class="cert-photo-card">
+
+<img src="${photo}">
+
+</div>
+
+`).join('')}
+
+</div>
 
 </div>
 
 `
-:""
+:''
 }
-
-
-<div class="doc-firma">
-
-<img
-src="${IMG_FIRMA}"
-class="firma-img">
-
-<br>
-
-_________________________________
-
-<br>
-
-Ste. JUAN CAMILO OCAMPO C
-
-<br>
-
-Comandante y Representante Legal
-
-<br>
-
-Benemérito Cuerpo de Bomberos
-Voluntarios Villamaría
 
 </div>
 
+<!-- FIRMAS -->
 
-<div class="doc-footer">
+<div class="cert-footer">
 
+<div class="cert-footer-left">
+
+<div class="cert-signature">
+
+<div class="cert-signature-img-wrap">
+
+<img
+src="${IMG_FIRMA}"
+class="cert-firma-img"
+>
+
+</div>
+
+<div class="cert-signature-line"></div>
+
+<div class="cert-signature-role">
+
+Comandante de Unidad
+
+</div>
+
+</div>
+
+<div class="cert-signature">
+
+<div class="cert-signature-img-wrap"></div>
+
+<div class="cert-signature-line"></div>
+
+<div class="cert-signature-role">
+
+Oficial de Turno
+
+</div>
+
+</div>
+
+<div class="cert-signature">
+
+<div class="cert-signature-img-wrap"></div>
+
+<div class="cert-signature-line"></div>
+
+<div class="cert-signature-role">
+
+Afectado
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cert-footer-right">
+
+<img
+src="${generateQRCode(docNum)}"
+class="cert-qr-img"
+>
+
+<div class="cert-qr-text">
+
+Verificación Digital
+<br>
+${docNum}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cert-contact-footer">
+
+Calle 19 N.° 9-52 • Villamaría, Caldas •
+Tel: (606) 8740000 •
+bomberosvvm@gmail.com •
 NIT. 890.804.607-0
 
 </div>
@@ -1702,7 +1639,6 @@ NIT. 890.804.607-0
 </div>
 
 `;
-
 }
 
 function renderCertificate(data, id = null) {
