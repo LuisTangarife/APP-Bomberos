@@ -1625,10 +1625,17 @@ ${data.photos.map(photo => `
 
 <div class="cert-signature-img-wrap">
 
-<img
-src="${IMG_FIRMA}"
-class="cert-firma-img"
->
+${
+data.firmasBomberos?.length &&
+data.firmasBomberos[0]?.firma
+?
+`<img
+    src="${data.firmasBomberos[0].firma}"
+    class="cert-firma-bombero"
+>`
+:
+''
+}
 
 </div>
 
@@ -1636,26 +1643,11 @@ class="cert-firma-img"
 
 <div class="cert-signature-role">
 
-Comandante de Unidad
+${data.firmasBomberos?.[0]?.nombre || 'Oficial de Turno'}
 
 </div>
 
 </div>
-
-<div class="cert-signature">
-
-<div class="cert-signature-img-wrap"></div>
-
-<div class="cert-signature-line"></div>
-
-<div class="cert-signature-role">
-
-Oficial de Turno
-
-</div>
-
-</div>
-
 <div class="cert-signature">
 
 <div class="cert-signature-img-wrap"></div>
