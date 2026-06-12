@@ -1234,6 +1234,16 @@ async function showCert(id) {
   renderCertificate(r, id);
 }
 
+/* =====================================================
+   GENERADOR QR
+===================================================== */
+
+function generateQRCode(text) {
+
+    return `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(text)}`;
+
+}
+
 async function buildHiddenCertificate(data) {
 
   const temp = document.createElement('div');
