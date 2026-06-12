@@ -1556,6 +1556,10 @@ ${data.afectados.map(a=>`
 </div>
 
 <div>
+<b>Lesionado:</b> ${a.lesionado || 'No'}
+</div>
+
+<div>
 <b>Teléfono:</b> ${a.telefono}
 </div>
 
