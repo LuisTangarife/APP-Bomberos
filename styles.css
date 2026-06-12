@@ -3221,6 +3221,19 @@ transform:translateY(0);
   object-fit: contain;
 }
 
+.cert-firma-bombero{
+
+    max-width:140px;
+    max-height:70px;
+
+    object-fit:contain;
+
+    display:block;
+
+    margin:auto;
+
+}
+
 .cert-signature-line{
   border-top:2px solid #111827;
 
