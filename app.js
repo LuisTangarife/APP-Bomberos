@@ -1524,6 +1524,62 @@ ${data.novedades}
 `
 :''
 }
+${
+data.afectados?.length
+?`
+
+<div class="cert-affected-section">
+
+<h2>Personas Afectadas</h2>
+
+${data.afectados.map(a=>`
+
+<div class="affected-row">
+
+<div>
+<b>Nombre:</b> ${a.nombre}
+</div>
+
+<div>
+<b>DNI:</b> ${a.dni}
+</div>
+
+<div>
+<b>Edad:</b> ${a.edad}
+</div>
+
+<div>
+<b>Género:</b> ${a.genero}
+</div>
+
+<div>
+<b>Teléfono:</b> ${a.telefono}
+</div>
+
+<div>
+<b>Correo:</b> ${a.correo}
+</div>
+
+${
+a.firma
+?`
+<img
+src="${a.firma}"
+class="affected-signature"
+>
+`
+:''
+}
+
+</div>
+
+`).join('')}
+
+</div>
+
+`
+:''
+}
 
 ${
 data.photos?.length
