@@ -2967,8 +2967,8 @@ transform:translateY(0);
 
 /* Logo principal centrado — igual que el escudo en Chile */
 .cert-logo-center {
-  width: 190px;
-  height: 190px;
+  width: 400px;
+  height: 400px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
