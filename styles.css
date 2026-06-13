@@ -1289,8 +1289,8 @@ body.light-theme .preview-remove{
 
 /* Logo principal centrado — igual que el escudo en Chile */
 .cert-logo-center{
-  width:230px;
-  height:230px;
+  width:300px;
+  height:300px;
 
   object-fit:contain;
 
