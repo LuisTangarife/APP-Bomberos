@@ -1676,19 +1676,6 @@ ${data.firmasBomberos?.[0]?.nombre || 'Oficial de Turno'}
 </div>
 
 </div>
-<div class="cert-signature">
-
-<div class="cert-signature-img-wrap"></div>
-
-<div class="cert-signature-line"></div>
-
-<div class="cert-signature-role">
-
-Afectado
-
-</div>
-
-</div>
 
 </div>
 
