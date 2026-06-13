@@ -1756,45 +1756,57 @@ body.light-theme .preview-remove{
 
   /* GRID FOTOS */
 
-  .cert-photo-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-  }
 
   /* TARJETA FOTO */
 
-  .cert-photo-card{
+/* ==========================================================
+   EVIDENCIA FOTOGRÁFICA
+   ========================================================== */
 
-    break-inside:avoid;
-    page-break-inside:avoid;
+.cert-photo-grid{
 
-    overflow:hidden;
-  }
+  display:grid;
 
-  .cert-photo-card{
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  grid-template-columns:1fr;
 
-    padding:10px;
+  gap:20px;
+}
 
-    min-height:220px;
+.cert-photo-card{
 
-    overflow:visible;
+  break-inside:avoid;
+  page-break-inside:avoid;
+
+  overflow:visible;
+
+  text-align:center;
+
+  border:1px solid #d8d8d8;
+
+  border-radius:10px;
+
+  padding:10px;
+
+  background:#fff;
 }
 
 .cert-photo-card img{
 
-    max-width:100%;
-    max-height:100%;
+  display:block;
 
-    width:auto;
-    height:auto;
+  width:auto;
 
-    object-fit:contain;
+  height:auto;
 
-    border-radius:8px;
+  max-width:100%;
+
+  max-height:none;
+
+  margin:auto;
+
+  object-fit:contain;
+
+  border-radius:8px;
 }
   /* footer */
 
