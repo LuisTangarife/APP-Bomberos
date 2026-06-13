@@ -948,6 +948,14 @@ textarea { resize: vertical; min-height: 100px; }
 }
 
 /* GRID */
+.photo-preview-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fill,minmax(160px,1fr));
+
+  gap:16px;
+}
 
 .photo-preview-grid{
   display:grid;
@@ -1792,21 +1800,13 @@ body.light-theme .preview-remove{
 
 .cert-photo-card img{
 
-  display:block;
+  width:auto !important;
 
-  width:auto;
-
-  height:auto;
+  height:auto !important;
 
   max-width:100%;
 
-  max-height:none;
-
-  margin:auto;
-
   object-fit:contain;
-
-  border-radius:8px;
 }
   /* footer */
 
