@@ -612,9 +612,9 @@ function setupMilitaryWheel(prefix){
 
 }
 
-setupMilitaryTimeSelector("horaReporte");
-setupMilitaryTimeSelector("horaLlegada");
-setupMilitaryTimeSelector("horaFinal");
+setupMilitaryWheel("horaReporte");
+setupMilitaryWheel("horaLlegada");
+setupMilitaryWheel("horaFinal");
 /* =========================================================
    THEME SYSTEM
 ========================================================= */
