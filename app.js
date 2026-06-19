@@ -485,37 +485,73 @@ function setDefaults() {
 
 }
 
-function setupMilitarySelector(id){
+function setupMilitaryTimeSelector(prefix){
 
-    const select = document.getElementById(id);
+    const hora =
+        document.getElementById(prefix + "Hora");
 
-    if(!select) return;
+    const minuto =
+        document.getElementById(prefix + "Minuto");
 
-
-    for(let hora = 0; hora < 24; hora++){
-
-        for(let minuto = 0; minuto < 60; minuto++){
-
-            const horaFormato =
-                String(hora).padStart(2,'0');
-
-            const minutoFormato =
-                String(minuto).padStart(2,'0');
+    const resultado =
+        document.getElementById(prefix.replace("Hora",""));
 
 
-            const horaCompleta =
-                `${horaFormato}:${minutoFormato}`;
+    // Cargar horas 00 - 23
+    for(let i = 0; i < 24; i++){
+
+        let option =
+            document.createElement("option");
+
+        option.value =
+            String(i).padStart(2,'0');
+
+        option.textContent =
+            String(i).padStart(2,'0');
+
+        hora.appendChild(option);
+
+    }
 
 
-            const option =
-                document.createElement('option');
+    // Cuando selecciona hora
+    hora.addEventListener("change",()=>{
+
+        minuto.innerHTML =
+        '<option value="">Minutos</option>';
+
+        minuto.disabled = false;
 
 
-            option.value = horaCompleta;
-            option.textContent = horaCompleta;
+        for(let i = 0; i < 60; i++){
+
+            let option =
+                document.createElement("option");
+
+            option.value =
+                String(i).padStart(2,'0');
+
+            option.textContent =
+                String(i).padStart(2,'0');
+
+            minuto.appendChild(option);
+
+        }
+
+        actualizar();
+
+    });
 
 
-            select.appendChild(option);
+    minuto.addEventListener("change", actualizar);
+
+
+    function actualizar(){
+
+        if(hora.value && minuto.value){
+
+            resultado.value =
+                hora.value + ":" + minuto.value;
 
         }
 
@@ -523,13 +559,10 @@ function setupMilitarySelector(id){
 
 }
 
-document.addEventListener("DOMContentLoaded", function(){
 
-    setupMilitarySelector('horaReporte');
-    setupMilitarySelector('horaLlegada');
-    setupMilitarySelector('horaFinal');
-
-});
+setupMilitaryTimeSelector("horaReporte");
+setupMilitaryTimeSelector("horaLlegada");
+setupMilitaryTimeSelector("horaFinal");
 /* =========================================================
    THEME SYSTEM
 ========================================================= */
