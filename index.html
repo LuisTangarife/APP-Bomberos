@@ -468,95 +468,105 @@ rel="stylesheet">
         <div class="spell-suggestions" id="suggestions-novedades"></div>
       </div>
     </div>
-    <!-- ───────────────────────────── -->
-    <!-- EVIDENCIA FOTOGRÁFICA -->
-    <!-- ───────────────────────────── -->
-    
-    <div class="photo-section">
-    
-      <div class="section-title">
-        <span class="section-num">07</span>
-        Evidencia Fotográfica
-      </div>
-    
-      <div class="photo-upload-wrapper">
-    
-        <label class="photo-upload-box">
-    
-          <input
-            type="file"
-            id="cameraInput"
-            accept="image/*"
-            capture="environment"
-            hidden
-          >
-
-          <input
-            type="file"
-            id="galleryInput"
-            accept="image/*"
-            multiple
-            hidden
-          >
-              
-          <div class="upload-content">
-    
-            <!-- TEXTO -->
-            <div class="upload-text">
-    
-              <div class="upload-label">
-    
-                <div class="upload-label-icon">
-                  📸
-                </div>
-    
-                <span>
-                  Adjuntar evidencia fotográfica
-                </span>
-    
-              </div>
-    
-              <div class="upload-subtitle">
-                Tome fotografías en campo o cargue imágenes desde el dispositivo.
-                Las evidencias serán anexadas automáticamente al certificado oficial.
-              </div>
-    
-            </div>
-    
-            <!-- BOTÓN -->
-            <div class="upload-btn">
-              Seleccionar imágenes
-            </div>
-            <button onclick="cameraInput.click()">
-            📷 Tomar foto
-            </button>
-            
-            <button onclick="galleryInput.click()">
-            🖼️ Seleccionar fotos
-            </button>
-    
-          </div>
-    
-        </label>
-    
-        <!-- CONTADOR -->
-        <div
-          id="photoCounter"
-          class="photo-counter"
-        >
-          No hay fotografías cargadas
-        </div>
-    
-        <!-- PREVIEW -->
-        <div
-          id="photoPreview"
-          class="photo-preview-grid"
-        ></div>
-    
-      </div>
-    
+   <!-- ───────────────────────────── -->
+  <!-- EVIDENCIA FOTOGRÁFICA -->
+  <!-- ───────────────────────────── -->
+  
+  <div class="photo-section">
+  
+    <div class="section-title">
+      <span class="section-num">07</span>
+      Evidencia Fotográfica
     </div>
-    <!-- ACTIONS -->
+  
+    <div class="photo-upload-wrapper">
+  
+      <!-- INPUTS OCULTOS -->
+      <input
+        type="file"
+        id="cameraInput"
+        accept="image/*"
+        capture="environment"
+        hidden
+      >
+  
+      <input
+        type="file"
+        id="galleryInput"
+        accept="image/*"
+        multiple
+        hidden
+      >
+  
+      <div class="photo-upload-box">
+  
+        <div class="upload-content">
+  
+          <!-- TEXTO -->
+          <div class="upload-text">
+  
+            <div class="upload-label">
+  
+              <div class="upload-label-icon">
+                📸
+              </div>
+  
+              <span>
+                Adjuntar evidencia fotográfica
+              </span>
+  
+            </div>
+  
+            <div class="upload-subtitle">
+              Tome fotografías en campo o cargue imágenes desde el dispositivo.
+              Las evidencias serán anexadas automáticamente al certificado oficial.
+            </div>
+  
+          </div>
+  
+          <!-- ACCIONES -->
+          <div class="upload-actions">
+  
+            <button
+              type="button"
+              class="upload-btn"
+              onclick="document.getElementById('cameraInput').click()"
+            >
+              📷 Tomar foto
+            </button>
+  
+            <button
+              type="button"
+              class="upload-btn"
+              onclick="document.getElementById('galleryInput').click()"
+            >
+              🖼️ Seleccionar fotos
+            </button>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+  
+      <!-- CONTADOR -->
+      <div
+        id="photoCounter"
+        class="photo-counter"
+      >
+        No hay fotografías cargadas
+      </div>
+  
+      <!-- PREVIEW -->
+      <div
+        id="photoPreview"
+        class="photo-preview-grid"
+      ></div>
+  
+    </div>
+  
+  </div>
+  <!-- ACTIONS -->
     <div class="actions-bar">
       <button type="button" class="btn-save" onclick="saveReport()">
         💾 Guardar Reporte
