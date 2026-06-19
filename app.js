@@ -471,21 +471,47 @@ function setupMilitaryTime(id){
 
     if(!input) return;
 
-    input.addEventListener('change', () => {
+    input.addEventListener('input',()=>{
 
-        let value = input.value;
+        let value = input.value.replace(/\D/g,'');
 
-        if(!value) return;
+        if(value.length > 4)
+            value = value.substring(0,4);
 
-        let [hours, minutes] = value.split(':');
+        if(value.length >= 3){
 
-        hours = parseInt(hours);
-
-        // Fuerza formato militar HH:mm
-        input.value =
-            String(hours).padStart(2,'0') +
+            value =
+            value.substring(0,2) +
             ':' +
-            minutes;
+            value.substring(2);
+
+        }
+
+        input.value = value;
+
+    });
+
+
+    input.addEventListener('blur',()=>{
+
+        if(!input.value) return;
+
+        let parts = input.value.split(':');
+
+        if(parts.length === 2){
+
+            let hora = parseInt(parts[0]);
+            let minutos = parseInt(parts[1]);
+
+            if(hora > 23) hora = 23;
+            if(minutos > 59) minutos = 59;
+
+            input.value =
+            String(hora).padStart(2,'0') +
+            ':' +
+            String(minutos).padStart(2,'0');
+
+        }
 
     });
 
