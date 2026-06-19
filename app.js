@@ -485,136 +485,84 @@ function setDefaults() {
 
 }
 
-function setupMilitaryWheel(prefix){
+function setupMilitaryTimeSelector(prefix){
+
+    const hora =
+        document.getElementById(prefix + "Hora");
+
+    const minuto =
+        document.getElementById(prefix + "Minuto");
+
+    const resultado =
+        document.getElementById(prefix.replace("Hora",""));
 
 
-    const horaWheel =
-        document.getElementById(prefix+"HoraWheel");
+    // Cargar horas 00 - 23
+    for(let i = 0; i < 24; i++){
 
+        let option =
+            document.createElement("option");
 
-    const minWheel =
-        document.getElementById(prefix+"MinWheel");
+        option.value =
+            String(i).padStart(2,'0');
 
+        option.textContent =
+            String(i).padStart(2,'0');
 
-    const output =
-        document.getElementById(prefix);
-
-
-
-    let hora = "00";
-    let minuto = "00";
-
-
-
-    // Crear horas
-
-    horaWheel.innerHTML="";
-
-
-    for(let i=0;i<24;i++){
-
-        let item =
-        document.createElement("div");
-
-
-        item.className="wheel-item";
-
-        item.textContent =
-        String(i).padStart(2,"0");
-
-
-        item.onclick=()=>{
-
-            hora=item.textContent;
-
-            actualizar();
-
-            seleccionar(item,horaWheel);
-
-        };
-
-
-        horaWheel.appendChild(item);
+        hora.appendChild(option);
 
     }
 
 
+    // Cuando selecciona hora
+    hora.addEventListener("change",()=>{
 
-    // Crear minutos
+        minuto.innerHTML =
+        '<option value="">Minutos</option>';
 
-    minWheel.innerHTML="";
-
-
-    for(let i=0;i<60;i++){
-
-
-        let item =
-        document.createElement("div");
+        minuto.disabled = false;
 
 
-        item.className="wheel-item";
+        for(let i = 0; i < 60; i++){
+
+            let option =
+                document.createElement("option");
+
+            option.value =
+                String(i).padStart(2,'0');
+
+            option.textContent =
+                String(i).padStart(2,'0');
+
+            minuto.appendChild(option);
+
+        }
+
+        actualizar();
+
+    });
 
 
-        item.textContent =
-        String(i).padStart(2,"0");
-
-
-
-        item.onclick=()=>{
-
-
-            minuto=item.textContent;
-
-
-            actualizar();
-
-
-            seleccionar(item,minWheel);
-
-
-        };
-
-
-        minWheel.appendChild(item);
-
-
-    }
-
-
-
-
-    function seleccionar(element,container){
-
-
-        container
-        .querySelectorAll(".wheel-item")
-        .forEach(x=>
-            x.classList.remove("active")
-        );
-
-
-        element.classList.add("active");
-
-
-    }
-
+    minuto.addEventListener("change", actualizar);
 
 
     function actualizar(){
 
+        if(hora.value && minuto.value){
 
-        output.value =
-        hora + ":" + minuto;
+            resultado.value =
+                hora.value + ":" + minuto.value;
 
+        }
 
     }
 
-
 }
 
-setupMilitaryWheel("horaReporte");
-setupMilitaryWheel("horaLlegada");
-setupMilitaryWheel("horaFinal");
+
+setupMilitaryTimeSelector("horaReporte");
+setupMilitaryTimeSelector("horaLlegada");
+setupMilitaryTimeSelector("horaFinal");
 /* =========================================================
    THEME SYSTEM
 ========================================================= */
