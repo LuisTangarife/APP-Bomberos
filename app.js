@@ -492,28 +492,27 @@ function setupMilitarySelector(id){
     if(!select) return;
 
 
-    // Crear horas militares cada 30 minutos
-    for(let hora = 0; hora <= 23; hora++){
+    for(let hora = 0; hora < 24; hora++){
 
-        for(let minuto of [0,30]){
+        for(let minuto = 0; minuto < 60; minuto++){
 
-            let horaFormato =
+            const horaFormato =
                 String(hora).padStart(2,'0');
 
-            let minutoFormato =
+            const minutoFormato =
                 String(minuto).padStart(2,'0');
 
 
-            let option =
+            const horaCompleta =
+                `${horaFormato}:${minutoFormato}`;
+
+
+            const option =
                 document.createElement('option');
 
 
-            option.value =
-                `${horaFormato}:${minutoFormato}`;
-
-
-            option.textContent =
-                `${horaFormato}:${minutoFormato}`;
+            option.value = horaCompleta;
+            option.textContent = horaCompleta;
 
 
             select.appendChild(option);
@@ -523,7 +522,6 @@ function setupMilitarySelector(id){
     }
 
 }
-
 
 document.addEventListener("DOMContentLoaded", function(){
 
