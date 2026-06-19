@@ -231,7 +231,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             event.target.files
             );
 
-            window.uploadedPhotos=[];
+            window.uploadedPhotos =
+            window.uploadedPhotos || [];
 
             files.forEach(file=>{
 
@@ -254,9 +255,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 };
 
-                reader.readAsDataURL(
-                file
-                );
+                reader.readAsDataURL(file);
 
             });
 
