@@ -3372,9 +3372,11 @@ transform:translateY(0);
 ========================================================= */
 
 .time-selector{
+
     display:flex;
     gap:12px;
     width:100%;
+
 }
 
 
@@ -3382,9 +3384,11 @@ transform:translateY(0);
 
     flex:1;
 
-    padding:12px;
+    min-height:48px;
 
-    border-radius:10px;
+    padding:12px 14px;
+
+    border-radius:12px;
 
     border:1px solid var(--border-color);
 
@@ -3394,9 +3398,11 @@ transform:translateY(0);
 
     font-size:16px;
 
-    font-weight:600;
+    font-weight:700;
 
     cursor:pointer;
+
+    appearance:auto;
 
     transition:
         background .3s ease,
@@ -3407,7 +3413,7 @@ transform:translateY(0);
 }
 
 
-/* Cuando se abre el selector */
+/* Campo seleccionado */
 .time-selector select:focus{
 
     outline:none;
@@ -3420,12 +3426,40 @@ transform:translateY(0);
 }
 
 
-/* Opción seleccionada */
-.time-selector option{
+/* =========================================================
+   MENÚ DESPLEGABLE
+========================================================= */
 
-    background:var(--input-bg);
+.time-selector select option{
 
-    color:var(--text-color);
+    background:var(--menu-bg);
+
+    color:var(--menu-text);
+
+    font-size:16px;
+
+    font-weight:600;
+
+    padding:12px;
+
+}
+
+
+/* =========================================================
+   VARIABLES GENERALES
+========================================================= */
+
+:root{
+
+    --input-bg:#ffffff;
+
+    --menu-bg:#ffffff;
+
+    --text-color:#111827;
+
+    --menu-text:#111827;
+
+    --border-color:#cbd5e1;
 
 }
 
@@ -3434,22 +3468,15 @@ transform:translateY(0);
    TEMA OSCURO
 ========================================================= */
 
-:root{
-
-    --input-bg:#ffffff;
-
-    --text-color:#1f2937;
-
-    --border-color:#d1d5db;
-
-}
-
-
 body.dark-theme{
 
     --input-bg:#1f2937;
 
+    --menu-bg:#111827;
+
     --text-color:#f9fafb;
+
+    --menu-text:#f9fafb;
 
     --border-color:#4b5563;
 
@@ -3464,7 +3491,11 @@ body.light-theme{
 
     --input-bg:#ffffff;
 
+    --menu-bg:#ffffff;
+
     --text-color:#111827;
+
+    --menu-text:#111827;
 
     --border-color:#cbd5e1;
 
