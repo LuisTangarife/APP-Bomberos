@@ -485,9 +485,18 @@ rel="stylesheet">
     
           <input
             type="file"
-            id="photoInput"
+            id="cameraInput"
+            accept="image/*"
+            capture="environment"
+            hidden
+          >
+
+          <input
+            type="file"
+            id="galleryInput"
             accept="image/*"
             multiple
+            hidden
           >
               
           <div class="upload-content">
@@ -518,6 +527,13 @@ rel="stylesheet">
             <div class="upload-btn">
               Seleccionar imágenes
             </div>
+            <button onclick="cameraInput.click()">
+            📷 Tomar foto
+            </button>
+            
+            <button onclick="galleryInput.click()">
+            🖼️ Seleccionar fotos
+            </button>
     
           </div>
     
