@@ -203,52 +203,60 @@ rel="stylesheet">
         <label>Fecha <span class="req">*</span></label>
         <input type="date" id="fecha" required>
       </div>
-      <div class="field-group">
-
-          <label>
-              Hora de Reporte <span class="req">*</span>
-          </label>
+     <div class="field-group">
+          <label>Hora de Reporte <span class="req">*</span></label>
       
+          <div class="time-selector">
       
-          <div class="military-time-picker">
+              <select id="horaReporteHora" required>
+                  <option value="">Hora</option>
+              </select>
       
-              <div class="wheel-container">
-      
-                  <span>Hora</span>
-      
-                  <div class="wheel" id="horaReporteHoraWheel">
-      
-                      <div class="wheel-item">20</div>
-                      <div class="wheel-item">21</div>
-                      <div class="wheel-item active">22</div>
-                      <div class="wheel-item">23</div>
-      
-                  </div>
-      
-              </div>
-      
-      
-      
-              <div class="wheel-container">
-      
-                  <span>Minutos</span>
-      
-                  <div class="wheel" id="horaReporteMinWheel">
-      
-                      <div class="wheel-item">28</div>
-                      <div class="wheel-item">29</div>
-                      <div class="wheel-item active">30</div>
-                      <div class="wheel-item">31</div>
-      
-                  </div>
-      
-              </div>
+              <select id="horaReporteMinuto" required disabled>
+                  <option value="">Minutos</option>
+              </select>
       
           </div>
       
-      
           <input type="hidden" id="horaReporte">
+      </div>
       
+      
+      <div class="field-group">
+          <label>Hora de Llegada al Sitio <span class="req">*</span></label>
+      
+          <div class="time-selector">
+      
+              <select id="horaLlegadaHora" required>
+                  <option value="">Hora</option>
+              </select>
+      
+              <select id="horaLlegadaMinuto" required disabled>
+                  <option value="">Minutos</option>
+              </select>
+      
+          </div>
+      
+          <input type="hidden" id="horaLlegada">
+      </div>
+      
+      
+      <div class="field-group">
+          <label>Hora Final <span class="req">*</span></label>
+      
+          <div class="time-selector">
+      
+              <select id="horaFinalHora" required>
+                  <option value="">Hora</option>
+              </select>
+      
+              <select id="horaFinalMinuto" required disabled>
+                  <option value="">Minutos</option>
+              </select>
+      
+          </div>
+      
+          <input type="hidden" id="horaFinal">
       </div>
     </div>
 
