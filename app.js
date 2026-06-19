@@ -467,33 +467,30 @@ function setDefaults() {
 
 function setupMilitaryTime(id){
 
-    const input =
-    document.getElementById(id);
+    const input = document.getElementById(id);
 
     if(!input) return;
 
-    input.addEventListener('input',()=>{
+    input.addEventListener('change', () => {
 
-        let value =
-        input.value.replace(/\D/g,'');
+        let value = input.value;
 
-        if(value.length > 4)
-            value = value.substring(0,4);
+        if(!value) return;
 
-        if(value.length >= 3){
+        let [hours, minutes] = value.split(':');
 
-            value =
-            value.substring(0,2) +
+        hours = parseInt(hours);
+
+        // Fuerza formato militar HH:mm
+        input.value =
+            String(hours).padStart(2,'0') +
             ':' +
-            value.substring(2);
-
-        }
-
-        input.value = value;
+            minutes;
 
     });
 
 }
+
 
 setupMilitaryTime('horaReporte');
 setupMilitaryTime('horaLlegada');
