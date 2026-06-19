@@ -3367,11 +3367,105 @@ transform:translateY(0);
   display:flex;
   justify-content:center;
 }
+/* =========================================================
+   SELECTOR DE HORAS MILITARES
+========================================================= */
+
 .time-selector{
     display:flex;
-    gap:10px;
+    gap:12px;
+    width:100%;
 }
 
+
 .time-selector select{
+
     flex:1;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:1px solid var(--border-color);
+
+    background:var(--input-bg);
+
+    color:var(--text-color);
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        border .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+/* Cuando se abre el selector */
+.time-selector select:focus{
+
+    outline:none;
+
+    border-color:#d62828;
+
+    box-shadow:
+        0 0 0 3px rgba(214,40,40,.20);
+
+}
+
+
+/* Opción seleccionada */
+.time-selector option{
+
+    background:var(--input-bg);
+
+    color:var(--text-color);
+
+}
+
+
+/* =========================================================
+   TEMA OSCURO
+========================================================= */
+
+:root{
+
+    --input-bg:#ffffff;
+
+    --text-color:#1f2937;
+
+    --border-color:#d1d5db;
+
+}
+
+
+body.dark-theme{
+
+    --input-bg:#1f2937;
+
+    --text-color:#f9fafb;
+
+    --border-color:#4b5563;
+
+}
+
+
+/* =========================================================
+   TEMA CLARO
+========================================================= */
+
+body.light-theme{
+
+    --input-bg:#ffffff;
+
+    --text-color:#111827;
+
+    --border-color:#cbd5e1;
+
 }
