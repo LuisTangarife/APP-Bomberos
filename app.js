@@ -457,12 +457,32 @@ function removePhoto(index) {
 }
 
 function setDefaults() {
-  const now = new Date();
-  const pad = n => String(n).padStart(2, '0');
-  const date = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
-  const time = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-  document.getElementById('fecha').value       = date;
-  document.getElementById('horaReporte').value = time;
+
+    const now = new Date();
+
+    const pad = n => String(n).padStart(2, '0');
+
+    const date =
+        `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+
+    const time =
+        `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+
+    document.getElementById('fecha').value = date;
+
+
+    const horaReporte =
+        document.getElementById('horaReporte');
+
+
+    if(horaReporte){
+
+        // Si la hora actual existe en el selector la selecciona
+        horaReporte.value = time;
+
+    }
+
 }
 
 function setupMilitarySelector(id){
@@ -505,9 +525,13 @@ function setupMilitarySelector(id){
 }
 
 
-setupMilitarySelector('horaReporte');
-setupMilitarySelector('horaLlegada');
-setupMilitarySelector('horaFinal');
+document.addEventListener("DOMContentLoaded", function(){
+
+    setupMilitarySelector('horaReporte');
+    setupMilitarySelector('horaLlegada');
+    setupMilitarySelector('horaFinal');
+
+});
 /* =========================================================
    THEME SYSTEM
 ========================================================= */
