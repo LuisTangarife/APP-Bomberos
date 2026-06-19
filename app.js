@@ -465,40 +465,6 @@ function setDefaults() {
   document.getElementById('horaReporte').value = time;
 }
 
-function setupMilitaryTime(id){
-
-    const input =
-    document.getElementById(id);
-
-    if(!input) return;
-
-    input.addEventListener('input',()=>{
-
-        let value =
-        input.value.replace(/\D/g,'');
-
-        if(value.length > 4)
-            value = value.substring(0,4);
-
-        if(value.length >= 3){
-
-            value =
-            value.substring(0,2) +
-            ':' +
-            value.substring(2);
-
-        }
-
-        input.value = value;
-
-    });
-
-}
-
-setupMilitaryTime('horaReporte');
-setupMilitaryTime('horaLlegada');
-setupMilitaryTime('horaFinal');
-
 /* =========================================================
    THEME SYSTEM
 ========================================================= */
