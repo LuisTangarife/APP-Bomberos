@@ -3500,3 +3500,132 @@ body.light-theme{
     --border-color:#cbd5e1;
 
 }
+
+/* =========================================================
+   CERTIFICADO RESPONSIVE MÓVIL
+========================================================= */
+
+@media (max-width: 768px){
+
+  .cert-preview-wrapper{
+    padding:10px;
+    overflow-x:auto;
+  }
+
+  .page{
+
+    width:100%;
+    max-width:100%;
+
+    min-height:auto;
+
+    margin:10px 0;
+
+    box-sizing:border-box;
+
+    overflow:hidden;
+  }
+
+  .cert-header{
+    padding:15px 15px 0;
+  }
+
+  .cert-body{
+    padding:0 15px 25px;
+  }
+
+  .cert-footer{
+    padding:0 15px;
+  }
+
+  .cert-contact-footer{
+    padding:8px 15px;
+  }
+
+  /* Logo */
+
+  .cert-logo-center{
+    width:180px;
+    height:180px;
+  }
+
+  /* Título */
+
+  .cert-body-title{
+    font-size:1.2rem;
+    margin-bottom:20px;
+  }
+
+  /* Campos */
+
+  .cert-grid,
+  .cert-grid-2{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .cert-value{
+    font-size:0.95rem;
+    word-break:break-word;
+  }
+
+  /* Víctimas */
+
+  .cert-victims-bar{
+    flex-direction:column;
+    gap:15px;
+    align-items:center;
+  }
+
+  .cert-victim-box{
+    width:100%;
+    max-width:220px;
+  }
+
+  /* Fotos */
+
+  .cert-photo-grid{
+    grid-template-columns:1fr;
+  }
+
+  .cert-photo-card img{
+    height:auto;
+    max-height:300px;
+    object-fit:contain;
+  }
+
+  /* Firmas */
+
+  .cert-footer{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .cert-footer-left{
+    width:100%;
+    flex-direction:column;
+  }
+
+  .cert-signature{
+    width:100%;
+  }
+
+  .cert-footer-right{
+    margin-top:20px;
+  }
+
+  /* Textos largos */
+
+  .cert-desc-box{
+    padding:15px;
+    font-size:0.95rem;
+    line-height:1.7;
+    overflow-wrap:anywhere;
+  }
+
+  .top-bar-text{
+    font-size:7pt;
+    letter-spacing:2px;
+  }
+
+}
