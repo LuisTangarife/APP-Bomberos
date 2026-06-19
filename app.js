@@ -211,58 +211,85 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     window.uploadedPhotos=[];
 
-    /* ======================
+   /* ======================
        FOTOS
     ====================== */
-
-    const photoInput=
+    
+    const cameraInput =
     document.getElementById(
-    'photoInput'
+    'cameraInput'
     );
-
-    if(photoInput){
-
-        photoInput.addEventListener(
-        'change',
-        function(event){
-
-            const files=
-            Array.from(
-            event.target.files
-            );
-
-            window.uploadedPhotos =
-            window.uploadedPhotos || [];
-
-            files.forEach(file=>{
-
-                if(
-                !file.type.startsWith(
-                'image/'
-                )
-                ) return;
-
-                const reader=
-                new FileReader();
-
-                reader.onload=e=>{
-
-                    window.uploadedPhotos.push(
+    
+    const galleryInput =
+    document.getElementById(
+    'galleryInput'
+    );
+    
+    function processPhotos(files){
+    
+        window.uploadedPhotos =
+        window.uploadedPhotos || [];
+    
+        Array.from(files).forEach(file=>{
+    
+            if(
+            !file.type.startsWith(
+            'image/'
+            )
+            ) return;
+    
+            const reader =
+            new FileReader();
+    
+            reader.onload = e => {
+    
+                window.uploadedPhotos.push(
                     e.target.result
-                    );
-
-                    renderPhotoPreview();
-
-                };
-
-                reader.readAsDataURL(file);
-
-            });
-
+                );
+    
+                renderPhotoPreview();
+    
+            };
+    
+            reader.readAsDataURL(file);
+    
         });
-
+    
     }
-
+    
+    if(cameraInput){
+    
+        cameraInput.addEventListener(
+        'change',
+        e => {
+    
+            processPhotos(
+                e.target.files
+            );
+    
+            e.target.value = '';
+    
+        }
+        );
+    
+    }
+    
+    if(galleryInput){
+    
+        galleryInput.addEventListener(
+        'change',
+        e => {
+    
+            processPhotos(
+                e.target.files
+            );
+    
+            e.target.value = '';
+    
+        }
+        );
+    
+    }
     /* ======================
        TOMSELECT VEHÍCULOS
     ====================== */
