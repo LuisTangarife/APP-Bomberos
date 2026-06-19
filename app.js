@@ -465,62 +465,49 @@ function setDefaults() {
   document.getElementById('horaReporte').value = time;
 }
 
-function setupMilitaryTime(id){
+function setupMilitarySelector(id){
 
-    const input = document.getElementById(id);
+    const select = document.getElementById(id);
 
-    if(!input) return;
-
-    input.addEventListener('input',()=>{
-
-        let value = input.value.replace(/\D/g,'');
-
-        if(value.length > 4)
-            value = value.substring(0,4);
-
-        if(value.length >= 3){
-
-            value =
-            value.substring(0,2) +
-            ':' +
-            value.substring(2);
-
-        }
-
-        input.value = value;
-
-    });
+    if(!select) return;
 
 
-    input.addEventListener('blur',()=>{
+    // Crear horas militares cada 30 minutos
+    for(let hora = 0; hora <= 23; hora++){
 
-        if(!input.value) return;
+        for(let minuto of [0,30]){
 
-        let parts = input.value.split(':');
+            let horaFormato =
+                String(hora).padStart(2,'0');
 
-        if(parts.length === 2){
+            let minutoFormato =
+                String(minuto).padStart(2,'0');
 
-            let hora = parseInt(parts[0]);
-            let minutos = parseInt(parts[1]);
 
-            if(hora > 23) hora = 23;
-            if(minutos > 59) minutos = 59;
+            let option =
+                document.createElement('option');
 
-            input.value =
-            String(hora).padStart(2,'0') +
-            ':' +
-            String(minutos).padStart(2,'0');
+
+            option.value =
+                `${horaFormato}:${minutoFormato}`;
+
+
+            option.textContent =
+                `${horaFormato}:${minutoFormato}`;
+
+
+            select.appendChild(option);
 
         }
 
-    });
+    }
 
 }
 
 
-setupMilitaryTime('horaReporte');
-setupMilitaryTime('horaLlegada');
-setupMilitaryTime('horaFinal');
+setupMilitarySelector('horaReporte');
+setupMilitarySelector('horaLlegada');
+setupMilitarySelector('horaFinal');
 /* =========================================================
    THEME SYSTEM
 ========================================================= */
