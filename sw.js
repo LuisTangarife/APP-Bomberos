@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'bomberos-static-v13';
-const DYNAMIC_CACHE = 'bomberos-dynamic-v13';
+const STATIC_CACHE = 'bomberos-static-v14';
+const DYNAMIC_CACHE = 'bomberos-dynamic-v14';
 
 const STATIC_FILES = [
   './',
@@ -9,8 +9,8 @@ const STATIC_FILES = [
   './manifest.json',
   './offline.html'
   
-  './icons/icon-192-v3.png',
-  './icons/icon-512-v3.png'
+  './icons/icon-192-v4.png',
+  './icons/icon-512-v4.png'
 ];
 
 // =========================
