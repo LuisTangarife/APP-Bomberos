@@ -1,3 +1,16 @@
+html{
+    width:100%;
+    overflow-x:hidden;
+}
+
+body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+    position:relative;
+    overscroll-behavior-x:none;
+}
+
 :root {
   --red: #CC2200;
   --red-dark: #991800;
@@ -404,12 +417,13 @@ width:55px;
 
 }
 /* MAIN */
-.main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 28px 20px 60px;
+.main{
+    width:100%;
+    max-width:960px;
+    margin:0 auto;
+    padding:28px 20px 60px;
+    overflow-x:hidden;
 }
-
 .form-container {
   background: var(--panel);
   border-radius: 12px;
