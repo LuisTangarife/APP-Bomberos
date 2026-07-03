@@ -294,18 +294,27 @@ document.addEventListener('DOMContentLoaded', async () => {
        TOMSELECT VEHÍCULOS
     ====================== */
 
-    vehiculosTS=
-    new TomSelect(
-    "#vehiculos",
-    {
-        plugins:[
-        'remove_button'
-        ],
-
-        create:false,
-
-        placeholder:
-        "Seleccione vehículos..."
+    vehiculosTS = new TomSelect("#vehiculos", {
+        plugins: ['remove_button'],
+    
+        create: false,
+    
+        placeholder: "Seleccione vehículos.",
+    
+        onItemAdd() {
+    
+            // Limpia el texto escrito
+            this.setTextboxValue('');
+    
+            // Refresca las opciones
+            this.refreshOptions(false);
+    
+            // Cierra el desplegable
+            this.close();
+    
+            // Quita el foco y oculta el teclado en móviles
+            this.blur();
+        }
     });
 
     personalDB=
