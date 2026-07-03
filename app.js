@@ -381,22 +381,27 @@ function generateVehicleAssignments(){
         container.appendChild(card);
 
         // Crear TomSelect para cada vehículo
-        const ts=
-        new TomSelect(
-        `#bomberos_${index}`,
-        {
-            plugins:['remove_button'],
-            options:personalDB,
-            valueField:'value',
-            labelField:'text',
-            searchField:'text',
-            placeholder:'Seleccione personal...'
-        });
-        
-        ts.on(
-        "change",
-        generateFirefighterSignatures
-        );
+        const ts = new TomSelect(`#bomberos_${index}`, {
+        plugins: ['remove_button'],
+        options: personalDB,
+        valueField: 'value',
+        labelField: 'text',
+        searchField: 'text',
+        placeholder: 'Seleccione personal...',
+    
+        onItemAdd() {
+            // Borra inmediatamente lo que el usuario escribió
+            this.setTextboxValue('');
+    
+            // Limpia el filtro interno
+            this.refreshOptions(false);
+    
+            // Opcional: quita el foco para evitar que Backspace elimine el último seleccionado
+            this.blur();
+        }
+    });
+    
+    ts.on("change", generateFirefighterSignatures); 
     });
 
 }
