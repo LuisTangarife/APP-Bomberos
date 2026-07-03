@@ -3643,3 +3643,39 @@ body.light-theme{
   }
 
 }
+
+/* ===== FIX RESPONSIVE TOMSELECT ===== */
+
+.ts-wrapper{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+}
+
+.ts-dropdown{
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    min-width:100% !important;
+    max-width:100% !important;
+
+    box-sizing:border-box;
+}
+
+@media (max-width:768px){
+
+    .vehicle-card,
+    .signature-card,
+    .affected-card{
+
+        width:100%;
+        max-width:100%;
+        overflow:hidden;
+    }
+
+    .ts-control{
+        width:100%;
+        max-width:100%;
+    }
+
+}
