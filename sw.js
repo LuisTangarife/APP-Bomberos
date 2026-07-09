@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'bomberos-static-v14';
-const DYNAMIC_CACHE = 'bomberos-dynamic-v14';
+const STATIC_CACHE = 'bomberos-static-v15';
+const DYNAMIC_CACHE = 'bomberos-dynamic-v15';
 
 const STATIC_FILES = [
   './',
@@ -7,7 +7,7 @@ const STATIC_FILES = [
   './styles.css',
   './app.js',
   './manifest.json',
-  './offline.html'
+  './offline.html',
   
   './icons/icon-192-v4.png',
   './icons/icon-512-v4.png'
@@ -115,8 +115,6 @@ self.addEventListener('fetch', event => {
   );
 
 });
-
-self.addEventListener('activate', event => {
 
   event.waitUntil(
     caches.keys().then(keys => {
