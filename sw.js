@@ -1,139 +1,185 @@
-const STATIC_CACHE = 'bomberos-static-v16';
-const DYNAMIC_CACHE = 'bomberos-dynamic-v16';
+/* ==========================================================
+   APP BOMBEROS
+   Service Worker v17
+   ========================================================== */
 
-const STATIC_FILES = [
-  './',
-  './index.html',
-  './styles.css',
-  './app.js',
-  './manifest.json',
-  './offline.html',
-  
-  './icons/icon-192-v4.png',
-  './icons/icon-512-v4.png'
+const STATIC_CACHE = "bomberos-static-v17";
+const DYNAMIC_CACHE = "bomberos-dynamic-v17";
+
+/* Recursos mínimos para que la aplicación pueda iniciar */
+const APP_SHELL = [
+    "./",
+    "./index.html",
+    "./styles.css",
+    "./app.js",
+    "./manifest.json",
+    "./offline.html",
+
+    "./icons/icon-192-v4.png",
+    "./icons/icon-512-v4.png"
 ];
 
-// =========================
-// INSTALACIÓN
-// =========================
+/* ==========================================================
+   INSTALACIÓN
+   ========================================================== */
 
-self.addEventListener('install', event => {
+self.addEventListener("install", event => {
 
-  event.waitUntil(
-    caches.open(STATIC_CACHE)
-      .then(cache => cache.addAll(STATIC_FILES))
-  );
+    event.waitUntil(
+        (async () => {
 
-  self.skipWaiting();
+            const cache = await caches.open(STATIC_CACHE);
 
-});
+            // Guarda los archivos uno por uno para que un 404
+            // no impida instalar el Service Worker.
+            for (const file of APP_SHELL) {
+                try {
+                    await cache.add(file);
+                    console.log("[SW] Cacheado:", file);
+                } catch (e) {
+                    console.warn("[SW] No se pudo cachear:", file);
+                }
+            }
 
-// =========================
-// ACTIVACIÓN
-// =========================
+        })()
+    );
 
-self.addEventListener('activate', event => {
-
-  event.waitUntil(
-    caches.keys().then(keys => {
-
-      return Promise.all(
-        keys
-          .filter(key => ![STATIC_CACHE, DYNAMIC_CACHE].includes(key))
-          .map(key => caches.delete(key))
-      );
-
-    })
-  );
-
-  self.clients.claim();
+    self.skipWaiting();
 
 });
 
-// =========================
-// FETCH
-// =========================
 
-self.addEventListener('fetch', event => {
+/* ==========================================================
+   ACTIVACIÓN
+   ========================================================== */
 
-  const request = event.request;
+self.addEventListener("activate", event => {
 
-  // SOLO GET
-  if (request.method !== 'GET') return;
+    event.waitUntil(
 
-  // HTML → Network First
-  if (request.headers.get('accept')?.includes('text/html')) {
+        (async () => {
+
+            const keys = await caches.keys();
+
+            await Promise.all(
+
+                keys
+                    .filter(key =>
+                        key !== STATIC_CACHE &&
+                        key !== DYNAMIC_CACHE
+                    )
+                    .map(key => caches.delete(key))
+
+            );
+
+            await self.clients.claim();
+
+        })()
+
+    );
+
+});
+
+
+/* ==========================================================
+   FETCH
+   ========================================================== */
+
+self.addEventListener("fetch", event => {
+
+    const request = event.request;
+
+    if (request.method !== "GET") return;
+
+    /* ============================
+       NAVEGACIÓN (HTML)
+       ============================ */
+
+    if (request.mode === "navigate") {
+
+        event.respondWith(
+
+            (async () => {
+
+                try {
+
+                    const networkResponse = await fetch(request);
+
+                    const cache = await caches.open(DYNAMIC_CACHE);
+
+                    cache.put(request, networkResponse.clone());
+
+                    return networkResponse;
+
+                } catch {
+
+                    const cachedPage = await caches.match(request);
+
+                    if (cachedPage) return cachedPage;
+
+                    const index = await caches.match("./index.html");
+
+                    if (index) return index;
+
+                    return caches.match("./offline.html");
+
+                }
+
+            })()
+
+        );
+
+        return;
+
+    }
+
+    /* ============================
+       APP SHELL
+       ============================ */
 
     event.respondWith(
 
-      fetch(request)
-          .then(response => {
-  
-              const clone = response.clone();
-  
-              caches.open(DYNAMIC_CACHE)
-                  .then(cache => {
-  
-                      cache.put(request, clone);
-  
-                  });
-  
-              return response;
-  
-          })
-          .catch(async ()=>{
-  
-              const cached = await caches.match(request);
-  
-              if(cached) return cached;
-  
-              return caches.match('./index.html');
-  
-          })
-  
-  );
+        (async () => {
 
-    return;
-  }
+            const cached = await caches.match(request);
 
-  // CSS / JS / imágenes → Cache First
-  event.respondWith(
+            if (cached) return cached;
 
-    caches.match(request)
-      .then(cached => {
+            try {
 
-        if (cached) return cached;
+                const networkResponse = await fetch(request);
 
-        return fetch(request)
-          .then(response => {
+                if (
+                    networkResponse &&
+                    networkResponse.status === 200 &&
+                    request.url.startsWith(self.location.origin)
+                ) {
 
-            const clone = response.clone();
+                    const cache = await caches.open(DYNAMIC_CACHE);
 
-            caches.open(DYNAMIC_CACHE)
-              .then(cache => cache.put(request, clone));
+                    cache.put(request, networkResponse.clone());
 
-            return response;
+                }
 
-          });
+                return networkResponse;
 
-      })
+            } catch {
 
-  );
+                if (request.destination === "image") {
 
-});
+                    return caches.match("./icons/icon-192-v4.png");
 
-  event.waitUntil(
-    caches.keys().then(keys => {
+                }
 
-      return Promise.all(
-        keys
-          .filter(key => ![STATIC_CACHE, DYNAMIC_CACHE].includes(key))
-          .map(key => caches.delete(key))
-      );
+                return new Response("", {
+                    status: 404,
+                    statusText: "Recurso no disponible"
+                });
 
-    })
-  );
+            }
 
-  self.clients.claim();
+        })()
+
+    );
 
 });
