@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'bomberos-static-v15';
-const DYNAMIC_CACHE = 'bomberos-dynamic-v15';
+const STATIC_CACHE = 'bomberos-static-v16';
+const DYNAMIC_CACHE = 'bomberos-dynamic-v16';
 
 const STATIC_FILES = [
   './',
@@ -67,25 +67,31 @@ self.addEventListener('fetch', event => {
     event.respondWith(
 
       fetch(request)
-        .then(response => {
-
-          const clone = response.clone();
-
-          caches.open(DYNAMIC_CACHE)
-            .then(cache => cache.put(request, clone));
-
-          return response;
-
-        })
-        .catch(async () => {
-
-          const cached = await caches.match(request);
-
-          return cached || caches.match('./offline.html');
-
-        })
-
-    );
+          .then(response => {
+  
+              const clone = response.clone();
+  
+              caches.open(DYNAMIC_CACHE)
+                  .then(cache => {
+  
+                      cache.put(request, clone);
+  
+                  });
+  
+              return response;
+  
+          })
+          .catch(async ()=>{
+  
+              const cached = await caches.match(request);
+  
+              if(cached) return cached;
+  
+              return caches.match('./index.html');
+  
+          })
+  
+  );
 
     return;
   }
