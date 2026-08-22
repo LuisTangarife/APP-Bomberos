@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Continuar sin cuenta | APP Bomberos</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#CC2200">
+    <link rel="icon" href="icons/icon-192-v4.png">
+
+    <link rel="stylesheet" href="shared/shared.css">
+    <link rel="stylesheet" href="dashboard.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          rel="stylesheet">
+
+    <style>
+
+        body{
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+        }
+
+        .invitado-box{
+            width:100%;
+            max-width:640px;
+        }
+
+        .invitado-volver{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            color:var(--text-mute);
+            font-size:.85rem;
+            text-decoration:none;
+            margin-bottom:22px;
+        }
+
+        .invitado-volver:hover{
+            color:var(--text-light);
+        }
+
+        .invitado-titulo{
+            text-align:center;
+            color:var(--white);
+            font-size:1.3rem;
+            font-weight:700;
+            margin-bottom:4px;
+        }
+
+        .invitado-subtitulo{
+            text-align:center;
+            color:var(--text-mute);
+            font-size:.85rem;
+            margin-bottom:28px;
+        }
+
+        .invitado-aviso{
+            display:flex;
+            align-items:flex-start;
+            gap:10px;
+            background:#FFF7E0;
+            color:#8A6800;
+            border-radius:10px;
+            padding:12px 14px;
+            font-size:.82rem;
+            margin-top:26px;
+        }
+
+        .invitado-aviso i{
+            color:#C99400;
+            margin-top:2px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="invitado-box">
+
+        <a href="login.html" class="invitado-volver">
+            <i class="fa-solid fa-arrow-left"></i>
+            Volver a inicio de sesión
+        </a>
+
+        <div class="invitado-titulo">¿Qué necesitas registrar?</div>
+        <div class="invitado-subtitulo">
+            Sin una cuenta solo puedes usar los formularios de registro. Los
+            reportes de todos los dispositivos, el panel general y las
+            estadísticas requieren iniciar sesión.
+        </div>
+
+        <div class="module-grid">
+
+            <article
+                class="module inspection"
+                onclick="location.href='./modules/inspecciones/index.html'">
+
+                <i class="fa-solid fa-building-shield"></i>
+
+                <h3>Inspecciones</h3>
+
+                <p>
+                    Registrar una inspección de seguridad o visita técnica.
+                </p>
+
+            </article>
+
+            <article
+                class="module emergency"
+                onclick="location.href='./modules/emergencia/index.html'">
+
+                <i class="fa-solid fa-fire-extinguisher"></i>
+
+                <h3>Emergencias</h3>
+
+                <p>
+                    Registrar un incidente o despacho de emergencia.
+                </p>
+
+            </article>
+
+            <article
+                class="module census"
+                onclick="location.href='./modules/censos/index.html'">
+
+                <i class="fa-solid fa-people-roof"></i>
+
+                <h3>Censos</h3>
+
+                <p>
+                    Registrar un censo de damnificados.
+                </p>
+
+            </article>
+
+        </div>
+
+        <div class="invitado-aviso">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>
+                Lo que registres aquí solo se ve en este dispositivo (además
+                de quedar guardado para el equipo). Si tienes cuenta,
+                <a href="login.html" style="color:#8A6800;font-weight:700;">inicia sesión</a>
+                para ver todos los registros y el panel general.
+            </span>
+        </div>
+
+    </div>
+
+<script type="module" src="./shared/asistente.js"></script>
+</body>
+
+</html>

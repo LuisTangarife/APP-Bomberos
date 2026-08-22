@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Diagnóstico Firestore</title>
+<style>
+    body { font-family: monospace; background:#111; color:#eee; padding:24px; line-height:1.6; }
+    h1 { color:#ff6b00; font-size:18px; }
+    .ok { color:#4caf50; }
+    .error { color:#ff5252; }
+    .warn { color:#ffb300; }
+    #log { white-space: pre-wrap; border:1px solid #444; padding:16px; border-radius:8px; background:#000; margin-top:16px; }
+    button { background:#ff6b00; color:#fff; border:none; padding:10px 18px; border-radius:6px; cursor:pointer; font-size:14px; }
+</style>
+</head>
+<body>
+
+<h1>Diagnóstico de conexión a Firestore</h1>
+<p>
+    Esta página NO usa el Service Worker ni la caché offline ni el resto del
+    código de la app — es la prueba más simple posible: ¿el navegador puede
+    hablar con Firestore, sí o no? Ábrela directamente (misma URL donde tienes
+    alojada la app, cambiando la parte final por <code>/test-firestore.html</code>)
+    y presiona el botón.
+</p>
+
+<button id="btnProbar">Probar conexión a Firestore</button>
+
+<div id="log">Esperando...</div>
+
+<script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import {
+        getFirestore,
+        doc,
+        setDoc,
+        getDoc,
+        deleteDoc
+    } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAfzmdBE0Y-NHOnn-2bv2Oahio8NPxd4uo",
+        authDomain: "bomberos-villamaria.firebaseapp.com",
+        projectId: "bomberos-villamaria",
+        storageBucket: "bomberos-villamaria.firebasestorage.app",
+        messagingSenderId: "842979154285",
+        appId: "1:842979154285:web:2f96d9079da84e8a2b2264"
+    };
+
+    const logDiv = document.getElementById("log");
+    const btn = document.getElementById("btnProbar");
+
+    function log(mensaje, tipo = "") {
+        const linea = document.createElement("div");
+        if (tipo) linea.className = tipo;
+        const hora = new Date().toLocaleTimeString("es-CO", { hour12: false });
+        linea.textContent = `[${hora}] ${mensaje}`;
+        logDiv.appendChild(linea);
+        console.log(mensaje);
+    }
+
+    function conTiempoLimite(promesa, ms, etiqueta) {
+        return Promise.race([
+            promesa,
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error(`"${etiqueta}" no respondió en ${ms / 1000}s`)), ms)
+            )
+        ]);
+    }
+
+    btn.addEventListener("click", async () => {
+
+        logDiv.innerHTML = "";
+        btn.disabled = true;
+
+        try {
+
+            log("1) Inicializando Firebase App (sin caché offline, lo más simple posible)...");
+            const app = initializeApp(firebaseConfig);
+            // Deliberadamente SIN persistentLocalCache aquí: memoria simple,
+            // para descartar cualquier problema de IndexedDB / tab manager.
+            const db = getFirestore(app);
+            const auth = getAuth(app);
+            log("   Firebase App inicializada.", "ok");
+
+            log("2) Verificando si ya hay sesión de Firebase Auth activa...");
+
+            const usuario = await new Promise(resolve => {
+                const cancelar = onAuthStateChanged(auth, u => {
+                    cancelar();
+                    resolve(u);
+                });
+            });
+
+            if (usuario) {
+                log(`   Ya había sesión: ${usuario.email || usuario.uid}`, "ok");
+            } else {
+                log("   No había sesión activa. Esto es normal en esta página de prueba: las reglas de Firestore probablemente exigen estar autenticado, así que el paso 4 podría fallar con 'permission-denied' (eso también sería información útil).", "warn");
+            }
+
+            log("3) Intentando escribir un documento de prueba en Firestore (límite: 10s)...");
+            const inicioEscritura = Date.now();
+
+            const refPrueba = doc(db, "_diagnostico", "prueba-conexion");
+
+            await conTiempoLimite(
+                setDoc(refPrueba, {
+                    probado: new Date().toISOString(),
+                    navegador: navigator.userAgent
+                }),
+                10000,
+                "Escritura (setDoc)"
+            );
+
+            log(`   Escritura exitosa en ${Date.now() - inicioEscritura} ms.`, "ok");
+
+            log("4) Intentando leer ese mismo documento (límite: 10s)...");
+            const inicioLectura = Date.now();
+
+            const snap = await conTiempoLimite(getDoc(refPrueba), 10000, "Lectura (getDoc)");
+
+            log(`   Lectura exitosa en ${Date.now() - inicioLectura} ms. Datos: ${JSON.stringify(snap.data())}`, "ok");
+
+            log("5) Borrando el documento de prueba...");
+            await conTiempoLimite(deleteDoc(refPrueba), 10000, "Borrado (deleteDoc)");
+            log("   Borrado exitoso.", "ok");
+
+            log("", "");
+            log("RESULTADO: Firestore SÍ es alcanzable desde este navegador/red. El problema está en algo específico de la app (Service Worker, caché offline, o similar), no en el proyecto de Firebase ni en la red.", "ok");
+
+        } catch (error) {
+
+            log("", "");
+            log(`ERROR: ${error?.code || ""} ${error?.message || error}`, "error");
+
+            if (String(error?.message).includes("no respondió")) {
+                log("RESULTADO: Firestore NO respondió a tiempo. Esto apunta a un problema de red/firewall/DNS bloqueando 'firestore.googleapis.com', o a que la base de datos de Firestore no esté realmente creada en la consola de Firebase.", "error");
+            } else if (error?.code === "permission-denied") {
+                log("RESULTADO: Firestore SÍ respondió (esto es buena señal de conexión), pero las REGLAS DE SEGURIDAD rechazaron la escritura. Si esto pasa también estando logueado en la app real, hay que revisar las reglas de Firestore en la consola de Firebase.", "warn");
+            } else {
+                log("RESULTADO: Firestore respondió, pero con un error distinto (ver arriba). Copia este mensaje completo para seguir el diagnóstico.", "warn");
+            }
+
+        } finally {
+            btn.disabled = false;
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iniciar sesión | APP Bomberos</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#CC2200">
+    <link rel="icon" href="icons/icon-192-v4.png">
+
+    <link rel="stylesheet" href="shared/shared.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          rel="stylesheet">
+
+    <style>
+
+        body{
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+        }
+
+        .login-box{
+            width:100%;
+            max-width:380px;
+            background:var(--glass-solid);
+            border:1px solid var(--border);
+            border-radius:18px;
+            padding:36px 30px;
+            box-shadow:0 25px 60px rgba(0,0,0,.5);
+        }
+
+        .login-logo{
+            width:56px;
+            height:56px;
+            border-radius:14px;
+            background:linear-gradient(145deg,var(--primary-dark),var(--primary));
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#fff;
+            font-size:24px;
+            margin:0 auto 18px;
+            box-shadow:0 10px 25px rgba(255,59,48,.35);
+        }
+
+        .login-title{
+            text-align:center;
+            color:var(--white);
+            font-size:1.3rem;
+            font-weight:700;
+            margin-bottom:4px;
+        }
+
+        .login-subtitle{
+            text-align:center;
+            color:var(--text-mute);
+            font-size:.85rem;
+            margin-bottom:26px;
+        }
+
+        .login-field{
+            margin-bottom:16px;
+        }
+
+        .login-field label{
+            display:block;
+            color:var(--text-light);
+            font-size:.8rem;
+            margin-bottom:6px;
+        }
+
+        .login-field input{
+            width:100%;
+            padding:12px 14px;
+            border-radius:10px;
+            border:1px solid var(--border);
+            background:rgba(255,255,255,.04);
+            color:var(--text);
+            font-size:.95rem;
+        }
+
+        .login-field input:focus{
+            outline:none;
+            border-color:var(--border-hover);
+        }
+
+        .login-error{
+            display:none;
+            background:rgba(255,59,48,.12);
+            border:1px solid rgba(255,59,48,.35);
+            color:#ff9d94;
+            font-size:.82rem;
+            padding:10px 12px;
+            border-radius:10px;
+            margin-bottom:16px;
+        }
+
+        .login-error.show{
+            display:block;
+        }
+
+        .login-submit{
+            width:100%;
+            padding:13px;
+            border:none;
+            border-radius:10px;
+            background:linear-gradient(145deg,var(--primary-dark),var(--primary));
+            color:#fff;
+            font-weight:700;
+            font-size:.95rem;
+            cursor:pointer;
+            box-shadow:0 10px 25px rgba(255,59,48,.35);
+        }
+
+        .login-submit:disabled{
+            opacity:.6;
+            cursor:default;
+        }
+
+        .login-divider{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            margin:20px 0 16px;
+            color:var(--text-mute);
+            font-size:.75rem;
+        }
+
+        .login-divider::before,
+        .login-divider::after{
+            content:"";
+            flex:1;
+            height:1px;
+            background:var(--border);
+        }
+
+        .login-invitado{
+            width:100%;
+            padding:12px;
+            border-radius:10px;
+            border:1px solid var(--border);
+            background:rgba(255,255,255,.04);
+            color:var(--text-light);
+            font-weight:600;
+            font-size:.9rem;
+            cursor:pointer;
+            text-decoration:none;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+        }
+
+        .login-invitado:hover{
+            border-color:var(--border-hover);
+            color:var(--white);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <div class="login-logo">
+            <i class="fa-solid fa-fire"></i>
+        </div>
+
+        <div class="login-title">Cuerpo de Bomberos Voluntarios</div>
+        <div class="login-subtitle">Villamaría · Centro de Operaciones</div>
+
+        <div class="login-error" id="loginError"></div>
+
+        <form id="loginForm">
+
+            <div class="login-field">
+                <label for="correo">Correo</label>
+                <input type="email" id="correo" name="correo" autocomplete="username" required>
+            </div>
+
+            <div class="login-field">
+                <label for="clave">Contraseña</label>
+                <input type="password" id="clave" name="clave" autocomplete="current-password" required>
+            </div>
+
+            <button type="submit" class="login-submit" id="btnLogin">
+                Ingresar
+            </button>
+
+        </form>
+
+        <div class="login-divider">o</div>
+
+        <a href="invitado.html" class="login-invitado">
+            <i class="fa-solid fa-user"></i>
+            Continuar sin cuenta
+        </a>
+
+    </div>
+
+    <script type="module">
+
+        import { iniciarSesion, URL_DASHBOARD } from "./shared/auth.js";
+
+        const form = document.getElementById("loginForm");
+        const error = document.getElementById("loginError");
+        const boton = document.getElementById("btnLogin");
+
+        const params = new URLSearchParams(window.location.search);
+        const volverA = params.get("volver");
+
+        form.addEventListener("submit", async e => {
+
+            e.preventDefault();
+
+            error.classList.remove("show");
+            boton.disabled = true;
+            boton.textContent = "Ingresando...";
+
+            const correo = form.correo.value.trim();
+            const clave = form.clave.value;
+
+            try {
+
+                await iniciarSesion(correo, clave);
+                window.location.href = volverA || URL_DASHBOARD;
+
+            } catch (err) {
+
+                error.textContent = mensajeError(err.code);
+                error.classList.add("show");
+
+            } finally {
+
+                boton.disabled = false;
+                boton.textContent = "Ingresar";
+
+            }
+
+        });
+
+        function mensajeError(codigo) {
+
+            switch (codigo) {
+                case "auth/invalid-credential":
+                case "auth/wrong-password":
+                case "auth/user-not-found":
+                    return "Correo o contraseña incorrectos.";
+                case "auth/invalid-email":
+                    return "El correo no es válido.";
+                case "auth/too-many-requests":
+                    return "Demasiados intentos. Espera un momento e intenta de nuevo.";
+                default:
+                    return "No se pudo iniciar sesión. Intenta de nuevo.";
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
