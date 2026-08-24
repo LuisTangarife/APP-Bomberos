@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Migración de reportes — App Bomberos (V2 → Firebase V3)</title>
+<style>
+  :root {
+    --azul: #0d3b66;
+    --azul-claro: #145da0;
+    --rojo: #c0392b;
+    --verde: #1e8449;
+    --gris: #555;
+    --fondo: #f4f6f8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: var(--fondo);
+    margin: 0;
+    padding: 24px;
+    color: #222;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--azul); font-size: 1.4rem; margin-bottom: 4px; }
+  .subtitle { color: var(--gris); margin-top: 0; margin-bottom: 24px; font-size: 0.95rem; }
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .card h2 { margin-top: 0; font-size: 1.1rem; color: var(--azul); }
+  .warn {
+    background: #fff8e1;
+    border-left: 4px solid #f39c12;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+  .danger {
+    background: #fdecea;
+    border-left: 4px solid var(--rojo);
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+  label { display: block; margin-bottom: 6px; font-size: 0.85rem; color: var(--gris); }
+  input[type=email], input[type=password] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+  }
+  button {
+    background: var(--azul-claro);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+  button:disabled { background: #a9b7c4; cursor: not-allowed; }
+  button.secundario { background: #6c757d; }
+  button.peligro { background: var(--rojo); }
+  button.exito { background: var(--verde); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 12px; }
+  th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+  th { color: var(--gris); font-weight: 600; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; color: #fff; }
+  .tag-pendiente { background: #e67e22; }
+  .tag-sincronizado { background: #2980b9; }
+  .tag-migrado { background: var(--verde); }
+  #log {
+    background: #10151c;
+    color: #d6e5f0;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.8rem;
+    padding: 14px;
+    border-radius: 8px;
+    max-height: 320px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    display: none;
+  }
+  #resumen { font-size: 0.95rem; margin-top: 10px; }
+  #estadoAuth { font-size: 0.85rem; color: var(--gris); margin-bottom: 12px; }
+  .oculto { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>🔥 Migración de reportes: App Bomberos V2 → Firebase (V3)</h1>
+  <p class="subtitle">
+    Esta página lee los reportes guardados en el almacenamiento local
+    (IndexedDB) de <strong>este navegador/dispositivo</strong> y los sube
+    a la colección <code>emergencias</code> de Firestore que ya usa la
+    versión actual del Gestor y las Estadísticas.
+  </p>
+
+  <div class="warn">
+    <strong>Importante — dónde abrir este archivo:</strong> IndexedDB es
+    exclusivo de cada navegador y cada dominio. Esta página solo verá los
+    reportes guardados aquí si se abre <strong>desde el mismo origen
+    (dominio/carpeta) donde está desplegada la app anterior</strong> —
+    o, si vas a revisar dispositivo por dispositivo, ábrela directamente
+    en cada celular/tablet/PC donde se hayan hecho reportes, usando el
+    mismo navegador con el que se guardaron.
+  </div>
+
+  <div class="card">
+    <h2>1. Reportes encontrados en este dispositivo</h2>
+    <div id="cargando">Buscando la base de datos <code>BomberosDB</code>…</div>
+    <div id="sinDatos" class="oculto">
+      No se encontró la base <code>BomberosDB</code> en este navegador
+      (o está vacía). Prueba abrir este archivo desde el dominio de la
+      app anterior, o revisa en el dispositivo correcto.
+    </div>
+    <div id="conDatos" class="oculto">
+      <p><strong id="conteoTotal"></strong></p>
+      <button id="btnDescargarRespaldo" class="secundario">⬇ Descargar respaldo JSON antes de migrar</button>
+      <table id="tablaReportes">
+        <thead>
+          <tr><th>#</th><th>Fecha</th><th>Evento</th><th>Lugar</th><th>Fotos</th><th>Estado local</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" id="cardAuth">
+    <h2>2. Inicia sesión con tu cuenta de Bomberos (Firebase)</h2>
+    <p style="font-size:0.85rem;color:var(--gris);margin-top:-6px;">
+      Se requiere sesión válida porque las reglas de Firestore exigen
+      usuario autenticado, igual que el Gestor de Emergencias normal.
+    </p>
+    <div id="estadoAuth">No has iniciado sesión.</div>
+    <label for="correo">Correo</label>
+    <input type="email" id="correo" placeholder="usuario@bomberosvillamaria.gov.co">
+    <label for="clave">Contraseña</label>
+    <input type="password" id="clave">
+    <button id="btnLogin">Iniciar sesión</button>
+    <button id="btnLogout" class="secundario oculto">Cerrar sesión</button>
+  </div>
+
+  <div class="card oculto" id="cardMigrar">
+    <h2>3. Migrar a Firestore</h2>
+    <div class="danger">
+      Esta acción escribe datos reales en la colección
+      <code>emergencias</code> del proyecto <code>bomberos-villamaria</code>.
+      Los reportes ya migrados se marcan localmente y se omiten si vuelves
+      a correr la migración (no se duplican). No elimina nada de este
+      dispositivo automáticamente.
+    </div>
+    <button id="btnMigrar" class="exito">🚀 Migrar reportes pendientes de este dispositivo</button>
+    <div id="resumen"></div>
+    <div id="log"></div>
+  </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+import {
+  getFirestore, doc, setDoc, writeBatch, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+// Misma configuración que firebase/config.js de Bomberos-V3.
+const firebaseConfig = {
+  apiKey: "AIzaSyAfzmdBE0Y-NHOnn-2bv2Oahio8NPxd4uo",
+  authDomain: "bomberos-villamaria.firebaseapp.com",
+  projectId: "bomberos-villamaria",
+  storageBucket: "bomberos-villamaria.firebasestorage.app",
+  messagingSenderId: "842979154285",
+  appId: "1:842979154285:web:2f96d9079da84e8a2b2264"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+const DB_NAME = 'BomberosDB', DB_VERSION = 1, STORE = 'reportes';
+const COLECCION = 'emergencias';
+
+let idb = null;
+let reportes = [];
+
+// ---------- IndexedDB ----------
+function abrirDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = e => {
+      // Si no existía, la crea vacía; no inventa datos.
+      e.target.result.createObjectStore(STORE, { keyPath: 'id', autoIncrement: true });
+    };
+    req.onsuccess = e => resolve(e.target.result);
+    req.onerror = e => reject(e.target.error);
+  });
+}
+
+function obtenerTodos() {
+  return new Promise((resolve, reject) => {
+    const req = idb.transaction(STORE).objectStore(STORE).getAll();
+    req.onsuccess = e => resolve(e.target.result || []);
+    req.onerror = e => reject(e.target.error);
+  });
+}
+
+function actualizarReporte(reporte) {
+  return new Promise((resolve, reject) => {
+    const tx = idb.transaction(STORE, 'readwrite');
+    tx.objectStore(STORE).put(reporte);
+    tx.oncomplete = () => resolve();
+    tx.onerror = e => reject(e.target.error);
+  });
+}
+
+// ---------- UI: carga inicial ----------
+async function iniciar() {
+  try {
+    idb = await abrirDB();
+    reportes = await obtenerTodos();
+  } catch (err) {
+    document.getElementById('cargando').classList.add('oculto');
+    document.getElementById('sinDatos').classList.remove('oculto');
+    document.getElementById('sinDatos').textContent =
+      'No se pudo abrir BomberosDB en este navegador: ' + err;
+    return;
+  }
+
+  document.getElementById('cargando').classList.add('oculto');
+
+  if (!reportes.length) {
+    document.getElementById('sinDatos').classList.remove('oculto');
+    return;
+  }
+
+  document.getElementById('conDatos').classList.remove('oculto');
+  renderTabla();
+}
+
+function renderTabla() {
+  const pendientes = reportes.filter(r => !r.migrado).length;
+  const migrados = reportes.filter(r => r.migrado).length;
+  document.getElementById('conteoTotal').textContent =
+    `${reportes.length} reporte(s) en este dispositivo — ${pendientes} por migrar, ${migrados} ya migrado(s) anteriormente.`;
+
+  const tbody = document.querySelector('#tablaReportes tbody');
+  tbody.innerHTML = reportes.map(r => {
+    let estado = r.synced
+      ? '<span class="tag tag-sincronizado">Sincronizado (Apps Script)</span>'
+      : '<span class="tag tag-pendiente">Pendiente (solo local)</span>';
+    if (r.migrado) estado += ' <span class="tag tag-migrado">Migrado a Firebase</span>';
+    return `<tr>
+      <td>${r.id}</td>
+      <td>${r.fecha || '—'}</td>
+      <td>${escapeHtml(r.evento || '(sin evento)')}</td>
+      <td>${escapeHtml(r.lugar || '(sin lugar)')}</td>
+      <td>${Array.isArray(r.photos) ? r.photos.length : 0}</td>
+      <td>${estado}</td>
+    </tr>`;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+// ---------- Respaldo JSON ----------
+document.getElementById('btnDescargarRespaldo').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(reportes, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `respaldo_reportes_bomberos_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// ---------- Autenticación ----------
+document.getElementById('btnLogin').addEventListener('click', async () => {
+  const correo = document.getElementById('correo').value.trim();
+  const clave = document.getElementById('clave').value;
+  const btn = document.getElementById('btnLogin');
+  btn.disabled = true;
+  try {
+    await signInWithEmailAndPassword(auth, correo, clave);
+  } catch (err) {
+    alert('No se pudo iniciar sesión: ' + (err.message || err));
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+document.getElementById('btnLogout').addEventListener('click', () => signOut(auth));
+
+onAuthStateChanged(auth, usuario => {
+  const estado = document.getElementById('estadoAuth');
+  const cardMigrar = document.getElementById('cardMigrar');
+  const btnLogout = document.getElementById('btnLogout');
+  const btnLogin = document.getElementById('btnLogin');
+  if (usuario) {
+    estado.textContent = `Sesión activa: ${usuario.email}`;
+    cardMigrar.classList.remove('oculto');
+    btnLogout.classList.remove('oculto');
+    btnLogin.classList.add('oculto');
+    document.getElementById('correo').classList.add('oculto');
+    document.getElementById('clave').classList.add('oculto');
+    document.querySelector('label[for="correo"]').classList.add('oculto');
+    document.querySelector('label[for="clave"]').classList.add('oculto');
+  } else {
+    estado.textContent = 'No has iniciado sesión.';
+    cardMigrar.classList.add('oculto');
+    btnLogout.classList.add('oculto');
+    btnLogin.classList.remove('oculto');
+    document.getElementById('correo').classList.remove('oculto');
+    document.getElementById('clave').classList.remove('oculto');
+    document.querySelector('label[for="correo"]').classList.remove('oculto');
+    document.querySelector('label[for="clave"]').classList.remove('oculto');
+  }
+});
+
+// ---------- Migración ----------
+function log(msg) {
+  const el = document.getElementById('log');
+  el.style.display = 'block';
+  el.textContent += msg + '\n';
+  el.scrollTop = el.scrollHeight;
+}
+
+async function guardarFotosEmergencia(id, fotos) {
+  if (!Array.isArray(fotos) || !fotos.length) return;
+  const lote = writeBatch(db);
+  fotos.forEach((fotoDataUrl, indice) => {
+    lote.set(doc(db, COLECCION, id, 'fotos', String(indice)), {
+      data: fotoDataUrl,
+      orden: indice
+    });
+  });
+  await lote.commit();
+}
+
+document.getElementById('btnMigrar').addEventListener('click', async () => {
+  const btn = document.getElementById('btnMigrar');
+  btn.disabled = true;
+  document.getElementById('log').textContent = '';
+  document.getElementById('log').style.display = 'block';
+
+  const pendientes = reportes.filter(r => !r.migrado);
+  if (!pendientes.length) {
+    log('No hay reportes pendientes de migrar en este dispositivo. Todo ya está en Firebase.');
+    btn.disabled = false;
+    return;
+  }
+
+  let ok = 0, fallidos = 0;
+
+  for (const reporte of pendientes) {
+    const idLocal = reporte.id;
+    try {
+      const { photos, pdfBase64, pending, synced, id, migrado, ...datosLivianos } = reporte;
+      const idConsolidado = crypto.randomUUID();
+
+      await setDoc(doc(db, COLECCION, idConsolidado), {
+        ...datosLivianos,
+        numFotos: Array.isArray(photos) ? photos.length : 0,
+        dispositivo: navigator.userAgent,
+        migradoDesde: 'AppBomberos-V2-IndexedDB',
+        migradoIdLocal: idLocal,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+
+      try {
+        await guardarFotosEmergencia(idConsolidado, photos);
+      } catch (errFotos) {
+        log(`  ⚠ Reporte local #${idLocal}: documento creado, pero fallaron las fotos (${errFotos.message || errFotos}).`);
+      }
+
+      await actualizarReporte({ ...reporte, migrado: true, migradoId: idConsolidado, migradoEn: Date.now() });
+
+      log(`✅ Reporte local #${idLocal} (${reporte.evento || 'sin evento'} — ${reporte.fecha || 's/f'}) → Firestore ${idConsolidado}`);
+      ok++;
+
+    } catch (err) {
+      log(`❌ Reporte local #${idLocal}: ERROR — ${err.message || err}`);
+      fallidos++;
+    }
+  }
+
+  document.getElementById('resumen').innerHTML =
+    `<strong>Migración terminada:</strong> ${ok} reporte(s) subido(s) correctamente, ${fallidos} con error.`;
+
+  renderTabla();
+  btn.disabled = false;
+});
+
+iniciar();
+</script>
+</body>
+</html>
