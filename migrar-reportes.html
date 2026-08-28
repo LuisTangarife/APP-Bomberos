@@ -342,16 +342,61 @@ function log(msg) {
   el.scrollTop = el.scrollHeight;
 }
 
+// Evita que una escritura se quede esperando para siempre en silencio
+// (Firestore reintenta solo en redes débiles/inestables sin rechazar
+// la promesa): si no responde en `ms`, se da por fallida y el ciclo
+// principal sigue con el siguiente reporte.
+function conTimeout(promesa, ms, etiqueta) {
+  return Promise.race([
+    promesa,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error(`Tiempo agotado (${ms / 1000}s) esperando: ${etiqueta}`)), ms)
+    )
+  ]);
+}
+
+// Las fotos viejas de V2 suelen venir de cámara sin comprimir: en
+// base64 fácilmente pasan de 1 MiB (el límite duro de un documento de
+// Firestore) y, aunque no lo pasen, hacen la subida pesada y lenta.
+// Se redimensionan/recomprimen aquí antes de subirlas — mismo criterio
+// que ya usa la app actual al guardar fotos nuevas.
+function comprimirFotoBase64(dataUrl, maxDim = 1280, calidad = 0.6) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > maxDim || height > maxDim) {
+        const escala = maxDim / Math.max(width, height);
+        width = Math.round(width * escala);
+        height = Math.round(height * escala);
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', calidad));
+    };
+    img.onerror = () => reject(new Error('No se pudo procesar la imagen para comprimirla'));
+    img.src = dataUrl;
+  });
+}
+
 async function guardarFotosEmergencia(id, fotos) {
   if (!Array.isArray(fotos) || !fotos.length) return;
   const lote = writeBatch(db);
-  fotos.forEach((fotoDataUrl, indice) => {
+  for (let indice = 0; indice < fotos.length; indice++) {
+    let fotoFinal = fotos[indice];
+    try {
+      fotoFinal = await comprimirFotoBase64(fotoFinal);
+    } catch (errCompresion) {
+      log(`  ⚠ Foto #${indice} del reporte local #${id}: no se pudo comprimir, se sube tal cual (${errCompresion.message}).`);
+    }
     lote.set(doc(db, COLECCION, id, 'fotos', String(indice)), {
-      data: fotoDataUrl,
+      data: fotoFinal,
       orden: indice
     });
-  });
-  await lote.commit();
+  }
+  await conTimeout(lote.commit(), 30000, `fotos del reporte ${id}`);
 }
 
 document.getElementById('btnMigrar').addEventListener('click', async () => {
@@ -371,11 +416,12 @@ document.getElementById('btnMigrar').addEventListener('click', async () => {
 
   for (const reporte of pendientes) {
     const idLocal = reporte.id;
+    log(`⏳ Subiendo reporte local #${idLocal} (${reporte.evento || 'sin evento'})...`);
     try {
       const { photos, pdfBase64, pending, synced, id, migrado, ...datosLivianos } = reporte;
       const idConsolidado = crypto.randomUUID();
 
-      await setDoc(doc(db, COLECCION, idConsolidado), {
+      await conTimeout(setDoc(doc(db, COLECCION, idConsolidado), {
         ...datosLivianos,
         numFotos: Array.isArray(photos) ? photos.length : 0,
         dispositivo: navigator.userAgent,
@@ -383,7 +429,7 @@ document.getElementById('btnMigrar').addEventListener('click', async () => {
         migradoIdLocal: idLocal,
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp()
-      });
+      }), 20000, `documento principal del reporte ${idLocal}`);
 
       try {
         await guardarFotosEmergencia(idConsolidado, photos);
